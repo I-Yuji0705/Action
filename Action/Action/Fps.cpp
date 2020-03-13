@@ -14,10 +14,11 @@ int Fps::Update() {
 			count_ = 0;
 			start_time_ = GetNowCount();
 		}
+		count_++;
 		int took_time = GetNowCount() - start_time_;//60fps経過にかかった時間
 		int wait_time = count_ * 1000 / FPS - took_time;//本来60fpsにかかる予定の時間から実際にかかった時間を引く
 		if (wait_time > 0) {
-			Sleep(wait_time);//
+			Sleep(wait_time);//60fpsにかかる予定の時間までプログラムを停止する
 		}
 		return 0;
 	}

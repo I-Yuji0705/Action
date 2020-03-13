@@ -1,37 +1,36 @@
 #pragma once
 #include "Object.h"
 #include "Player.h"
+#include "ItemAction.h"
+#include "IMenuStateChanger.h"
 enum ItemState {
-	Item_Normal,
-	Item_Picked,
-	Item_Throw,
-
+	Item_Normal,//Itemの通常状態
+	Item_Picked,//Itemが拾われている状態
+	Item_Throw,//Itemが投げられている状態
 };
+enum ItemActionList {
+	Item_Baggage,//持たれている
+	Item_StartThrow,//投げられ始めた
+	Item_Threw,//投げられている
+	Item_Putted,//置かれた
+	Item_Gravity//重力を受けている
+};
+class Collision;
+class ItemAction;
+//ステージ上でPlayerが持ち上げられるItemの基底クラス
 class Item : public Object {
 private:
-	ItemState state_;
-	Object *map_left_,* map_right_;
-	Object *carrier_;
-	void Carry();
-	void Throw();
-	void Push(float num, Object * object);
-	void Hit(int check, Object *object);
-	int MapCheck(float num);
-	void MapHit(int mapcheck);
 public:
-	Item(float x, float y, float height, float width, int object_number);
-	void Initialize(IStateChanger *stateChanger,std::vector<Object*>& stage)override;
+	Object *carrier_;
+	Collision *collision_;
+	ItemAction *itemaction_[5];//Itemの行動を行うクラス配列
+	ItemState state_;
+	Item(float x, float y, float height, float width,Sound* sound);
+	void Initialize(IGameStateChanger *statechanger,Collision *collision)override;
 	void Update()override;
 	void Draw()override;
-	//int Check(float *point, float num,const Object *object)override;
-	int CheckX(float num, const Object *object)override;
-	int CheckY(float num, const Object *object)override;
-	//bool CanMove(float * point, float num)override;
-	bool CanMoveX(float num)override;
-	bool CanMoveY(float num)override;
-	//void Move(float *point, float num)override; //移動を行う
-	void MoveX(float num)override; //移動を行う
-	void MoveY(float num)override; //移動を行う
+	float CanPushed(float num)override;
+	void Pushed(float num)override;
 	bool CanPicked(const Object *object)override;
 	void Picked( Object *object)override;
 	bool CanPutted()override;

@@ -1,10 +1,10 @@
 #pragma once
 #include "Object.h"
+
+//ステージで地形を担当する基底クラス
 class Terrain :public Object {
-private:
-	bool damegeflg_;
 public:
-	Terrain(float x, float y, float height, float width, int object_number);
-	//void Set(float x, float y, float height, float width, int object_number)override;
+	Terrain(float x, float y, float height, float width,Sound* sound);
+	void Initialize(IGameStateChanger *stateChanger, Collision *collision);//初期化処理
 	void Draw() override;
 };

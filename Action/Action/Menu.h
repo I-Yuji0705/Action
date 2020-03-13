@@ -1,17 +1,21 @@
 #pragma once
 #include "BaseScene.h"
-class Menu : public BaseScene {
+#include "SelectionDeta.h"
+#include "IMenuStateChanger.h"
+#include "MenuSelectionBase.h"
+
+//メニューのSceneクラス
+class Menu : public BaseScene ,IMenuStateChanger{
 private:
-	int MenuNum;
-	MenuDeta menudeta[2];
-	MenuDeta deletemessage[2]; 
-	StateMenu state;//
-	void SelectMenu();//メニュー処理
-	void SelectDelete();//終了確認
-	int DeleteNum;
+	MenuSelectionBase* menuselection_;
+	MenuState nextstate_;//
+	int title_;
 public:
-	Menu(ISceneChanger* changer);
-	void Initialize() override;    //初期化処理をオーバーライド。
-	void Update() override;        //更新処理をオーバーライド。
-	void Draw() override;            //描画処理をオーバーライド。
+	Menu(ISceneChanger* changer,Sound* sound);
+	void ChangeState(MenuState state);
+	void Initialize() final;    //初期化処理
+	void Update() final;        //更新処理
+	void Draw() final;            //描画処理
+	void Finalize() final;
+	void StartBgm() final;
 };

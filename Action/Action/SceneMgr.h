@@ -2,29 +2,27 @@
 
 #include "ISceneChanger.h"
 #include "BaseScene.h"
+#include "Sound.h"
+#include "Screen.h"
 
-struct DepictionScreen {
-	int x1;
-	int y1;
-	int x2;
-	int y2;
-};
+
 enum SceneState {
 	Normal_Scene,
 	BlackOut_Scene,
 	Lighting_Scene,
 };
+class BaseScene;
+class Sound;
 class SceneMgr : public ISceneChanger{
-
 private:
-	DepictionScreen screen;
+	Screen screen;
 	BaseScene* scene_;    //ƒV[ƒ“ŠÇ—•Ï”
+	Sound* sound_;
 	Scene next_scene_;    //Ÿ‚ÌƒV[ƒ“ŠÇ—•Ï”
-	void BlackOutScene();
-	void LightingScene();
-	void SetDepictionScreen(int x1, int y1, int x2, int y2);
-	void MigrationScene();
-	SceneState state;
+	void BlackOutScene();//‰æ–Ê‚Ì•`Ê”ÍˆÍ‚ğ‹·‚ß‚é
+	void LightingScene();//‰æ–Ê‚Ì•`Ê”ÍˆÍ‚ğL‚°‚é
+	void SetDepictionScreen(int x1, int y1, int x2, int y2);//•`Ê”ÍˆÍ‚Ìİ’è
+	SceneState state;//Œ»İ‚ÌScene‚Ìó‘Ô
 public:
 	SceneMgr();
 	void Initialize();//‰Šú‰»
@@ -33,6 +31,6 @@ public:
 	void Draw();//•`‰æ
 
 	// ˆø” nextScene ‚ÉƒV[ƒ“‚ğ•ÏX‚·‚é
-	void ChangeScene(Scene NextScene) override;
+	void ChangeScene(Scene NextScene) final;
 
 };

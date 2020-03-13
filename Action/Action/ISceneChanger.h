@@ -2,11 +2,13 @@
 
 enum Scene{
 	Scene_Menu,    //メニュー画面
-	Scene_Game,
-	Scene_None,    //無し
+	Scene_Game,	//ゲーム画面
+	Scene_Manual,//マニュアル画面
+
+	Scene_None    //無し
 };
 
-//シーンを変更するためのインターフェイスクラス
+//プログラム内のシーンだけ変更するためのインターフェースクラス
 class ISceneChanger {
 public:
 	virtual ~ISceneChanger() = 0;
