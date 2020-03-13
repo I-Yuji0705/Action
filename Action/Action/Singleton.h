@@ -1,4 +1,5 @@
 #pragma once
+//このヘッダーファイルはSingleton パターンのクラスです。
 template <typename C> class Singleton {
 protected:
 	Singleton() {} // コンストラクタを private に置く。

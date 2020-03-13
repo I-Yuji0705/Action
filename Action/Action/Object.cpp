@@ -1,130 +1,144 @@
 #include "Object.h"
+#include "Player.h"
 #include "DxLib.h"
 
-int Object::object_num = 0;
-void Object::Finalize() {
-	DeleteGraph(graphHandle);
-}
-void Object::Draw() {
-	DrawModiGraphF(x, y, x + width, y,x + width, y + height, x, y + height,graphHandle, TRUE);
-}
-void Object::Set(float x,float y, float height, float width, int objNum) {
+Object::Object(float x, float y, float height, float width, int object_number) {
 	Set(x, y, height, width);
-	this->retryX = x;
-	this->retryY = y;
-	this->objNum = objNum;
-	object_num++;
+	this->retry_pos_x_ = x;
+	this->retry_pos_y_ = y;
+	this->object_number_ = object_number;
 }
+//終了処理
+void Object::Finalize() {
+	
+	DeleteGraph(graph_handle_);
+}
+//オブジェクトの左端のｘ座標を返す
+float Object::Left() const {
+	return x_;
+}
+//オブジェクトの右端のｘ座標を返す
+float Object::Right() const {
+	return x_ + width_;
+}
+//オブジェクトの上辺のｙ座標を返す
+float Object::Top() const {
+	return y_;
+}
+//オブジェクトの下辺のｙ座標を返す
+float Object::Base() const {
+	return y_ + height_;
+}
+float Object::Center_X() const{
+	return x_ + width_ / 2;
+}
+//対象のオブジェクトと座標先で接触するかを返す
+//引数:
+//		x:移動先の右端のｘ座標,y:移動先の上端のｙ座標,object:接触しているかを判定するObject
+//返り値: true:objectとは接触している,false:objectとは接触していない
+bool Object::Check(float x, float y,const Object *object) {
+	bool check = false;
+	if (object->quality_ &&
+		y + height_ > object->Top() && y < object->Base() &&
+		x + width_ > object->Left() && x < object->Right())
+		check = true;
+	return check;
+}
+//Retry時にオブジェクトの再配置する座標設定
+//引数:
+//			x:指定先のオブジェクトの右端のx座標
+//			y:指定先のオブジェクトの上端のy座標
+void Object::RelaySet(float x,float y) {
+	this->retry_pos_x_ = x;
+	this->retry_pos_y_ = y;
+}
+//オブジェクトを指定した座標に設定する
+//引数:
+//			x:指定先のオブジェクトの右端のx座標
+//			y:指定先のオブジェクトの上端のy座標
+void Object::Set(float x, float y) {
+	this->x_ = x;
+	this->y_ = y;
+}
+//オブジェクトを座標に移動する上にオブジェクトの縦幅、横幅を設定する
+//引数:
+//			x:指定先のオブジェクトの右端のx座標
+//			y:指定先のオブジェクトの上端のy座標
+//			height:オブジェクトの縦幅
+//			width:オブジェクトの縦幅
 void Object::Set(float x, float y, float height, float width) {
 	Set(x, y);
-	this->width = width;
-	this->height = height;
+	this->width_ = width;
+	this->height_ = height;
 }
-void Object::Set(float x, float y) {
-	this->x = x;
-	this->y = y;
+//オブジェクトの初期化
+//引数:
+//			stageChanger:StageManegerのstateを変更するクラスの設定
+//			stage:オブジェクトから他のオブジェクトを確認する際に使用
+void Object::Initialize(IStateChanger *stateChanger,std::vector<Object*>& stage){
+	this->state_changer_ = stateChanger;
+	this->stage_ = &stage;
 }
-float Object::Left() {
-	return x;
+//オブジェクトの描写
+void Object::Draw() {
+	DrawModiGraphF(x_, y_, x_ + width_, y_,x_ + width_, y_ + height_, x_, y_ + height_,graph_handle_, TRUE);//Float型の四点の座標から画像を描写
 }
-float Object::Right() {
-	return x + width;
-}
-float Object::Top() {
-	return y;
-}
-float Object::Base() {
-	return y + height;
-}
-
-int Object::Check(float *point, float num, Object *object) {
+//オブジェクトを移動しようとした際、対象のオブジェクトに接触するか、どうか接触した際にどの部分に接触したかを返す
+//引数:
+//			point:移動しようとしているオブジェクトの軸 x:x軸,y:y軸
+//			num:オブジェクトの軸をどの程度変化させるかを決める
+//			object:接触しているかを判定するObject
+//返り値:
+//				0:接触なし
+//				1:対象のobjectに左から接触
+//				2:対象のobjectに右から接触
+//				3:対象のobjectに上から接触
+//				4:対象のobjectに下から接触
+int Object::CheckX(float num, const Object *object) {
 	int check = 0;
-	if (object != this) {
-		if (object->quality) {
-			if (&x == point) {
-				if (Base() > object->Top() && Top() < object->Base()) {
-					if (Right() + num > object->Left() && Right() + num < object->Right()) {
-						//地形の左側から衝突した時
-						check = 1;
-					}
-					else if (Left() + num < object->Right() && Left() + num >object->Left()) {
-						//地形の右側から衝突した時
-						check = 2;
-					}
-				}
-			}
-			else {
-				if (Right() > object->Left() && Left() < object->Right()) {
-					if (Base() + num > object->Top() && Base() + num < object->Base()) {
-						//地形の上側から衝突した時
-						check = 3;
-					}
-					if (Top() + num < object->Base() && Top() + num > object->Top()) {
-						//地形の下から衝突した時
-						check = 4;
-					}
-				}
-			}
-		}
+	if (object != this && object->quality_ && Object::Check(x_ + num, y_, object)) {
+		if (num > 0) check = 1;//地形の上側から衝突した時
+		else check = 2;//地形の下から衝突した時
 	}
 	return check;
 }
-int Object::Check(float x, float y, Object *object) {
+int Object::CheckY(float num, const Object *object) {
 	int check = 0;
-	if (object != this) {
-		if (object->quality) {
-			if (y + height > object->Top() && y < object->Base()) {
-				if (x + width > object->Left() && x + width < object->Right()) {
-					//地形の左側から衝突した時
-					check = 1;
-				}
-				else if (x  < object->Right() && x  >object->Left()) {
-					//地形の右側から衝突した時
-					check = 2;
-				}
-			}
-			if (x + width > object->Left() && x < object->Right()) {
-				if (y + height > object->Top() && y + height < object->Base()) {
-					//地形の上側から衝突した時
-					check = 3;
-				}
-				if (y  < object->Base() && y  > object->Top()) {
-					//地形の下から衝突した時
-					check = 4;
-				}
-			}
-		}
+	if (object != this && object->quality_ && Object::Check(x_, y_ + num, object)) {
+		if (num > 0) check = 3;//地形の上側から衝突した時
+		else check = 4;//地形の下から衝突した時
 	}
 	return check;
 }
-void Object::Picked(Object *object) {
+//Objectが移動できるかを返す ※デフォルトだと常にfalseを返す
+//引数:
+//			point:移動しようとしているオブジェクトの軸 x:x軸,y:y軸
+//			num:オブジェクトの軸をどの程度変化させるかを決める
+bool Object::CanMoveX(float num) {
+	return false;
 }
-void Object::Putted() {
+bool Object::CanMoveY(float num) {
+	return false;
 }
+//Objectを持ち上げられるかを返す ※デフォルトだと常にfalseを返す
+//引数:
+//			object:持ち上げようとしている対象
+bool Object::CanPicked(const Object *object) {
+	return false;
+}
+//Objectを置くことが出来るかを返す ※デフォルトだと常にfalseを返す
 bool Object::CanPutted() {
 	return false;
 }
-bool Object::CanPicked(Object *object) {
-	return false;
-}
-void Object::Move(float *point, float num) {
-}
+//Objectを投げられるかを返す ※デフォルトだと常にfalseを返す
 bool Object::CanThrew() {
 	return false;
 }
-void Object::Threw() {
-}
-void Object::Initialize(Object **stage) {
-	this->stage = stage;
-}
-void Object::Initialize(IStateChanger *stateChanger, Object **stage) {
-	this->stateChanger = stateChanger;
-	this->stage = stage;
-}
+//Retryをした際の操作
 void Object::Retry() {
-	Set(retryX, retryY);
+	Set(retry_pos_x_, retry_pos_y_);
 }
-void Object::RelaySet(float x,float y) {
-	this->retryX = x;
-	this->retryY = y;
+//ObjectによってClear出来るかを返す ※デフォルトだと常にfalseを返す
+bool Object::CanClear() {
+	return false;
 }

@@ -1,9 +1,12 @@
 
 #include "Menu.h"
 #include "DxLib.h"
+#include "Keyboard.h"
 //#include "Keyboard.h"
 Menu::Menu(ISceneChanger* changer) : BaseScene(changer) {
 }
+//案その１：選択した項目を中心に画面の周りが黒で囲まれて行き、いったん黒い画面を挟んだ後、プレイヤーを中心に黒い画面が引いてゆく。
+//案その２：ゲームスタートを選択時に選択画面が下にずれて行き、いったん黒い画面を挟んだ後、ゲーム画面が上から降りてくる
 
 //初期化
 void Menu::Initialize() {
@@ -11,44 +14,45 @@ void Menu::Initialize() {
 	state = State_Select;
 	DeleteNum = 0;
 	menudeta[0] = { 100,100,"ゲームスタート" };
-	menudeta[1] = { 100, 150, "説明書" };
-	menudeta[2] = { 100,200,"ゲーム終了" };
-	deletemessage[0] = { 80,100,"はい" };
-	deletemessage[1] = { 140,100,"いいえ" };
+	menudeta[1] = { 100,200,"ゲーム終了" };
+	deletemessage[0] = { 250,300,"はい" };
+	deletemessage[1] = { 350,300,"いいえ" };
 }
+//メニュー画面のボタン入力を管理する
 void Menu::SelectMenu() {
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_DOWN) == 1) {
-		MenuNum = (MenuNum + 1) % 3;
+	//上キーか下キーを押されたとき
+	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_DOWN) == 1 || 
+		Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) == 1) {
+		MenuNum = (MenuNum + 1) % 2;//選択している項目をずらす
 	}
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) == 1) {
-		MenuNum = (MenuNum + 2) % 3;
-	}
+	//Enterキーを入力したとき
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RETURN) == 1) {
 		switch (MenuNum) {
 		case 0:
 			SceneChanger->ChangeScene(Scene_Game);
 			break;
-		case 2:
+		case 1:
 			state = State_Delete;
+			break;
+		default:
 			break;
 		}
 	}
 }
+//終了確認画面のボタン入力を管理する
 void Menu::SelectDelete() {
 
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_LEFT) == 1) {
-		DeleteNum = (DeleteNum + 1) % 2;
-	}
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RIGHT) == 1) {
+	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_LEFT) == 1 || 
+		Keyboard::getInstance()->CheckKey(KEY_INPUT_RIGHT) == 1) {
 		DeleteNum = (DeleteNum + 1) % 2;
 	}
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RETURN) == 1) {
 		switch (DeleteNum) {
 		case 0:
-			DxLib_End();
+			DxLib_End();//プログラムを終了する
 			break;
 		case 1:
-			state = State_Select;
+			state = State_Select;//メニュー画面に移行する
 			break;
 		}
 	}
@@ -65,36 +69,24 @@ void Menu::Update() {
 		SelectDelete();
 		break;
 	}
-	/*if (Keyboard::getInstance()->CheckKey[KEY_INPUT_RETURN] == 1) {
-		switch (MenuNum) {
-		case 0:
-			SceneChanger->ChangeScene(Game_Chara);
-			break;
-		case 1:
-			SceneChanger->ChangeScene(Scene_Description);
-			break;
-		case 2:
-			SceneChanger->ChangeScene(Scene_Delete);
-		}
-	}*/
 }
 
 //描画
 void Menu::Draw() {
-	BaseScene::Draw();//親クラスの描画メソッドを呼ぶ
+	DrawBox(0, 0, 640, 480, GetColor(255, 255, 255), TRUE);//背景色の設定
+	unsigned int  MenuColor = GetColor(0, 0, 0);
 	switch (state) {
 	case State_Select:
-		DrawString(0, 0, "メニュー画面です。", GetColor(255, 255, 255));
-		DrawString(menudeta[MenuNum].x - 20, menudeta[MenuNum].y, "●", GetColor(255, 255, 255));
-		for (int i = 0; i < 3; i++) {
-			DrawString(menudeta[i].x, menudeta[i].y, menudeta[i].name, GetColor(255, 255, 255));
+		DrawString(menudeta[MenuNum].x - 20, menudeta[MenuNum].y, "●", MenuColor);
+		for (int i = 0; i < 2; i++) {
+			DrawString(menudeta[i].x, menudeta[i].y, menudeta[i].name, MenuColor);
 		}
 		break;
 	case State_Delete:
-		DrawString(0, 0, "本当にゲームを終了しますか？", GetColor(255, 255, 255));
-		DrawString(deletemessage[DeleteNum].x - 20, 100, "●", GetColor(255, 255, 255));
+		DrawString(200,150, "本当にゲームを終了しますか？", MenuColor);
+		DrawString(deletemessage[DeleteNum].x - 20, deletemessage[DeleteNum].y, "●", MenuColor);
 		for (int i = 0; i < 2; i++) {
-			DrawString(deletemessage[i].x, deletemessage[i].y, deletemessage[i].name, GetColor(255, 255, 255));
+			DrawString(deletemessage[i].x, deletemessage[i].y, deletemessage[i].name, MenuColor);
 		}
 		break;
 	}

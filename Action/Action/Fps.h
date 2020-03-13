@@ -5,8 +5,8 @@ protected:
 	Fps();
 	friend Singleton<Fps>;
 private:
-	int startTime;
-	int count;
+	int start_time_;
+	int count_;
 public:
 	int Update();
 };

@@ -1,13 +1,15 @@
 #pragma once
+#include <vector>
 #include "Object.h"
 #include "Terrain.h"
 #include "Player.h"
 class Camera {
 private:
-	//Terrain *mapLeft, *mapRight;//マップの左端と右端の地形
-	Object *mapLeft, *mapRight;
+	Object *map_left_, *map_right_;
+	Object *player_;
+	std::vector<Object*> stage_;
+
 public:
-	//void Initialize(Terrain *terrain);
-	void Initialize(Object *stage[]);
-	void Update(Object *object[], Player *player);
+	void Initialize(std::vector<Object*> stage);
+	void Update();
 };

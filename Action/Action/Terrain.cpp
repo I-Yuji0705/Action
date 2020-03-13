@@ -1,24 +1,19 @@
 #include "Terrain.h"
 #include "DxLib.h"
-int Terrain::terrain_num = 0;
-void Terrain::Set(float x, float y, float height, float width, int objNum) {
-	Object::Set(x, y, height, width, objNum);
-	switch (this->objNum) {
+//ObjectのSet処理に加え、object_numberによって描写する画像を変更する
+Terrain::Terrain(float x, float y, float height, float width, int object_number) : Object(x ,y ,height ,width ,object_number ) {
+	switch (this->object_number_) {
 	case 0:
-		graphHandle = LoadGraph("Image/Terrain.png");
-		quality = true;
-		damegeflg = false;
-		break;
-	case 1:
-		graphHandle = LoadGraph("Image/warpstar.bmp");
-		quality = false;
-		damegeflg = false;
+		//graph_handle_ = LoadGraph("Image/Terrain.png");
+		quality_ = true;
+		damegeflg_ = false;
 		break;
 	default:
 		break;
 	}
-	terrain_num++;
 }
-void Terrain::Update() {
-
+void Terrain::Draw() {
+	DrawBoxAA(x_, y_, x_ + width_,  y_ + height_,GetColor(0,0,0), TRUE);//Float型の四点の座標から外枠を描写
+	float distance = 5.0f;//地形の外側と内側の差
+	//DrawBoxAA(x_ + distance, y_ + distance, x_ + width_ - distance, y_ + height_ - distance, GetColor(255,255,255), TRUE);//Float型の四点の座標とその差から内側を描写
 }

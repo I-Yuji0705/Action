@@ -4,41 +4,46 @@
 #include "IStateChanger.h"
 //キャラクターの状態状態
 enum StateCharacter {
-	State_Land,//地上にいる
-	State_Air,//空中にいる
-	State_Clear,
-	State_Retry
+	Player_Land,//地上にいる
+	Player_Air,//空中にいる
+	Player_Clear,
+	Player_Retry
 };
 class Player :public Object{
 private:
-	int kaku;
-	StateCharacter playerState;
-	bool isCarrier;//何かを持っているかを返す
-	Object *carryon;//持っている物のアドレス
-	int danceTimer,danceNum;//一つの動きに掛ける時間と、動きの数
+	StateCharacter player_state_;
+	Object *map_left_, *map_right_;
+	Object *carryon_;//持っている物のアドレス
+	bool is_carrier_;//何かを持っているかを返す
+	int angle_;//ジャンプしている間の時間
+	int dance_timer_,dance_num_;//一つの動きに掛ける時間と、動きの数
 	void Action();//プレイヤーの行動
-	bool Check(Object *object);
-	void Hit(int check, Object *object);
+	void Push(float num,Object *object);
 	void Pick();
-	void Throw();
 	void Put();
-	void Dance();//クリア時の踊り
-	void Push(Object *object);
-	Object *mapLeft, *mapRight;
-	int MapCheck(float *point, float num);
-public :
-	void Clear()override;
-	bool CanPicked(Object *object)override;
-	void Move(float *point, float num)override;//移動を行い、移動できたかを返す
-	void Initialize(IStateChanger *stateChanger,Object **stage)override;
-	void Initialize(IStateChanger *stateChanger);
+	void Throw();
+	bool Check(Object *object);
+	int MapCheck(float num);
+	void MapHit(int mapcheck);
 	void RetryCheck();//リトライをする必要があるか(穴に落ちたか)を確認する
-	void Retry()override;
-	void Set(float x, float y, float height, float width, int objNum)override;
-	void Update();
+	void Dance();//クリア時の動きの処理
+	void Hit(int check ,Object * object);
+	void HitCarryon(int check, Object *object);
+	void Jump();
+public :
+	Player(float x, float y, float height, float width, int object_number);
+	void Initialize(IStateChanger *stateChanger,std::vector<Object*>& stage) override;
+	void Update()override;
 	void Draw()override;
+	int CheckX(float num, const Object *object)override;
+	int CheckY(float num, const Object *object)override;
+	bool CanMoveX(float num)override;
+	bool CanMoveY(float num)override;
+	void MoveX(float num)override;//移動を行い、移動できたかを返す
+	void MoveY(float num)override;
+	bool CanPicked(const Object *object)override;
 	void Picked(Object *object)override;
-	void Putted()override;
-	bool CanPutted()override;
-	int Check(float *point,float num,Object *object);
+	void Clear()override;
+	void Retry()override;
+	bool CanClear()override;
 };

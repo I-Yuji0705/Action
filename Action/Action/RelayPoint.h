@@ -2,15 +2,15 @@
 #include "Object.h"
 class RelayPoint : public Object {
 private:
+	float player_pos_x_,player_pos_y_;
+	Object *player_;
+	bool pass_;
 	void Relay();
-	float playerX,playerY;
-	Object *player;
-	bool pass;
+	bool Check(const Object *player);
 public:
+	RelayPoint(float x, float y, float height, float width, int object_type);
+	void Initialize(IStateChanger *stateChanger,std::vector<Object*>& stage)override;
 	void Update()override;
 	void Draw() override;
-	void Initialize(IStateChanger *stateChanger, Object** stage);
-	bool Check(Object *player);
 	void Retry() override;
-	void Set(float x, float y, float height, float width, int objNum)override;
 };
