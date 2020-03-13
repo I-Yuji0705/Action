@@ -35,7 +35,7 @@ void Manual::Update() {
 			manualselection_->Initialize();
 			break;
 		case Manual_Exit:
-			scenechanger_->ChangeScene(Scene_Menu);
+			scenechanger_->ChangeScene(Scene_Title);
 			break;
 		default:
 			assert(false);
@@ -48,7 +48,7 @@ void Manual::Update() {
 
 //•`‰æ
 void Manual::Draw() {
-	DrawBox(0, 0, 640, 480, GetColor(255, 255, 255), TRUE);//”wŒiF‚ÌÝ’è
+	DrawBox(0, 0, 640, 480, GetColor(255, 255, 255), TRUE);//”wŒi‚ÌÝ’è
 	manualselection_->Draw();
 }
 

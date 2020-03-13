@@ -9,16 +9,28 @@
 #include <typeinfo>
 
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>最初に表示する字幕とステージを管理するクラスの生成</para>
+///</summary>
 Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer) : BaseScene(keyboard,sound,changer) {
 	gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_,this);
 	stagemgr_ = (StageMgr*) new StageMgr(keyboard_,sound_,this);
 }
-//初期化
+
+///<summary>
+///<para>初期化処理</para>
+///<para>字幕とステージの初期化処理を行う</para>
+///</summary>
 void Game::Initialize() {
 	gameselection_->Initialize();
 	stagemgr_->Initialize();
 }
-//更新
+
+///<summary>
+///<para>更新処理</para>
+///<para>現在のステートの変更要請の確認と、字幕とステージの更新処理を行う</para>
+///</summary>
 void Game::Update() {
 	UpdateNextState();
 	if (typeid(*gameselection_) == typeid(GameUsually) || typeid(*gameselection_) == typeid(GameDance)) {
@@ -26,20 +38,35 @@ void Game::Update() {
 	}
 	gameselection_->Update();
 }
-//描画
+
+///<summary>
+///<para>描写処理</para>
+///<para>字幕とステージの描写処理を行う</para>
+///</summary>
 void Game::Draw() {
 	stagemgr_->Draw();
 	gameselection_->Draw();
 }
-//終了処理
+
+///<summary>
+///<para>終了処理</para>
+///<para>字幕とステージの終了処理を行う</para>
+///</summary>
 void Game::Finalize() {
 	BaseScene::Finalize();
 	stagemgr_->Finalize();
 }
+
+///<summary>
+///<para>ゲーム画面のBGMを再生する</para>
+///</summary>
 void Game::StartBgm() {
 	sound_->PlayBgm(BGM_Game);
 }
 
+///<summary>
+///<para>Stateの変更要請があった場合、変更処理を行う</para>
+///</summary>
 void Game::UpdateNextState(){
 	if (nextstate_ != Game_None) {
 		gameselection_->Finalize();
@@ -66,7 +93,7 @@ void Game::UpdateNextState(){
 			gameselection_->Initialize();
 			break;
 		case Game_Exit:
-			scenechanger_->ChangeScene(Scene_Menu);
+			scenechanger_->ChangeScene(Scene_Title);
 			break;
 		default:
 			assert(false);
@@ -75,6 +102,10 @@ void Game::UpdateNextState(){
 		nextstate_ = Game_None;
 	}
 }
+
+///<summary>
+///<para>Stateの変更要請</para>
+///</summary>
 void Game::ChangeState(GameState state) {
 	this->nextstate_ = state;
 }

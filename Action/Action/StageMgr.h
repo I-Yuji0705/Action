@@ -7,6 +7,7 @@
 #include <vector>
 #include "Sound.h"
 #include "Keyboard.h"
+#include "ColorCode.h"
 
 class Sound;
 class Keyboard;
@@ -21,6 +22,7 @@ private:
 	std::vector<Object*>* stage_;
 	Camera* playercamera_;
 	Collision* collision_;
+	ColorCode color_;
 	void CreateStage(Keyboard*keyboard,Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char* stagename);//テキストファイルからステージを生成する
 	void CreateStageDeta(Keyboard*keyboard, Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char* stagename);//ステージ生成後にテキストファイルに保存する
 public:

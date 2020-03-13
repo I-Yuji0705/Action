@@ -1,10 +1,21 @@
 #include "GameDance.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>ダンス時には何も字幕を表示しない</para>
+///</summary>
 GameDance::GameDance(Keyboard* keyboard,IGameStateChanger* statechanger) : GameSelectionBase(keyboard,statechanger) {
 }
-//ゲームクリア時Playerがダンス中のの初期化処理(何も描写しない)
+
+///<summary>
+///<para>初期化処理</para>
+///</summary>
 void GameDance::Initialize() {
 }
-//ゲームクリア時Playerがダンス中の更新処理（ダンス中は他の状態に移行しない）
+
+///<summary>
+///<para>更新処理</para>
+///<para>ダンス時には何も更新せず、プレイヤーの操作を受け付けない</para>
+///</summary>
 void GameDance::Update() {
 }

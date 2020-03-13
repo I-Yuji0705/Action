@@ -1,5 +1,15 @@
-﻿  Fps.cpp
+﻿  BaseScene.cpp
+  ITitleStateChanger.cpp
+  ISceneChanger.cpp
+  Item.cpp
+  ItemAction.cpp
+  ItemBaggage.cpp
+  ItemGravity.cpp
+  ItemHit.cpp
+  ItemPutted.cpp
+  ItemStartThrow.cpp
+  ItemThrew.cpp
   Main.cpp
-  Collision.cpp
+  StageMgr.cpp
   コードを生成中...
   Action.vcxproj -> C:\Users\student\Desktop\Action\x64\Debug\Action.exe

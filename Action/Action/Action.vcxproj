@@ -143,7 +143,7 @@
     <ClCompile Include="GraphDeta.cpp" />
     <ClCompile Include="Hit.cpp" />
     <ClCompile Include="IManualStateChanger.cpp" />
-    <ClCompile Include="IMenuStateChanger.cpp" />
+    <ClCompile Include="ITitleStateChanger.cpp" />
     <ClCompile Include="ISceneChanger.cpp" />
     <ClCompile Include="IGameStateChanger.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -163,10 +163,10 @@
     <ClCompile Include="ManualRule.cpp" />
     <ClCompile Include="ManualSelectionBase.cpp" />
     <ClCompile Include="ManualUsually.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuDelete.cpp" />
-    <ClCompile Include="MenuSectionBase.cpp" />
-    <ClCompile Include="MenuUsually.cpp" />
+    <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitleDelete.cpp" />
+    <ClCompile Include="TitleSectionBase.cpp" />
+    <ClCompile Include="TitleUsually.cpp" />
     <ClCompile Include="PlayerDance.cpp" />
     <ClCompile Include="PlayerGravity.cpp" />
     <ClCompile Include="PlayerHit.cpp" />
@@ -195,6 +195,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClearArea.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ColorCode.h" />
     <ClInclude Include="DrawingDeta.h" />
     <ClInclude Include="Fps.h" />
     <ClInclude Include="Game.h" />
@@ -207,7 +208,7 @@
     <ClInclude Include="Gravity.h" />
     <ClInclude Include="Hit.h" />
     <ClInclude Include="IManualStateChanger.h" />
-    <ClInclude Include="IMenuStateChanger.h" />
+    <ClInclude Include="ITitleStateChanger.h" />
     <ClInclude Include="ISceneChanger.h" />
     <ClInclude Include="IGameStateChanger.h" />
     <ClInclude Include="Item.h" />
@@ -225,10 +226,10 @@
     <ClInclude Include="ManualRule.h" />
     <ClInclude Include="ManualSelectionBase.h" />
     <ClInclude Include="ManualUsually.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuDelete.h" />
-    <ClInclude Include="MenuSelectionBase.h" />
-    <ClInclude Include="MenuUsually.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="TitleDelete.h" />
+    <ClInclude Include="TitleSelectionBase.h" />
+    <ClInclude Include="TitleUsually.h" />
     <ClInclude Include="ObjectDeta.h" />
     <ClInclude Include="GraphDeta.h" />
     <ClInclude Include="PlayerDance.h" />

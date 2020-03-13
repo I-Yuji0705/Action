@@ -2,7 +2,7 @@
 #include "Object.h"
 #include "Player.h"
 #include "ItemAction.h"
-#include "IMenuStateChanger.h"
+
 enum ItemState {
 	Item_Normal,//Item‚Ì’Êíó‘Ô
 	Item_Picked,//Item‚ªE‚í‚ê‚Ä‚¢‚éó‘Ô

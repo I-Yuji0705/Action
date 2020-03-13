@@ -9,5 +9,5 @@ class SelectionDeta : public DrawingDeta{
 public:
 	SelectionDeta(int x, int y,const char word[128], unsigned int color);
 	void Draw()override;//描写処理
-	void ChangeColor(unsigned int color)override;//色の変更
+	void ChangeColor(ColorCode color)override;//色の変更
 };

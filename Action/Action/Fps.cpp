@@ -1,10 +1,24 @@
 #include "Fps.h"
 #include "DxLib.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>開始時間とカウントの初期値設定</para>
+///</summary>
 Fps::Fps(){
 	start_time_ = 0;
 	count_ = 0;
 }
+
+///<summary>
+///<para>更新処理</para>
+///<para>Fpsが60より高い場合、60にそろえる</para>
+///<para>戻り値:</para>
+///<returns>
+///<para>0:更新完了</para>
+///<para>-1:何かしらのエラー発生</para>
+///</returns>
+///</summary>
 int Fps::Update() {
 	try {
 		if (count_ == 0) { 

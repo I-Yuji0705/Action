@@ -1,6 +1,6 @@
 #include "SceneMgr.h"
 #include "DxLib.h"
-#include "Menu.h"
+#include "Title.h"
 #include "Game.h"
 #include "Manual.h"
 #include <assert.h>
@@ -9,7 +9,7 @@ SceneMgr::SceneMgr(Keyboard* keyboard,Sound* sound) : next_scene_(Scene_None) //
 {
 	keyboard_ = keyboard;
 	sound_ = sound;
-	scene_ = (BaseScene*) new Menu(keyboard_, sound_, this);
+	scene_ = (BaseScene*) new Title(keyboard_, sound_, this);
 	//scene_->StartBgm();
 	state = Normal_Scene;
 }
@@ -67,8 +67,8 @@ void SceneMgr::BlackOutScene() {
 		scene_->Finalize();//現在のシーンの終了処理を実行
 		delete scene_;
 		switch (next_scene_) {       //シーンによって処理を分岐
-		case Scene_Menu:        //次の画面がメニューなら
-			scene_ = (BaseScene*) new Menu(keyboard_, sound_,this);   //メニュー画面のインスタンスを生成する
+		case Scene_Title:        //次の画面がメニューなら
+			scene_ = (BaseScene*) new Title(keyboard_, sound_,this);   //メニュー画面のインスタンスを生成する
 			break;
 		case Scene_Game:        //次の画面がゲームなら
 			scene_ = (BaseScene*) new Game(keyboard_, sound_, this);   //ゲーム画面のインスタンスを生成する

@@ -3,27 +3,32 @@
 #include <typeinfo.h>
 
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>描写するステージとCpllisionクラスのポインタの取得</para>
+///<para>引数:</para>
+///<para>state:描写するステージのポインタ</para>
+///<para>collision:プレイヤーとステージ右端、左端オブジェクトのポインタを貰う</para>
+///</summary>
 Camera::Camera(std::vector<Object*>* stage, Collision* collision) {
 	stage_ = stage;
 	collision_ = collision;
 }
-//----------------------------------------------------
-//Cameraの初期化処理を行う場所
-//ステージ右端、左端のTerrain、そしてPlayerを収得する
-//	引数:
-//		stage:ステージ上にあるobjectのvector配列
-//		collision:プレイヤーとステージ右端、左端の
-//					  オブジェクトのポインタを渡す
 
-///<summary><>
+///<summary>
+///<para>初期化処理</para>
+///<para>ステージの右端、左端、画面の中央に描写するPlayerのポインタの取得</para>
+///</summary>
 void Camera::Initialize() {
 	map_left_ = collision_->GetMapLeft(map_left_);
 	map_right_ =  collision_->GetMapRight(map_right_);
 	player_ = *collision_->GetPlayer().begin();//中心に描写するPlayerの設定
 }
-//----------------------------------------------------
-//Cameraの更新処理
-//Playerがステージ右端、左端にいる場合を除いて、画面の中央に描写するように全体を動かす
+
+///<summary>
+///<para>更新処理</para>
+///<para>playerがステージ右端、左端にいる場合を除いて、画面の中央に描写するように全体を動かす</para>
+///</summary>
 void Camera::Update(){
 	float distance = 0;//Playerと画面中央との差
 	const float kWindowX = 640.0f;//画面の横幅

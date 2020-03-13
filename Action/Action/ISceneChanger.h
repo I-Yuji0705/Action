@@ -1,7 +1,7 @@
 #pragma once
 
 enum Scene{
-	Scene_Menu,    //メニュー画面
+	Scene_Title,    //タイトル画面
 	Scene_Game,	//ゲーム画面
 	Scene_Manual,//マニュアル画面
 

@@ -15,6 +15,7 @@ StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechang
 	stage_ = new std::vector<Object*>;
 	collision_ = new Collision(stage_);
 	playercamera_ = new Camera(stage_, collision_);
+	color_ = { 127, 255, 212 };//”wŒiF‚ÌÝ’è
 	CreateStageDeta(keyboard,sound,statechanger, collision_,"test");
 	//CreateStage(keyboard,sound,statechanger,collision,"stage2");
 }
@@ -32,7 +33,7 @@ void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* s
 			stage_->push_back((Object*)new Terrain(object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
 			break;
 		case 1:
-			stage_->push_back((Object*)new ClearArea(sound, statechanger, collision, object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
+			stage_->push_back((Object*)new ClearArea(sound, collision,color_, object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
 			break;
 		case 2:
 			stage_->push_back((Object*)new Item(sound,collision,object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
@@ -57,7 +58,7 @@ void StageMgr::CreateStageDeta(Keyboard* keyboard, Sound* sound,IGameStateChange
 	stage_->push_back((Object*)new Terrain(1300.0f, 0.0f, 100.0f, 50.0f));
 	//stage_->push_back((Object*)new Terrain(700.0f, 240.0f, 50.0f, 50.0f));
 	//stage_->push_back((Object*)new Terrain(850.0f, 390.0f, 100.0f, 50.0f));
-	//stage_->push_back((Object*)new ClearArea(sound,statechanger,collision,1250.0f, 240.0f, 200.0f, 150.0f));
+	stage_->push_back((Object*)new ClearArea(sound,collision,color_,1250.0f, 240.0f, 200.0f, 150.0f));
 	stage_->push_back((Object*)new Item(sound,collision,201.0f, 240.0f, 100.0f, 100.0f));
 	stage_->push_back((Object*)new Item(sound,collision,200.0f, 340.0f, 50.0f, 50.0f));
 	//stage_->push_back((Object*)new Item(sound,collision,700.0f, 340.0f, 50.0f, 50.0f));
@@ -111,7 +112,8 @@ void StageMgr::Initialize() {
 //-------------------
 //ƒXƒe[ƒW‚Ì•`ŽÊˆ—
 void StageMgr::Draw() {
-	DrawBox(0, 0, 640, 480, GetColor(127, 255, 212), TRUE);//”wŒiF‚ÌÝ’è
+	unsigned int backgroundcolor = GetColor(color_.Red, color_.Green, color_.Blue);
+	DrawBox(0, 0, 640, 480, backgroundcolor, TRUE);//”wŒiF‚ÌÝ’è
 	for (auto i : *stage_) {
 		i->Draw();
 	}

@@ -3,16 +3,28 @@
 #include <assert.h>
 #include "SelectionDeta.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>ゲーム時のメニュー画面の生成</para>
+///</summary>
 GameMenu::GameMenu(Keyboard* keyboard,IGameStateChanger* statechanger)  : GameSelectionBase(keyboard,statechanger){
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(300, 100, "つづける", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(300, 150, "でなおす", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(300, 200, "やりなおす", GetColor(0, 0, 0)));
 }
-//メニュー画面の初期化設定
+
+///<summary>
+///<para>初期化設定</para>
+///<para>ゲーム時のメニュー画面の生成</para>
+///</summary>
 void GameMenu::Initialize() {
 	SelectionBase::Initialize();
 }
-//メニュー画面表示時のの更新処理
+
+///<summary>
+///<para>更新処理</para>
+///<para>Enterキーを押した際、選んだ選択肢よって異なるStateに変更する</para>
+///</summary>
 void GameMenu::Update() {
 	SelectionBase::SelectSelection();
 	SelectionBase::SelectionColorChange();

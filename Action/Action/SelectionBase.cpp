@@ -1,5 +1,7 @@
 #include "SelectionBase.h"
 #include "DxLib.h"
+#include "ColorCode.h"
+
 
 SelectionBase::SelectionBase(Keyboard* keyboard) {
 	keyboard_ = keyboard;
@@ -19,10 +21,10 @@ void SelectionBase::Draw() {
 }
 //選ばれている選択肢の色を変更する
 void SelectionBase::SelectionColorChange(){
-	//unsigned int selectcolor = GetColor(0,0,0);
-	//unsigned int nonselectcolor = GetColor(150,150,150);	
-	unsigned int selectcolor = GetColor(0,0,255);//選ばれている項目の色の設定
-	unsigned int nonselectcolor = GetColor(150, 150, 150);//選ばれていない項目の色の設定
+	ColorCode selectcolor = { 0,0,255 };
+	ColorCode nonselectcolor = { 150,150,150 };
+	//unsigned int selectcolor = GetColor(0,0,255);//選ばれている項目の色の設定
+	//unsigned int nonselectcolor = GetColor(150, 150, 150);//選ばれていない項目の色の設定
 	int num = 0;
 	for (auto i : choicedeta_) {
 		if (num == selectnum_) i->ChangeColor(selectcolor);
