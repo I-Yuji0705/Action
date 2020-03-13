@@ -11,32 +11,34 @@ enum StateCharacter {
 };
 class Player :public Object{
 private:
+	int kaku;
 	StateCharacter playerState;
-	Object *mapLeft, *mapRight;
-	Object *carryon;//持っている物のアドレス
 	bool isCarrier;//何かを持っているかを返す
-	int angle;//ジャンプしている間の時間
+	Object *carryon;//持っている物のアドレス
 	int danceTimer,danceNum;//一つの動きに掛ける時間と、動きの数
 	void Action();//プレイヤーの行動
-	void Push(float num,Object *object);
-	void Pick();
-	void Put();
-	void Throw();
 	bool Check(Object *object);
 	void Hit(int check, Object *object);
+	void Pick();
+	void Throw();
+	void Put();
+	void Dance();//クリア時の踊り
+	void Push(Object *object);
+	Object *mapLeft, *mapRight;
 	int MapCheck(float *point, float num);
-	void RetryCheck();//リトライをする必要があるか(穴に落ちたか)を確認する
-	void Dance();//クリア時の動きの処理
 public :
-	void Set(float x, float y, float height, float width, int objNum)override;
-	void Initialize(IStateChanger *stateChanger,Object *stage[])override;
-	void Update()override;
-	void Draw()override;
-	int Check(float *point, float num, Object *object)override;
-	bool CanMove(float *point, float num)override;
-	void Move(float *point, float num)override;//移動を行い、移動できたかを返す
-	bool CanPicked(Object *object)override;
-	void Picked(Object *object)override;
 	void Clear()override;
+	bool CanPicked(Object *object)override;
+	void Move(float *point, float num)override;//移動を行い、移動できたかを返す
+	void Initialize(IStateChanger *stateChanger,Object **stage)override;
+	void Initialize(IStateChanger *stateChanger);
+	void RetryCheck();//リトライをする必要があるか(穴に落ちたか)を確認する
 	void Retry()override;
+	void Set(float x, float y, float height, float width, int objNum)override;
+	void Update();
+	void Draw()override;
+	void Picked(Object *object)override;
+	void Putted()override;
+	bool CanPutted()override;
+	int Check(float *point,float num,Object *object);
 };

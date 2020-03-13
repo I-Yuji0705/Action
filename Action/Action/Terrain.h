@@ -2,7 +2,9 @@
 #include "Object.h"
 class Terrain :public Object {
 private:
-	bool damegeflg;
 public:
-	void Set(float x, float y, float height, float width, int objNum)override;
+	bool damegeflg;
+	static int terrain_num;
+	void Set(float x, float y, float height, float width, int objNum);
+	void Update();
 };

@@ -4,9 +4,12 @@
 class Gate :public Object {
 private:
 	Object *player;
-	bool Check(Object *object);
 public:
+	bool Check(Player *player);
 	void Set(float x, float y, float height, float width, int objNum)override;
-	void Initialize(IStateChanger *stateChanger, Object** stage);
+	void Update(Player *player);
 	void Update()override;
+	bool Check(Object *object);
+	void Initialize(IStateChanger *stateChanger, Object** stage);
+	//void Draw()override;
 };

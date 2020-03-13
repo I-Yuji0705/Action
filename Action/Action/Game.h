@@ -2,7 +2,12 @@
 
 #include "BaseScene.h"
 #include "ISceneChanger.h"
+#include "Player.h"
+#include "Terrain.h"
+#include "Gate.h"
 #include "Camera.h"
+#include "Item.h"
+#include "RelayPoint.h"
 #include "IStateChanger.h"
 //地形の情報
 //ゲーム画面クラス
@@ -10,17 +15,21 @@ class Game : public BaseScene,IStateChanger {
 private:
 	MenuDeta retryMessage[2];
 	Object *stage[15];
+	Terrain terrain[10];
+	Item item[3];
+	Gate gate;
+	RelayPoint relaypoint[3];
+	Player player;
 	Camera playerCamera;
 	int selectNum;
-	void NormalUpdate();
-	void NormalDraw();
 	void RetryInitialize();
 	void RetryUpdate();
 	void RetryDraw();
 	void Retry();
-	void DanceUpdate();
 	void ClearUpdate();
 	void ClearDraw();
+	void Select();
+	void Normal();
 	State state;
 public:
 	Game(ISceneChanger* changer);

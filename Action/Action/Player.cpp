@@ -1,10 +1,14 @@
 #include "Player.h"
+#include "DxLib.h"
 #include <math.h>
 #include <typeinfo.h>
 #include <cstdlib>
-#include "DxLib.h"
 #include "Terrain.h"
 #include "Item.h"
+#include "Game.h"
+void Player::Initialize(IStateChanger *stateChanger){
+	this->stateChanger = stateChanger;
+}
 void Player::Action() {
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RIGHT) != 0) { //右キーが押されていたら
 		vector = 1;
@@ -15,13 +19,13 @@ void Player::Action() {
 		Move(&x, -10.0f);
 	}
 	if ((Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) == 1 && playerState == State_Land) ||
-		(Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) > 1 && angle != 0)) {
-		Move(&y, -10 * (float)cos(angle * 3.141592f * 1 / 120));
-		angle++;
-		if (angle > 60) angle = 60;
+		(Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) > 1 && kaku != 0)) {
+		Move(&y, -10 * (float)cos(kaku * 3.141592f * 1 / 120));
+		kaku++;
+		if (kaku > 60) kaku = 60;
 	}
-	else if (angle != 0) {
-		angle = 0;
+	else if (kaku != 0) {
+		kaku = 0;
 	}
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_SPACE) == 1) { 
 		if (isCarrier) Throw();
@@ -29,13 +33,7 @@ void Player::Action() {
 	}
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_DOWN) == 1 && isCarrier)
 		Put();
-}
-void Player::Push(float num, Object *object) {
-	if (object->CanMove(&object->x, num / 4)) {
-		object->Move(&object->x, num / 4);
-		Move(&x, num / 4);
-		if (isCarrier)carryon->Move(&object->x, num / 4);
-	}
+
 }
 void Player::Pick() {
 	Object *goods = stage[0];
@@ -54,21 +52,42 @@ void Player::Pick() {
 		carryon = goods;
 	}
 }
-void Player::Put() {
-	if (carryon->CanPutted()) {
-		carryon->Putted();
-		isCarrier = false;
-	}
-}
-void Player::Throw() {
-	if (carryon->CanThrew()) {
-		carryon->Threw();
-		isCarrier = false;
-	}
+
+int Player::Check(float *point,float num, Object *object) {
+	int check = 0;
+		if ( object->quality &&
+			((!isCarrier && object != this) || 
+			(isCarrier && object != carryon && object != this))) {
+			if (&x == point) {
+				if (Base() > object->Top() && Top() < object->Base()) {
+					if (Right() + num > object->Left() && Right() + num < object->Right()) {
+						//地形の左側から衝突した時
+						check = 1;
+					}
+					else if (Left() + num < object->Right() && Left() + num >object->Left()) {
+						//地形の右側から衝突した時
+						check = 2;
+					}
+				}
+			}
+			else {
+				if (Right() > object->Left() && Left() < object->Right()) {
+					if (Base() + num > object->Top() && Base() + num < object->Base()) {
+						//地形の上側から衝突した時
+						check = 3;
+					}
+					if (Top() + num < object->Base() && Top() + num > object->Top()) {
+						//地形の下から衝突した時
+						check = 4;
+					}
+				}
+			}
+		}
+	return check;
 }
 bool Player::Check(Object *object) {
 	bool check = false;
-	if (object->quality &&object !=this && Base() > object->Top() && Top() < object->Base()) {
+	if (object !=this && Base() > object->Top() && Top() < object->Base()) {
 		if (vector == 1 &&
 			Right() <= object->Left() && Right() + width >= object->Left()) {
 			check = true;
@@ -100,16 +119,100 @@ void Player::Hit(int check, Object * object) {
 		}
 	}
 }
-int Player::MapCheck(float *point, float num) {
-	int check = 0;
-	if (point == &x) {
-		if (Right() + num > mapRight->Right()) check = 1;
-		if (Left() + num < mapLeft->Left()) check = 2;
+void Player::Move(float *point, float num) {
+	bool hit = false;
+	for (int i = 0; i < stage[i]->object_num; i++) {
+		if (Check(point, num, stage[i]) != 0 ) {
+			if(typeid(*stage[i]) == typeid(Item)&& point == &x 
+				&& playerState == State_Land) {
+				//アイテムに接触している時
+				stage[i]->Move(&stage[i]->x, num / 4);
+				Move(&x,num/4);
+			}
+			Hit(Check(point, num, stage[i]), stage[i]);
+			hit = true;
+			break;
+		}
 	}
-	return check;
+	if (isCarrier) {
+		for (int i = 0; i < stage[i]->object_num; i++) {
+			if ((carryon->Check(&carryon->x, num, stage[i]) != 0 && point == &x)||
+				(carryon->Check(&carryon->y, num, stage[i]) != 0 && point == &y)) {
+				if (typeid(*stage[i]) == typeid(Item) && point == &x) {
+					DrawString(100, 100, typeid(*stage[i]).name(), GetColor(255, 255, 255));
+					stage[i]->Move(&stage[i]->x, num / 4);
+					carryon->Move(&stage[i]->x, num / 4);
+				}
+				Hit(Check(point, num, stage[i]), stage[i]);
+				hit = true;
+				break;
+			}
+		}
+	}
+	//ここからマップ外に移動してしまう際の処理
+	if (MapCheck(point, num) != 0) {
+		hit = true;
+		//state = State_Normal;
+		switch (MapCheck(point, num)) {
+		case 1:
+			x = mapRight->Right() - width;
+			break;
+		case 2:
+			x = mapLeft->Left();
+			break;
+		default:
+			break;
+		}
+	}
+	if (!hit) {
+		if (point == &x) x += num;
+		else {
+			y += num;
+			playerState = State_Air;
+		}
+	}
+}
+void Player::Set(float x, float y, float height, float width, int objNum) {
+	Object::Set(x, y, height, width, objNum);
+	switch (this->objNum) {
+	case 0:
+		graphHandle =LoadGraph("Image/Chara.png");
+		break;
+	default:
+		break;
+	}
+	quality = true;
+	vector = 1;
+	kaku = 0;
+	danceTimer = 0;
+	danceNum = 0;
+	isCarrier = false;
+	playerState = State_Air;
+}
+void Player::Update() {
+	switch (playerState) {
+	case State_Clear:
+		Dance();
+		break;
+	case State_Retry:
+			stateChanger->ChangeState(Game_Retry);
+			break;
+	default:
+		Action();	
+		Move(&y, 5.0f);
+		RetryCheck();
+		break;
+	}
 }
 void Player::RetryCheck() {//穴に落ちたかの確認
 	if(y > 480.0f) playerState = State_Retry;
+}
+void Player::Draw() {
+	if(vector ==1) DrawModiGraphF(x, y, x + width, y, x + width, y + height, x, y + height, graphHandle, TRUE);
+	else DrawModiGraphF(x + width, y, x, y, x, y + height, x + width, y + height, graphHandle, TRUE);
+}
+void Player::Clear() {
+	playerState = State_Clear;
 }
 void Player::Dance() {
 	switch (danceNum) {
@@ -172,148 +275,6 @@ void Player::Dance() {
 		break;
 	}
 }
-void Player::Set(float x, float y, float height, float width, int objNum) {
-	Object::Set(x, y, height, width, objNum);
-	switch (this->objNum) {
-	case 0:
-		graphHandle =LoadGraph("Image/Player.png");
-		break;
-	default:
-		break;
-	}
-	quality = true;
-	vector = 1;
-	angle = 0;
-	danceTimer = 0;
-	danceNum = 0;
-	isCarrier = false;
-	playerState = State_Air;
-}
-void Player::Initialize(IStateChanger *stateChanger, Object *stage[]) {
-	Object::Initialize(stateChanger, stage);
-	mapLeft, mapRight = nullptr;
-	for (int i = 0; i < object_num; i++) {
-		if (typeid(*stage[i]) == typeid(Terrain)) {
-			if (mapLeft == nullptr) mapLeft = stage[i];
-			if (mapRight == nullptr) mapRight = stage[i];
-
-			if (mapLeft->Left() > stage[i]->Left()) mapLeft = stage[i];
-			if (mapRight->Right() < stage[i]->Right()) mapRight = stage[i];
-		}
-	}
-}
-void Player::Update() {
-	switch (playerState) {
-	case State_Clear:
-		Dance();
-		break;
-	case State_Retry:
-		stateChanger->ChangeState(Game_Retry);
-		break;
-	default:
-		Action();	
-		Move(&y, 5.0f);
-		RetryCheck();
-		break;
-	}
-}
-void Player::Draw() {
-	if(vector ==1) DrawModiGraphF(x, y, x + width, y, x + width, y + height, x, y + height, graphHandle, TRUE);
-	else DrawModiGraphF(x + width, y, x, y, x, y + height, x + width, y + height, graphHandle, TRUE);
-}
-int Player::Check(float *point, float num, Object *object) {
-	int check = 0;
-	if (object->quality &&
-		((!isCarrier && object != this) ||
-		(isCarrier && object != carryon && object != this))) {
-		if (&x == point) {
-			if (Base() > object->Top() && Top() < object->Base()) {
-				if (Right() + num > object->Left() && Right() + num < object->Right()) {
-					//地形の左側から衝突した時
-					check = 1;
-				}
-				else if (Left() + num < object->Right() && Left() + num >object->Left()) {
-					//地形の右側から衝突した時
-					check = 2;
-				}
-			}
-		}
-		else {
-			if (Right() > object->Left() && Left() < object->Right()) {
-				if (Base() + num > object->Top() && Base() + num < object->Base()) {
-					//地形の上側から衝突した時
-					check = 3;
-				}
-				if (Top() + num < object->Base() && Top() + num > object->Top()) {
-					//地形の下から衝突した時
-					check = 4;
-				}
-			}
-		}
-	}
-	return check;
-}
-bool Player::CanMove(float *point, float num) {
-	bool canMove = true;
-	for (int i = 0; i < object_num; i++) {
-		if (Object::Check(point, num, stage[i]) != 0 && stage[i]->CanMove(&stage[i]->x,num/4)) {
-			canMove = false;
-			break;
-		}
-	}
-	return canMove;
-}
-void Player::Move(float *point, float num) {
-	bool hit = false;
-	if (isCarrier) {
-		for (int i = 0; i < stage[i]->object_num; i++) {
-			if ((carryon->Check(&carryon->x, num, stage[i]) != 0 && point == &x)||
-				(carryon->Check(&carryon->y, num, stage[i]) != 0 && point == &y)) {
-				if (point == &x) {
-					Push(num, stage[i]);
-				}
-				Hit(Check(point, num, stage[i]), stage[i]);
-				hit = true;
-				break;
-			}
-		}
-	}
-	if (!hit) {
-		for (int i = 0; i < stage[i]->object_num; i++) {
-			if (Check(point, num, stage[i]) != 0) {
-				if (point == &x && playerState == State_Land) {
-					//アイテムに接触している時
-					Push(num, stage[i]);
-				}
-				Hit(Check(point, num, stage[i]), stage[i]);
-				hit = true;
-				break;
-			}
-		}
-	}
-	//ここからマップ外に移動してしまう際の処理
-	if (MapCheck(point, num) != 0) {
-		hit = true;
-		//state = State_Normal;
-		switch (MapCheck(point, num)) {
-		case 1:
-			x = mapRight->Right() - width;
-			break;
-		case 2:
-			x = mapLeft->Left();
-			break;
-		default:
-			break;
-		}
-	}
-	if (!hit) {
-		if (point == &x) x += num;
-		else {
-			y += num;
-			playerState = State_Air;
-		}
-	}
-}
 bool Player::CanPicked(Object * object) {
 	bool canpicked = true;
 	for (int i = 0; i < stage[i]->object_num; i++) {
@@ -326,13 +287,48 @@ bool Player::CanPicked(Object * object) {
 }
 void Player::Picked(Object *object) {
 }
-void Player::Clear() {
-	playerState = State_Clear;
-	stateChanger->ChangeState(Game_Dance);
+void Player::Put() {
+	if (carryon->CanPutted()) {
+		carryon->Putted();
+		isCarrier = false;
+	}
+}
+void Player::Putted() {
+
+}
+bool Player::CanPutted() {
+	return false;
+}
+void Player::Throw() {
+	if (carryon->CanThrew()) {
+		carryon->Threw();
+		isCarrier = false;
+	}
 }
 void Player::Retry() {
 	Object::Retry();
 	playerState = State_Air;
 	isCarrier = false;
 	vector = 1;
+}
+void Player::Initialize(IStateChanger *stateChanger, Object **stage) {
+	Object::Initialize(stateChanger, stage);
+	mapLeft, mapRight = nullptr;
+	for (int i = 0; i < object_num; i++) {
+		if (typeid(*stage[i]) == typeid(Terrain)) {
+			if (mapLeft == nullptr) mapLeft = stage[i];
+			if (mapRight == nullptr) mapRight = stage[i];
+
+			if (mapLeft->Left() > stage[i]->Left()) mapLeft = stage[i];
+			if (mapRight->Right() < stage[i]->Right()) mapRight = stage[i];
+		}
+	}
+}
+int Player::MapCheck(float *point, float num) {
+	int check = 0;
+	if (point == &x) {
+		if (Right() + num > mapRight->Right()) check = 1;
+		if (Left() + num < mapLeft->Left()) check = 2;
+	}
+	return check;
 }

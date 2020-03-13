@@ -1,9 +1,6 @@
 #include "Keyboard.h"
 #include "DxLib.h"
 #define KeyNum 256//キーの種類
-int Keyboard::CheckKey(int KeyCode) {
-	return key[KeyCode];
-}
 int Keyboard::UpdateKey() {//更新に成功すると0を返し、エラーが起きると-1を返す
 	try
 	{
@@ -19,4 +16,7 @@ int Keyboard::UpdateKey() {//更新に成功すると0を返し、エラーが起きると-1を返す
 	{
 		return -1;
 	}
+}
+int Keyboard::CheckKey(int KeyCode) {
+	return key[KeyCode];
 }

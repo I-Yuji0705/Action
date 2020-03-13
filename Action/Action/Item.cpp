@@ -2,56 +2,22 @@
 #include "Terrain.h"
 #include <typeinfo.h>
 #include "DxLib.h"
+#define Gravity 5f
 
-void Item::Carry() {
-	x = carrier->x + (carrier->width - width) / 2;
-	y = carrier->y - height;
-	vector = carrier->vector;
-}
-void Item::Throw() {
-	state = State_Throw;
-	if (vector == 1) {
-		x = carrier->Right();
-	}
-	else {
-		x = carrier->Left() - width;
-	}
-		y = carrier->Top();
-}
-void Item::Push(float num, Object *object) {
-	if (object->CanMove(&object->x, num / 4)) {
-		object->Move(&object->x, num / 4);
-		Move(&x, num / 4);
-	}
-}
-void Item::Hit(int check, Object * object) {
-	if (typeid(*object) == typeid(Terrain) || typeid(*object) == typeid(Item)) {
-		switch (check) {
-		case 1:
-			x = object->Left() - width ;
-			break;
-		case 2:
-			x = object->Right();
-			break;
-		case 3:
-			y = object->Top() - height;
-			break;
-		case 4:
-			y = object->Base();
-		default:
-			break;
+void Item::Initialize(Object **stage) {
+	Object::Initialize(stage);
+	mapLeft, mapRight = nullptr;
+	for (int i = 0; i < object_num; i++) {
+		if (typeid(*stage[i]) == typeid(Terrain)) {
+			if (mapLeft == nullptr) mapLeft = stage[i];
+			if (mapRight == nullptr) mapRight = stage[i];
+
+			if (mapLeft->Left() > stage[i]->Left()) mapLeft = stage[i];
+			if (mapRight->Right() < stage[i]->Right()) mapRight = stage[i];
 		}
 	}
 }
-int Item::MapCheck(float *point,float num) {
-	int check = 0;
-	if (point == &x) {
-		if (Right() + num > mapRight->Right()) check = 1;
-		if (Left() + num < mapLeft->Left()) check = 2;
-	}
-	return check;
-}
-void Item::Initialize(IStateChanger *stateChanger, Object *stage[]) {
+void Item::Initialize(IStateChanger *stateChanger, Object **stage) {
 	Object::Initialize(stateChanger, stage);
 	mapLeft, mapRight = nullptr;
 	for (int i = 0; i < object_num; i++) {
@@ -68,7 +34,7 @@ void Item::Set(float x, float y, float height, float width, int objNum) {
 	Object::Set(x, y, height, width, objNum);
 	switch (this->objNum) {
 	case 0:
-		graphHandle = LoadGraph("Image/Item.png");
+		graphHandle = LoadGraph("Image/Enemy.png");
 		break;
 	default:
 		break;
@@ -76,6 +42,19 @@ void Item::Set(float x, float y, float height, float width, int objNum) {
 	quality = true;
 	vector = 1;
 	state = State_Normal;
+}
+void Item::Update(Terrain *terrain) {
+	switch (state) {
+	case State_Normal:
+		Move(&y, 5, terrain);
+		break;
+	case State_Picked:
+		Carry();
+		break;
+	case State_Throw:
+		Move(&x,10.0f * vector,terrain);
+		break;
+	}
 }
 void Item::Update() {
 	switch (state) {
@@ -90,11 +69,27 @@ void Item::Update() {
 		break;
 	}
 }
-void Item::Draw() {
-	if (vector == 1) DrawModiGraphF(x, y, x + width, y, x + width, y + height, x, y + height, graphHandle, TRUE);
-	else DrawModiGraphF(x + width, y, x, y, x, y + height, x + width, y + height, graphHandle, TRUE);
+void Item::Picked(Object *object) {
+	state = State_Picked;
+	carrier = object;
+}
+void Item::Carry() {
+	x = carrier->x + (carrier->width - width) / 2;
+	y = carrier->y - height;
+	vector = carrier->vector;
+}
+void Item::Throw() {
+	state = State_Throw;
+	if (vector == 1) {
+		x = carrier->Right();
+	}
+	else {
+		x = carrier->Left() - width;
+	}
+		y = carrier->Top();
 }
 int Item::Check(float *point, float num, Object *object) {
+	DrawString(200, 200, "Check OK" ,GetColor(255, 255, 255));
 	int check = 0;
 	if (object->quality &&
 		((state != State_Picked && object != this) ||
@@ -126,22 +121,78 @@ int Item::Check(float *point, float num, Object *object) {
 	}
 	return check;
 }
-bool Item::CanMove(float *point, float num) {
-	bool canMove = true;
-	for (int i = 0; i < object_num; i++) {
-		if (Check(point, num, stage[i])!= 0&& !stage[i]->CanMove(&stage[i]->x,num)) {
-			canMove = false;
+int Item::Check(float x, float y, Object *object) {
+	int check = 0;
+	if (object != this) {
+		if (object->quality) {
+				if (y + height > object->Top() && y < object->Base()) {
+					if (x + width  > object->Left() && x + width  < object->Right()) {
+						//地形の左側から衝突した時
+						check = 1;
+					}
+					else if (x  < object->Right() && x  >object->Left()) {
+						//地形の右側から衝突した時
+						check = 2;
+					}
+				}
+				if (x + width > object->Left() && x < object->Right()) {
+					if (y + height  > object->Top() && y + height  < object->Base()) {
+						//地形の上側から衝突した時
+						check = 3;
+					}
+					if (y  < object->Base() && y  > object->Top()) {
+						//地形の下から衝突した時
+						check = 4;
+					}
+				}
+		}
+	}
+	return check;
+}
+void Item::Hit(int check, Object * object) {
+	if (typeid(*object) == typeid(Terrain) || typeid(*object) == typeid(Item)) {
+		switch (check) {
+		case 1:
+			x = object->Left() - width ;
+			break;
+		case 2:
+			x = object->Right();
+			break;
+		case 3:
+			y = object->Top() - height;
+			break;
+		case 4:
+			y = object->Base();
+		default:
 			break;
 		}
 	}
-	return canMove;
+}
+bool Item::Move(float *point, float num, Terrain *terrain) {
+	bool hit = false;
+	for (int i = 0; i < terrain->terrain_num; i++) {
+		if (Check(point, num, terrain + i) != 0) {
+			Hit(Check(point, num, terrain + i), terrain + i);
+			hit = true;
+			state = State_Normal;
+			break;
+		}
+	}
+	if (!hit) {
+		if (&x == point) x += num;
+		else {
+			y += num;
+		}
+	}
+	return hit;
 }
 void Item::Move(float *point, float num) {
 	bool hit = false;
 	for (int i = 0; i < stage[i]->object_num; i++) {
 		if (Check(point, num, stage[i]) != 0) {
-			if (point == &x) {
-				Push(num, stage[i]);
+			if (typeid(*stage[i]) == typeid(Item) && point == &x) {
+				stage[i]->Move(&stage[i]->x, num / 2);
+				Move(&x, num / 2);
 			}
 			Hit(Check(point, num, stage[i]), stage[i]);	
 			hit = true;
@@ -169,37 +220,30 @@ void Item::Move(float *point, float num) {
 		else y += num;
 	}
 }
+int Item::MapCheck(float *point,float num) {
+	int check = 0;
+	if (point == &x) {
+		if (Right() + num > mapRight->Right()) check = 1;
+		if (Left() + num < mapLeft->Left()) check = 2;
+	}
+	return check;
+}
+void Item::Draw() {
+	if (vector == 1) DrawModiGraphF(x, y, x + width, y, x + width, y + height, x, y + height, graphHandle, TRUE);
+	else DrawModiGraphF(x + width, y, x, y, x, y + height, x + width, y + height, graphHandle, TRUE);
+}
 bool Item::CanPicked(Object *object) {
 	bool canpicked = true;
 	if (state == State_Normal) {
 		for (int i = 0; i < stage[i]->object_num; i++) {
-			if (Object::Check(object->x , object->y - height, stage[i])) {
+			if (Check(object->x , object->y - height, stage[i]) != 0) {
 				canpicked = false;
 				break;
 			}
 		}
 	}
 	else canpicked = false;
- 	return canpicked;
-}
-void Item::Picked(Object *object) {
-	state = State_Picked;
-	carrier = object;
-}
-bool Item::CanPutted() {
-	bool canputted = true;
-	if (state != State_Picked) {
-		canputted = false;
-	}else{
-		for (int i = 0; i < stage[i]->object_num; i++) {
-			if ((carrier->vector == 1 && Object::Check(carrier->Right(), carrier->Base() - height, stage[i]) ||
-				carrier->vector == -1 && Object::Check(carrier->Left() - width,carrier->Base() - height,stage[i]))) {
-				canputted = false; 
-				break;
-			}
-		}
-	}
-	return canputted;
+	return canpicked;
 }
 void Item::Putted() {
 	if (carrier->vector == 1) {
@@ -210,6 +254,21 @@ void Item::Putted() {
 	}
 	state = State_Normal;
 }
+bool Item::CanPutted() {
+	bool canputted = true;
+	if (state != State_Picked) {
+		canputted = false;
+	}else{
+		for (int i = 0; i < stage[i]->object_num; i++) {
+			if ((carrier->vector == 1 && Check(carrier->Right(), carrier->Base() - height, stage[i]) ||
+				carrier->vector == -1 && Check(carrier->Left() - width,carrier->Base() - height,stage[i])) != 0) {
+				canputted = false; 
+				break;
+			}
+		}
+	}
+	return canputted;
+}
 bool Item::CanThrew() {
 	bool canputted = true;
 	if (state != State_Picked) {
@@ -217,15 +276,11 @@ bool Item::CanThrew() {
 	}
 	else {
 		for (int i = 0; i < stage[i]->object_num; i++) {
-			if ((carrier->vector == 1 && Object::Check(carrier->Right(), carrier->Base() - height, stage[i]) ||
-				carrier->vector == -1 && Object::Check(carrier->Left() - width, carrier->Base() - height, stage[i]))) {
+			if ((carrier->vector == 1 && Check(carrier->Right(), carrier->Base() - height, stage[i]) ||
+				carrier->vector == -1 && Check(carrier->Left() - width, carrier->Base() - height, stage[i])) != 0) {
 				canputted = false;
 				break;
 			}
-		}
-		if ((carrier->vector == 1 && carrier->Right() + width > mapRight->Right()) ||
-			(carrier->vector == -1 && carrier->Left() - width < mapLeft->Left())) {
-			canputted = false;
 		}
 	}
 	return canputted;

@@ -11,21 +11,24 @@ void Menu::Initialize() {
 	state = State_Select;
 	DeleteNum = 0;
 	menudeta[0] = { 100,100,"ゲームスタート" };
-	menudeta[1] = { 100,200,"ゲーム終了" };
+	menudeta[1] = { 100, 150, "説明書" };
+	menudeta[2] = { 100,200,"ゲーム終了" };
 	deletemessage[0] = { 80,100,"はい" };
 	deletemessage[1] = { 140,100,"いいえ" };
 }
 void Menu::SelectMenu() {
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_DOWN) == 1 || 
-		Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) == 1) {
-		MenuNum = (MenuNum + 1) % 2;
+	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_DOWN) == 1) {
+		MenuNum = (MenuNum + 1) % 3;
+	}
+	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) == 1) {
+		MenuNum = (MenuNum + 2) % 3;
 	}
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RETURN) == 1) {
 		switch (MenuNum) {
 		case 0:
 			SceneChanger->ChangeScene(Scene_Game);
 			break;
-		case 1:
+		case 2:
 			state = State_Delete;
 			break;
 		}
@@ -33,8 +36,10 @@ void Menu::SelectMenu() {
 }
 void Menu::SelectDelete() {
 
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_LEFT) == 1 || 
-		Keyboard::getInstance()->CheckKey(KEY_INPUT_RIGHT) == 1) {
+	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_LEFT) == 1) {
+		DeleteNum = (DeleteNum + 1) % 2;
+	}
+	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RIGHT) == 1) {
 		DeleteNum = (DeleteNum + 1) % 2;
 	}
 	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RETURN) == 1) {
@@ -60,15 +65,28 @@ void Menu::Update() {
 		SelectDelete();
 		break;
 	}
+	/*if (Keyboard::getInstance()->CheckKey[KEY_INPUT_RETURN] == 1) {
+		switch (MenuNum) {
+		case 0:
+			SceneChanger->ChangeScene(Game_Chara);
+			break;
+		case 1:
+			SceneChanger->ChangeScene(Scene_Description);
+			break;
+		case 2:
+			SceneChanger->ChangeScene(Scene_Delete);
+		}
+	}*/
 }
 
 //描画
 void Menu::Draw() {
+	BaseScene::Draw();//親クラスの描画メソッドを呼ぶ
 	switch (state) {
 	case State_Select:
 		DrawString(0, 0, "メニュー画面です。", GetColor(255, 255, 255));
 		DrawString(menudeta[MenuNum].x - 20, menudeta[MenuNum].y, "●", GetColor(255, 255, 255));
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			DrawString(menudeta[i].x, menudeta[i].y, menudeta[i].name, GetColor(255, 255, 255));
 		}
 		break;

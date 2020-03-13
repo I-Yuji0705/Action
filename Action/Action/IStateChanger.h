@@ -1,9 +1,9 @@
 #pragma once
 enum State {
 	Game_Normal,
-	Game_Retry,
-	Game_Dance,
 	Game_Clear,
+	Game_Menu,
+	Game_Retry,
 };
 class IStateChanger {
 public:

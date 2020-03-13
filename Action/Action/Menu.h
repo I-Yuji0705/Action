@@ -1,9 +1,15 @@
 #pragma once
 #include "BaseScene.h"
+//enum StateMenu {
+//	State_Select,
+//	State_Delete,
+//
+//};
+//メニュー画面クラス
 class Menu : public BaseScene {
 private:
 	int MenuNum;
-	MenuDeta menudeta[2];
+	MenuDeta menudeta[3];
 	MenuDeta deletemessage[2]; 
 	StateMenu state;//
 	void SelectMenu();//メニュー処理
