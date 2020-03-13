@@ -4,6 +4,6 @@
 //マニュアル内で操作方法を表示する基底クラス
 class ManualOperation : public ManualSelectionBase {
 public:
-	ManualOperation(IManualStateChanger* statechanger);
+	ManualOperation(Keyboard* keyboard, IManualStateChanger* statechanger);
 	void Initialize() final;
 };

@@ -7,7 +7,7 @@ class GameMenu : public GameSelectionBase {
 	private:
 		//void SelectionColorChange();
 public:
-	GameMenu(IGameStateChanger* statechanger);
+	GameMenu(Keyboard* keyboard,IGameStateChanger* statechanger);
 	void Initialize() final;
 	void Update() final;
 };

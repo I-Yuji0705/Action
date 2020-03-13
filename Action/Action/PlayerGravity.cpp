@@ -1,8 +1,8 @@
 #include "PlayerGravity.h"
 
 
-PlayerGravity::PlayerGravity(Collision *collision, Player *player, Sound* sound)  : PlayerMoveY(collision,player,sound){
+PlayerGravity::PlayerGravity(Sound* sound, Collision *collision, Player *player, PlayerHit* playerhit)  : PlayerMoveY(sound, collision, player,playerhit){
 }
 void PlayerGravity::Do() {
-	MoveY(kGravity);
+	MoveY(gravity_.kGravity);
 }

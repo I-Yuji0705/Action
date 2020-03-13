@@ -90,7 +90,7 @@ void Sound::StopBgm() {
 	}
 }
 void Sound::StopSe() {
-	for (int i = 0; i != BGM_None; i++) {
+	for (int i = 0; i != Se_None; i++) {
 		if (CheckSoundMem(se_[i]) == 1) {
 			StopSoundMem(se_[i]);
 		}

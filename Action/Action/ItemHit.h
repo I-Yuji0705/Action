@@ -10,6 +10,5 @@ private:
 	Item* item_;
 public:
 	ItemHit(Collision* collision,Item* item);
-	void HitProcess(int hitcheck, Object* hitobject)final;
-	void MapHit(int mapcheck)final;
+	void HitObjects(int check, float distance)final;
 };

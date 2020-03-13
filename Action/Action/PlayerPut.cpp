@@ -1,6 +1,7 @@
 #include "PlayerPut.h"
 #include <tuple>
-PlayerPut::PlayerPut(Collision *collision, Player *player, Sound* sound) : PlayerAction(collision, player,sound) {
+PlayerPut::PlayerPut(Sound* sound, Player *player) : PlayerAction(player) {
+	sound_ = sound;
 }
 
 void PlayerPut::Do() {

@@ -1,7 +1,7 @@
 #include "PlayerDance.h"
 
 
-PlayerDance::PlayerDance(Collision *collision, Player *player, Sound* sound) : PlayerAction(collision, player, sound) {
+PlayerDance::PlayerDance(Player *player) : PlayerAction(player) {
 	dancetimer_ = 0;
 	choreographnum_ = 0;
 }

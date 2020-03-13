@@ -9,14 +9,14 @@
 #include <typeinfo>
 
 
-Game::Game(ISceneChanger* changer, Sound* sound) : BaseScene(changer,sound) {
+Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer) : BaseScene(keyboard,sound,changer) {
+	gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_,this);
+	stagemgr_ = (StageMgr*) new StageMgr(keyboard_,sound_,this);
 }
 //‰Šú‰»
 void Game::Initialize() {
-	gameselection_ =(GameSelectionBase*) new GameUsually(this);
 	gameselection_->Initialize();
-	stagemgr_ =(StageMgr*) new StageMgr(sound_);
-	stagemgr_->Initialize(this);
+	stagemgr_->Initialize();
 }
 //XV
 void Game::Update() {
@@ -45,28 +45,28 @@ void Game::UpdateNextState(){
 		gameselection_->Finalize();
 		switch (nextstate_) {
 		case Game_Usually:
-			gameselection_ = (GameSelectionBase*) new GameUsually(this);
+			gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_,this);
 			gameselection_->Initialize();
 			break;
 		case Game_Menu:
-			gameselection_ = (GameSelectionBase*) new GameMenu(this);
+			gameselection_ = (GameSelectionBase*) new GameMenu(keyboard_, this);
 			gameselection_->Initialize();
 			break;
 		case Game_Dance:
-			gameselection_ = (GameSelectionBase*) new GameDance(this);
+			gameselection_ = (GameSelectionBase*) new GameDance(keyboard_, this);
 			gameselection_->Initialize();
 			break;
 		case Game_Clear:
-			gameselection_ = (GameSelectionBase*) new GameClear(this);
+			gameselection_ = (GameSelectionBase*) new GameClear(keyboard_, this);
 			gameselection_->Initialize();
 			break;
 		case Game_Retry:
 			stagemgr_->Retry();
-			gameselection_ = (GameSelectionBase*) new GameUsually(this);
+			gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_, this);
 			gameselection_->Initialize();
 			break;
 		case Game_Exit:
-			SceneChanger->ChangeScene(Scene_Menu);
+			scenechanger_->ChangeScene(Scene_Menu);
 			break;
 		default:
 			assert(false);

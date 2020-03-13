@@ -2,7 +2,7 @@
 
 
 
-PlayerMoveLeft::PlayerMoveLeft(Collision *collision, Player *player, Sound* sound) : PlayerMoveX(collision,player,sound) {
+PlayerMoveLeft::PlayerMoveLeft(Sound* sound, Collision *collision, Player *player, PlayerHit* playerhit) : PlayerMoveX(sound, collision, player,playerhit) {
 }
 //プレイヤーのX軸の移動を行う
 //	引数:

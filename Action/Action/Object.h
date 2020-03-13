@@ -9,12 +9,10 @@ class Sound;
 //ステージ上のオブジェクトの抽象クラス
 class Object {
 protected:
-	Sound* sound_;
 	float retry_pos_x_, retry_pos_y_;//初期位置
 	int graph_handle_/*,object_number_*/;//オブジェクトの画像、種類ごとの番号
 public:
-	IGameStateChanger *state_changer_;
-	Object(float x, float y, float height, float width,Sound* sound);
+	Object(float x, float y, float height, float width);
 	float x_, y_;//オブジェクトの右のx座標、上のy座標
 	float width_, height_;//オブジェクトの横幅、縦幅
 	int vector_;//向いている方向を示す.1:右を向く,-1:左を向く
@@ -29,7 +27,7 @@ public:
 	float GetHeight() const;//オブジェクトの縦幅
 	void Set(float x, float y);//オブジェクトの再設置
 	void Set(float x, float y, float height, float width);//オブジェクトの再設置及びサイズの変更
-	virtual void Initialize(IGameStateChanger *stateChanger,Collision *collision);//初期化処理
+	virtual void Initialize() {};//初期化処理
 	virtual void Update(){};//更新処理
 	virtual void Draw();//描写処理
 	virtual float CanPushed(float num);//押されるかどうかを返す

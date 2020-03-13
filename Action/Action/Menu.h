@@ -11,7 +11,7 @@ private:
 	MenuState nextstate_;//
 	int title_;
 public:
-	Menu(ISceneChanger* changer,Sound* sound);
+	Menu(Keyboard* keyboard,Sound* sound,ISceneChanger* changer);
 	void ChangeState(MenuState state);
 	void Initialize() final;    //‰Šú‰»ˆ—
 	void Update() final;        //XVˆ—

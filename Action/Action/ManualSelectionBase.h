@@ -8,6 +8,6 @@ class ManualSelectionBase : public SelectionBase {
 protected:
 	IManualStateChanger* statechanger_;
 public:
-	ManualSelectionBase(IManualStateChanger* statechanger);
+	ManualSelectionBase(Keyboard* keyboard,IManualStateChanger* statechanger);
 	virtual void Update()override;
 };

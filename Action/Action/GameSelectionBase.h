@@ -8,6 +8,6 @@ class GameSelectionBase : public SelectionBase {
 protected:
 	IGameStateChanger *statechanger_;
 public:
-	GameSelectionBase(IGameStateChanger* statechanger);
+	GameSelectionBase(Keyboard* keyboard,IGameStateChanger* statechanger);
 	virtual void Update() {};
 };

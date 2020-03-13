@@ -1,6 +1,6 @@
 #include "GameDance.h"
 
-GameDance::GameDance(IGameStateChanger* statechanger) : GameSelectionBase(statechanger) {
+GameDance::GameDance(Keyboard* keyboard,IGameStateChanger* statechanger) : GameSelectionBase(keyboard,statechanger) {
 }
 //ゲームクリア時Playerがダンス中のの初期化処理(何も描写しない)
 void GameDance::Initialize() {

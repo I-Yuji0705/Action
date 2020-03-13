@@ -1,10 +1,9 @@
 #pragma once
-#include "Gravity.h"
 #include "PlayerMoveY.h"
-
+#include "Gravity.h"
 //Player‚Ìd—Í(‰º•ûŒü)ˆÚ“®‚ğ’S“–‚·‚éŠî’êƒNƒ‰ƒX
-class PlayerGravity : public PlayerMoveY, public Gravity {
+class PlayerGravity : public PlayerMoveY {
 public:
-	PlayerGravity(Collision *collision, Player *player, Sound* sound);
+	PlayerGravity(Sound* sound, Collision *collision, Player *player,PlayerHit* hit);
 	void Do() final;
 };

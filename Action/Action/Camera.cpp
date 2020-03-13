@@ -2,6 +2,11 @@
 #include "DxLib.h"
 #include <typeinfo.h>
 
+
+Camera::Camera(std::vector<Object*>* stage, Collision* collision) {
+	stage_ = stage;
+	collision_ = collision;
+}
 //----------------------------------------------------
 //Cameraの初期化処理を行う場所
 //ステージ右端、左端のTerrain、そしてPlayerを収得する
@@ -9,11 +14,12 @@
 //		stage:ステージ上にあるobjectのvector配列
 //		collision:プレイヤーとステージ右端、左端の
 //					  オブジェクトのポインタを渡す
-void Camera::Initialize(std::vector<Object*> stage,Collision* colllision) {
-	stage_ = stage;
-	map_left_ = colllision->GetMapLeft(map_left_);
-	map_right_ =  colllision->GetMapRight(map_right_);
-	player_ = *colllision->GetPlayer().begin();//中心に描写するPlayerの設定
+
+///<summary><>
+void Camera::Initialize() {
+	map_left_ = collision_->GetMapLeft(map_left_);
+	map_right_ =  collision_->GetMapRight(map_right_);
+	player_ = *collision_->GetPlayer().begin();//中心に描写するPlayerの設定
 }
 //----------------------------------------------------
 //Cameraの更新処理
@@ -26,13 +32,13 @@ void Camera::Update(){
 	}	
 	if (distance < 0 && map_left_->Left() < 0) {
 		if (map_left_->Left() - distance > 0) distance = map_left_->Left();
-		for (auto i : stage_) {
+		for (auto i : *stage_) {
 			i->Set(i->Left() - distance,i->Top());//オブジェクトの再設置
 		}
 	}
 	if (distance > 0 && map_right_->Right() > kWindowX) {
 		if (map_right_->Right() - distance < kWindowX) distance = map_right_->Right() - kWindowX;
-		for (auto i : stage_) {
+		for (auto i : *stage_) {
 			i->Set(i->Left() - distance, i->Top());//オブジェクトの再設置
 		}
 	}

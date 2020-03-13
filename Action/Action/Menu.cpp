@@ -5,33 +5,33 @@
 #include "MenuUsually.h"
 #include "MenuDelete.h"
 
-Menu::Menu(ISceneChanger* changer,Sound* sound) : BaseScene(changer,sound) {
+Menu::Menu(Keyboard* keyboard,Sound* sound,ISceneChanger* changer) : BaseScene(keyboard,sound,changer) {
+	menuselection_ = (MenuSelectionBase*) new MenuUsually(keyboard_, this);
+	title_ = LoadGraph("Title/title.png");
+	nextstate_ = Menu_None;
 }
 //‰Šú‰»
 void Menu::Initialize() {
-	nextstate_ = Menu_None;
-	menuselection_ =(MenuSelectionBase*) new MenuUsually(this);
 	menuselection_->Initialize();
-	title_ = LoadGraph("Title/title.png");
 }
 void Menu::Update(){
 	if (nextstate_ != Menu_None) {
 		menuselection_->Finalize();
 		switch (nextstate_) {
 		case Menu_Usually:
-			menuselection_ = (MenuSelectionBase*) new MenuUsually(this);
+			menuselection_ = (MenuSelectionBase*) new MenuUsually(keyboard_,this);
 			menuselection_->Initialize();
 			break;
 		case Menu_Delete:
-			menuselection_ = (MenuSelectionBase*) new MenuDelete(this);
+			menuselection_ = (MenuSelectionBase*) new MenuDelete(keyboard_, this);
 			menuselection_->Initialize();
 			break;
 		case Menu_Intersection:
-			SceneChanger->ChangeScene(Scene_Manual);
+			scenechanger_->ChangeScene(Scene_Manual);
 			menuselection_->Initialize();
 			break;
 		case Menu_Game:
-			SceneChanger->ChangeScene(Scene_Game);
+			scenechanger_->ChangeScene(Scene_Game);
 			menuselection_->Initialize();
 			break;
 		case Menu_Exit:

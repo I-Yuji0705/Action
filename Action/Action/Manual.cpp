@@ -6,12 +6,12 @@
 #include "ManualStage.h"
 #include "ManualRule.h"
 
-Manual::Manual(ISceneChanger* changer, Sound* sound) : BaseScene(changer, sound) {
+Manual::Manual(Keyboard* keyboard, Sound* sound, ISceneChanger* changer) : BaseScene(keyboard, sound,changer) {
+	manualselection_ = (ManualSelectionBase*) new ManualUsually(keyboard_,this);
 }
 //‰Šú‰»
 void Manual::Initialize() {
 	nextstate_ = Manual_None;
-	manualselection_ = (ManualSelectionBase*) new ManualUsually(this);
 	manualselection_->Initialize();
 }
 void Manual::Update() {
@@ -19,23 +19,23 @@ void Manual::Update() {
 		manualselection_->Finalize();
 		switch (nextstate_) {
 		case Manual_Usually:
-			manualselection_ = (ManualSelectionBase*) new ManualUsually(this);
+			manualselection_ = (ManualSelectionBase*) new ManualUsually(keyboard_,this);
 			manualselection_->Initialize();
 			break;
 		case Manual_Operation:
-			manualselection_ = (ManualSelectionBase*) new ManualOperation(this);
+			manualselection_ = (ManualSelectionBase*) new ManualOperation(keyboard_,this);
 			manualselection_->Initialize();
 			break;
 		case Manual_Stage:
-			manualselection_ = (ManualSelectionBase*) new ManualStage(this);
+			manualselection_ = (ManualSelectionBase*) new ManualStage(keyboard_,this);
 			manualselection_->Initialize();
 			break;
 		case Manual_Rule:
-			manualselection_ = (ManualSelectionBase*) new ManualRule(this);
+			manualselection_ = (ManualSelectionBase*) new ManualRule(keyboard_,this);
 			manualselection_->Initialize();
 			break;
 		case Manual_Exit:
-			SceneChanger->ChangeScene(Scene_Menu);
+			scenechanger_->ChangeScene(Scene_Menu);
 			break;
 		default:
 			assert(false);

@@ -4,6 +4,6 @@
 //Player‚Ì‰EˆÚ“®‚ð’S“–‚·‚éŠî’êƒNƒ‰ƒX
 class PlayerMoveRight : public PlayerMoveX {
 public:
-	PlayerMoveRight(Collision *collision, Player *player, Sound* sound);
+	PlayerMoveRight(Sound* sound, Collision *collision, Player *player,PlayerHit* hit);
 	void Do() final;
 };

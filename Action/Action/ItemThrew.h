@@ -4,9 +4,11 @@
 //Item‚ª“Š‚°‚ç‚ê‚Ä‚¢‚éÛ‚Ìs“®‚ÌŠî’êƒNƒ‰ƒX
 class ItemThrew : public ItemAction {
 private:
-	const float kThrowSpeed = 10.0f;
+	Sound* sound_;
+	Collision* collision_;
+	ItemHit* itemhit_;
 	void MoveX(float num);
 public:
-	ItemThrew(Collision* collision, Item* item, Sound* sound);
+	ItemThrew(Sound* sound, Collision *collision, Item *item,ItemHit* itemhit);
 	void Do() final;
 };

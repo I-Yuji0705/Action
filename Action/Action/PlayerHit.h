@@ -9,7 +9,5 @@ protected:
 	Player* player_;
 public:
 	PlayerHit(Collision* collision,Player* player);
-	void HitProcess(int hitcheck, Object* hitobject) final;
-	void HitProcess(int hitcheck, Object* hitobject, Object* carrier);
-	void MapHit(int mapcheck) final;
+	void HitObjects(int check, float distance);
 };

@@ -4,6 +4,6 @@
 //マニュアル内でゲームのクリア条件を表示する基底クラス
 class ManualRule : public ManualSelectionBase {
 public:
-	ManualRule(IManualStateChanger* statechanger);
+	ManualRule(Keyboard* keyboard, IManualStateChanger* statechanger);
 	void Initialize()final;
 };

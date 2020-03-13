@@ -10,7 +10,7 @@ private:
 	ManualSelectionBase* manualselection_;
 	ManualState nextstate_;//
 public:
-	Manual(ISceneChanger* changer, Sound* sound);
+	Manual(Keyboard* keyboard, Sound* sound,ISceneChanger* changer);
 	void ChangeState(ManualState state);
 	void Initialize() final;    //‰Šú‰»ˆ—
 	void Update() final;        //XVˆ—

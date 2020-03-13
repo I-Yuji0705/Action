@@ -5,11 +5,12 @@
 #include "Manual.h"
 #include <assert.h>
 
-SceneMgr::SceneMgr() : next_scene_(Scene_None) //次のシーン管理変数
+SceneMgr::SceneMgr(Keyboard* keyboard,Sound* sound) : next_scene_(Scene_None) //次のシーン管理変数
 {
-	sound_ = new Sound();
-	scene_ = (BaseScene*) new Menu(this,sound_);
-	scene_->StartBgm();
+	keyboard_ = keyboard;
+	sound_ = sound;
+	scene_ = (BaseScene*) new Menu(keyboard_, sound_, this);
+	//scene_->StartBgm();
 	state = Normal_Scene;
 }
 
@@ -67,13 +68,13 @@ void SceneMgr::BlackOutScene() {
 		delete scene_;
 		switch (next_scene_) {       //シーンによって処理を分岐
 		case Scene_Menu:        //次の画面がメニューなら
-			scene_ = (BaseScene*) new Menu(this,sound_);   //メニュー画面のインスタンスを生成する
+			scene_ = (BaseScene*) new Menu(keyboard_, sound_,this);   //メニュー画面のインスタンスを生成する
 			break;
 		case Scene_Game:        //次の画面がゲームなら
-			scene_ = (BaseScene*) new Game(this,sound_);   //ゲーム画面のインスタンスを生成する
+			scene_ = (BaseScene*) new Game(keyboard_, sound_, this);   //ゲーム画面のインスタンスを生成する
 			break;
 		case Scene_Manual:        //次の画面がマニュアルなら
-			scene_ = (BaseScene*) new Manual(this, sound_);   //マニュアル画面のインスタンスを生成する
+			scene_ = (BaseScene*) new Manual(keyboard_, sound_, this);   //マニュアル画面のインスタンスを生成する
 			break;
 		default:
 			assert(false);
@@ -88,7 +89,7 @@ void SceneMgr::LightingScene() {
 	SetDepictionScreen(screen.x1 - animationspeed * 3, screen.y1 - animationspeed * 4, screen.x2 + animationspeed * 3, screen.y2 + animationspeed * 4);
 	if (screen.x1 < 0 && screen.x2 > 480 && screen.y1 < 0 && screen.y2 > 640) { 
 		state = Normal_Scene; 
-		scene_->StartBgm();
+		//scene_->StartBgm();
 	}
 }
 void SceneMgr::SetDepictionScreen(int x1, int y1, int x2, int y2) {

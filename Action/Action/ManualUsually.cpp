@@ -1,18 +1,17 @@
 #include "ManualUsually.h"
 #include "DxLib.h"
-#include "Keyboard.h"
 #include <assert.h>
 #include "SelectionDeta.h"
 
-ManualUsually::ManualUsually(IManualStateChanger* statechanger) :ManualSelectionBase(statechanger) {
-}
-
-void ManualUsually::Initialize() {
+ManualUsually::ManualUsually(Keyboard* keyboard, IManualStateChanger* statechanger) :ManualSelectionBase(keyboard,statechanger) {
 	drawingdeta_.push_back((DrawingDeta*)new SelectionDeta(250, 100, "マニュアル", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(130, 250, "プレイヤーの操作方法", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(130, 300, "ステージ上のオブジェクト一覧", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(130, 350, "ステージのクリア条件", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(130, 400, "メニューに戻る", GetColor(0, 0, 0)));
+}
+
+void ManualUsually::Initialize() {
 	SelectionBase::Initialize();
 }
 
@@ -20,7 +19,7 @@ void ManualUsually::Update() {
 	SelectionBase::SelectSelection();
 	SelectionBase::SelectionColorChange();
 	//Enterキーを入力したとき
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RETURN) == 1) {
+	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1) {
 		switch (selectnum_) {
 		case 0:
 			statechanger_->ChangeState(Manual_Operation);

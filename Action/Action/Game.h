@@ -13,7 +13,7 @@ private:
 	GameState nextstate_;
 	StageMgr* stagemgr_;
 public:
-	Game(ISceneChanger* changer,Sound* sound);
+	Game(Keyboard* keyboard,Sound* sound,ISceneChanger* changer);
 	void Initialize() final;
 	void Finalize() final; 
 	void Update() final;        

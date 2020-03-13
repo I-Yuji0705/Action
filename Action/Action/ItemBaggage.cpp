@@ -1,6 +1,6 @@
 #include "ItemBaggage.h"
 
-ItemBaggage::ItemBaggage(Collision *collision, Item *item, Sound* sound) : ItemAction(collision, item,sound) {
+ItemBaggage::ItemBaggage(Item *item) : ItemAction(item) {
 }
 
 void ItemBaggage::Do() {

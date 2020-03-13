@@ -1,5 +1,6 @@
 #include "Fps.h"
 #include "DxLib.h"
+
 Fps::Fps(){
 	start_time_ = 0;
 	count_ = 0;

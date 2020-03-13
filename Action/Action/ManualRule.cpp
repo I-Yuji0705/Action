@@ -2,10 +2,7 @@
 #include "DxLib.h"
 #include "SelectionDeta.h"
 
-ManualRule::ManualRule(IManualStateChanger* statechanger) :ManualSelectionBase(statechanger) {
-}
-
-void ManualRule::Initialize() {
+ManualRule::ManualRule(Keyboard* keyboard, IManualStateChanger* statechanger) :ManualSelectionBase(keyboard,statechanger) {
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(250, 100, "ステージのクリア条件", GetColor(0, 0, 0)));
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 220, "ステージ内に散らばるアイテムを集めて、", GetColor(0, 0, 0)));
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 240, "ステージ内にある積み上げエリアをオブジェクトで", GetColor(0, 0, 0)));
@@ -15,5 +12,8 @@ void ManualRule::Initialize() {
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 320, "つまり、最後の一押しにプレイヤーをエリアに入れ", GetColor(0, 0, 0)));
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 340, "てもクリアになります。", GetColor(0, 0, 0)));
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 360, "覚えておくとクリアが楽になるかもしれません。", GetColor(0, 0, 0)));
+}
+
+void ManualRule::Initialize() {
 	SelectionBase::Initialize();
 }

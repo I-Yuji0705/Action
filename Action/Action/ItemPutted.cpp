@@ -1,6 +1,6 @@
 #include "ItemPutted.h"
 
-ItemPutted::ItemPutted(Collision *collision, Item *item, Sound* sound) : ItemAction(collision, item, sound) {
+ItemPutted::ItemPutted(Item *item) : ItemAction(item) {
 }
 
 void ItemPutted::Do() {

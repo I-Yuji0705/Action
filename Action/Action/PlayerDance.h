@@ -7,6 +7,6 @@ private:
 	int dancetimer_, choreographnum_;
 	void NextChoreoGrap();
 public:
-	PlayerDance(Collision *collision, Player *player, Sound* sound);
+	PlayerDance(Player *player);
 	void Do() final;
 };

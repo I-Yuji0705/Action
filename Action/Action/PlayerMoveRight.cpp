@@ -1,7 +1,7 @@
 #include "PlayerMoveRight.h"
 
 
-PlayerMoveRight::PlayerMoveRight(Collision *collision, Player *player, Sound* sound) : PlayerMoveX(collision,player,sound){
+PlayerMoveRight::PlayerMoveRight(Sound* sound, Collision *collision, Player *player, PlayerHit* playerhit) : PlayerMoveX(sound, collision, player,playerhit){
 }
 void PlayerMoveRight::Do() {
 	player_->vector_ = 1;

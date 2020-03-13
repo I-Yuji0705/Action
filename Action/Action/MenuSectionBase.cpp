@@ -1,5 +1,5 @@
 #include "MenuSelectionBase.h"
 
-MenuSelectionBase::MenuSelectionBase(IMenuStateChanger* statechanger) {
+MenuSelectionBase::MenuSelectionBase(Keyboard* keyboard, IMenuStateChanger* statechanger) : SelectionBase(keyboard){
 	statechanger_ = statechanger;
 }

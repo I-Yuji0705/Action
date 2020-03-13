@@ -11,31 +11,34 @@
 #include "ObjectDeta.h"
 #include <stdio.h>
 
-StageMgr::StageMgr(Sound* sound) {
-	sound_ = sound;
+StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechanger) {
+	stage_ = new std::vector<Object*>;
+	collision_ = new Collision(stage_);
+	playercamera_ = new Camera(stage_, collision_);
+	CreateStageDeta(keyboard,sound,statechanger, collision_,"test");
+	//CreateStage(keyboard,sound,statechanger,collision,"stage2");
 }
 //------------------------
 //データからステージの生成
-void StageMgr::CreateStage(const char* stagename) {
+void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
 	char dataplace[50];
 	sprintf_s(dataplace, "Stage/%s.txt", stagename);
-	//std::ifstream infile("Stage/stage3.dat");//データの読込
 	std::ifstream infile(dataplace);//データの読込
 	ObjectDeta object_deta_;
 	int i = 0;
 	while (infile >> object_deta_.object_type_ >> object_deta_.x_ >> object_deta_.y_ >> object_deta_.height_ >> object_deta_.width_) {
 		switch (object_deta_.object_type_) {
 		case 0:
-			stage_.push_back((Object*)new Terrain(object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_, sound_));
+			stage_->push_back((Object*)new Terrain(object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
 			break;
 		case 1:
-			stage_.push_back((Object*)new ClearArea(object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_, sound_));
+			stage_->push_back((Object*)new ClearArea(sound, statechanger, collision, object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
 			break;
 		case 2:
-			stage_.push_back((Object*)new Item(object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_, sound_));
+			stage_->push_back((Object*)new Item(sound,collision,object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
 			break;
 		case 3:
-			stage_.push_back((Object*)new Player(object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_, sound_));
+			stage_->push_back((Object*)new Player(keyboard,sound, statechanger, collision, object_deta_.x_, object_deta_.y_, object_deta_.height_, object_deta_.width_));
 			break;
 		default:
 			assert(false);
@@ -47,24 +50,26 @@ void StageMgr::CreateStage(const char* stagename) {
 }
 //--------------------------------
 //ステージの生成とそのデータの保存
-void StageMgr::CreateStageDeta(const char* stagename){
-	stage_.push_back((Object*)new Terrain(0.0f, 440.0f, 40.0f, 1500.0f, sound_));
-	stage_.push_back((Object*)new Terrain(200.0f, 340.0f, 50.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Terrain(700.0f, 240.0f, 50.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Terrain(850.0f, 390.0f, 100.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new ClearArea(1250.0f, 240.0f, 200.0f, 150.0f, sound_));
-	stage_.push_back((Object*)new Item(250.0f, 390.0f, 50.0f, 100.0f, sound_));
-	stage_.push_back((Object*)new Item(700.0f, 390.0f, 50.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Item(700.0f, 340.0f, 50.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Item(850.0f, 290.0f, 100.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Item(700.0f, 190.0f, 100.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Item(850.0f, 240.0f, 100.0f, 50.0f, sound_));
-	stage_.push_back((Object*)new Item(1250.0f, 390.0f, 50.0f, 100.0f, sound_));
-	stage_.push_back((Object*)new Player(50.0f, 340.0f, 50.0f, 50.0f, sound_));
+void StageMgr::CreateStageDeta(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
+	stage_->push_back((Object*)new Terrain(0.0f, 440.0f, 40.0f, 1400.0f));
+	stage_->push_back((Object*)new Terrain(400.0f, 0.0f, 100.0f, 50.0f));
+	stage_->push_back((Object*)new Terrain(800.0f, 0.0f, 100.0f, 50.0f));
+	stage_->push_back((Object*)new Terrain(1300.0f, 0.0f, 100.0f, 50.0f));
+	//stage_->push_back((Object*)new Terrain(700.0f, 240.0f, 50.0f, 50.0f));
+	//stage_->push_back((Object*)new Terrain(850.0f, 390.0f, 100.0f, 50.0f));
+	//stage_->push_back((Object*)new ClearArea(sound,statechanger,collision,1250.0f, 240.0f, 200.0f, 150.0f));
+	stage_->push_back((Object*)new Item(sound,collision,201.0f, 240.0f, 100.0f, 100.0f));
+	stage_->push_back((Object*)new Item(sound,collision,200.0f, 340.0f, 50.0f, 50.0f));
+	//stage_->push_back((Object*)new Item(sound,collision,700.0f, 340.0f, 50.0f, 50.0f));
+	//stage_->push_back((Object*)new Item(sound,collision,850.0f, 290.0f, 100.0f, 50.0f));
+	//stage_->push_back((Object*)new Item(sound,collision,700.0f, 190.0f, 100.0f, 50.0f));
+	//stage_->push_back((Object*)new Item(sound,collision,850.0f, 240.0f, 100.0f, 50.0f));
+	//stage_->push_back((Object*)new Item(sound,collision,1250.0f, 390.0f, 50.0f, 100.0f));
+	stage_->push_back((Object*)new Player(keyboard, sound,statechanger,collision,50.0f, 340.0f, 50.0f, 50.0f));
 	char dataplace[50];
 	sprintf_s(dataplace, "Stage/%s.txt", stagename);
 	std::ofstream outfile(dataplace, std::ios_base::out);
-	for (auto i : stage_)
+	for (auto i : *stage_)
 	{
 		ObjectDeta objectdeta;
 		if (typeid(*i) == typeid(Terrain)) {
@@ -92,44 +97,44 @@ void StageMgr::CreateStageDeta(const char* stagename){
 	outfile.close();
 }
 
-//-------------------
-//ステージの初期処理
-void StageMgr::Initialize(IGameStateChanger* itstateChanger) {
-	CreateStageDeta("stage2");
-	//CreateStage("stage2");
-	collision_ = new Collision(stage_);
-	for (auto i : stage_) {
-		i->Initialize(itstateChanger, collision_);
+//
+
+///-------------------
+///ステージの初期処理
+void StageMgr::Initialize() {
+	collision_->Initialize();
+	for (auto i : *stage_) {
+		i->Initialize();
 	}
-	playercamera_.Initialize(stage_,collision_);
+	playercamera_->Initialize();
 }
 //-------------------
 //ステージの描写処理
 void StageMgr::Draw() {
 	DrawBox(0, 0, 640, 480, GetColor(127, 255, 212), TRUE);//背景色の設定
-	for (auto i : stage_) {
+	for (auto i : *stage_) {
 		i->Draw();
 	}
 }
 //-------------------
 //ステージの変更処理
 void StageMgr::Update() {
-	for (auto i : stage_) {
+	for (auto i : *stage_) {
 		i->Update();
 	}
-	playercamera_.Update();
+	playercamera_->Update();
 }
 //-------------------
 //ステージの終了処理
 void StageMgr::Finalize() {
-	for (auto i : stage_) {
+	for (auto i : *stage_) {
 		i->Finalize();
 	}
 }
 //----------------------
 //ステージのリトライ処理
 void StageMgr::Retry() {
-	for (auto i : stage_) {
+	for (auto i : *stage_) {
 		i->Retry();
 	}
 }

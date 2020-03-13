@@ -1,6 +1,7 @@
 #include "PlayerThrow.h"
 
-PlayerThrow::PlayerThrow(Collision *collision, Player *player, Sound* sound) : PlayerAction(collision, player,sound) {
+PlayerThrow::PlayerThrow(Sound* sound, Player *player) : PlayerAction(player) {
+	sound_ = sound;
 }
 
 void PlayerThrow::Do() {

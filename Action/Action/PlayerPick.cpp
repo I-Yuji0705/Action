@@ -1,6 +1,9 @@
 #include "PlayerPick.h"
 #include <tuple>
-PlayerPick::PlayerPick(Collision *collision, Player *player, Sound* sound) : PlayerAction(collision, player,sound) {
+
+PlayerPick::PlayerPick(Sound* sound, Collision *collision, Player *player) : PlayerAction(player) {
+	sound_ = sound;
+	collision_ = collision;
 }
 
 void PlayerPick::Do() {

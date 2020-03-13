@@ -1,6 +1,6 @@
 #include "ItemStartThrow.h"
 
-ItemStartThrow::ItemStartThrow(Collision *collision, Item *item, Sound* sound) : ItemAction(collision, item, sound) {
+ItemStartThrow::ItemStartThrow(Item *item) : ItemAction(item) {
 }
 
 void ItemStartThrow::Do() {

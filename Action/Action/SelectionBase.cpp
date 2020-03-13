@@ -1,7 +1,9 @@
 #include "SelectionBase.h"
 #include "DxLib.h"
-#include "Keyboard.h"
 
+SelectionBase::SelectionBase(Keyboard* keyboard) {
+	keyboard_ = keyboard;
+}
 
 void SelectionBase::Initialize() {
 	selectnum_ = 0;
@@ -29,10 +31,10 @@ void SelectionBase::SelectionColorChange(){
 	}
 }
 void SelectionBase::SelectSelection(){
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_DOWN) == 1) {
+	if (keyboard_->CheckKey(KEY_INPUT_DOWN) == 1) {
 		selectnum_ = (selectnum_ + 1) % choicedeta_.size();
 	}
-	else if (Keyboard::getInstance()->CheckKey(KEY_INPUT_UP) == 1) {
+	else if (keyboard_->CheckKey(KEY_INPUT_UP) == 1) {
 		selectnum_ = (selectnum_ + (int)choicedeta_.size() - 1) % (int)choicedeta_.size();
 	}
 }

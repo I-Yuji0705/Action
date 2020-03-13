@@ -8,5 +8,5 @@ class MenuSelectionBase : public SelectionBase {
 protected:
 	IMenuStateChanger* statechanger_;
 public:
-	MenuSelectionBase(IMenuStateChanger* statechanger);
+	MenuSelectionBase(Keyboard* keyboard, IMenuStateChanger* statechanger);
 };

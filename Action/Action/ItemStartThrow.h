@@ -4,6 +4,6 @@
 //Itemが投げられ始めた際の行動の基底クラス
 class ItemStartThrow : public ItemAction {
 public:
-	ItemStartThrow(Collision* collision, Item* item, Sound* sound);
+	ItemStartThrow(Item *item);
 	void Do()final;
 };

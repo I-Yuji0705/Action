@@ -1,5 +1,5 @@
 #pragma once
-#include "ActionBase.h"
+#include "IActionBase.h"
 #include "Item.h"
 #include "ItemHit.h"
 
@@ -7,11 +7,10 @@ class Item;
 class ItemHit;
 
 //Item‚Ìs“®‚ğ’S“–‚·‚é’ŠÛƒNƒ‰ƒX
-class ItemAction : public ActionBase {
+class ItemAction : public IActionBase {
 protected:
 	Item *item_;
-	ItemHit *itemhit_;
 public:
-	ItemAction(Collision *collision, Item *item,Sound* sound);
+	ItemAction(Item *item);
 	//virtual void Do() override = 0;
 };

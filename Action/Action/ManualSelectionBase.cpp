@@ -1,13 +1,12 @@
 #include "ManualSelectionBase.h"
-#include "Keyboard.h"
 #include "DxLib.h"
 
-ManualSelectionBase::ManualSelectionBase(IManualStateChanger* statechanger) {
+ManualSelectionBase::ManualSelectionBase(Keyboard* keyboard,IManualStateChanger* statechanger): SelectionBase(keyboard) {
 	statechanger_ = statechanger;
 }
 void ManualSelectionBase::Update() {
-	if (Keyboard::getInstance()->CheckKey(KEY_INPUT_RETURN) == 1 ||
-		Keyboard::getInstance()->CheckKey(KEY_INPUT_ESCAPE) == 1) {
+	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1 ||
+		keyboard_->CheckKey(KEY_INPUT_ESCAPE) == 1) {
 		statechanger_->ChangeState(Manual_Usually);//シーンをメニューに変更
 	}
 }

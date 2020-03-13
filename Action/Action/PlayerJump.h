@@ -6,6 +6,6 @@ class PlayerJump : public PlayerMoveY {
 private:
 	const float kJumpPower = 8.0f;//JumpŽž‚ÌŠî‘b‘¬“x
 public:
-	PlayerJump(Collision *collision, Player *player, Sound* sound);
+	PlayerJump(Sound* sound, Collision *collision, Player *player,PlayerHit* hit);
 	void Do() final;
 };

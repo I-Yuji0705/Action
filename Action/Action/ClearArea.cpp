@@ -2,13 +2,14 @@
 #include <typeinfo.h>
 #include "DxLib.h"
 
-ClearArea::ClearArea(float x, float y, float height, float width,Sound* sound) : Object(x, y, height, width,sound) {
+ClearArea::ClearArea(Sound* sound,  IGameStateChanger* statechanger,Collision* collision, float x, float y, float height, float width) : Object(x, y, height, width) {
+	sound_ = sound; 
+	state_changer_ = statechanger;
+	collision_ = collision;
 	quality_ = false;//“–‚½‚è”»’è‚ð‚È‚­‚·
 }
 
-void ClearArea::Initialize(IGameStateChanger *stateChanger, Collision *collision) {
-	Object::Initialize(stateChanger, collision);
-	collision_ = collision;
+void ClearArea::Initialize() {
 	players_ = collision_->GetPlayer();
 	clearstart_ = true;
 }

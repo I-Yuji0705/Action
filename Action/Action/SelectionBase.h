@@ -1,8 +1,10 @@
 #pragma once
 #include "DrawingDeta.h"
 #include <vector>
+#include "Keyboard.h"
 
 class DrawingDeta;
+class Keyboard;
 //SelectionDetaをもとに複数の項目と
 //選択肢を表示するクラス
 class SelectionBase{
@@ -12,7 +14,9 @@ protected:
 	int selectnum_;
 	void SelectionColorChange();
 	void SelectSelection();
+	Keyboard* keyboard_;
 public:
+	SelectionBase(Keyboard* keyboard);
 	virtual void Initialize();//初期化処理
 	virtual void Update() {};//更新処理
 	virtual void Draw();//描写処理

@@ -17,16 +17,20 @@ enum ItemActionList {
 };
 class Collision;
 class ItemAction;
+class ItemHit;
+
 //ステージ上でPlayerが持ち上げられるItemの基底クラス
 class Item : public Object {
 private:
-public:
-	Object *carrier_;
+	Sound* sound_;
 	Collision *collision_;
+	ItemHit* itemhit_;
 	ItemAction *itemaction_[5];//Itemの行動を行うクラス配列
+public:
+	Item(Sound* sound,Collision* collision,float x, float y, float height, float width);
 	ItemState state_;
-	Item(float x, float y, float height, float width,Sound* sound);
-	void Initialize(IGameStateChanger *statechanger,Collision *collision)override;
+	Object *carrier_;
+	void Initialize()override;
 	void Update()override;
 	void Draw()override;
 	float CanPushed(float num)override;

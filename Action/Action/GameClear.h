@@ -5,7 +5,7 @@
 //ゲームクリア時にステージ以外の処理を行う基底クラス
 class GameClear : public GameSelectionBase {
 public:
-	GameClear(IGameStateChanger *statechanger);
+	GameClear(Keyboard* keyboard,IGameStateChanger *statechanger);
 	void Initialize() final;
 	void Update() final;
 };

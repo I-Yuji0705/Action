@@ -3,11 +3,10 @@
 #include <typeinfo.h>
 #include "DxLib.h"
 
-Object::Object(float x, float y, float height, float width,Sound* sound) {
+Object::Object(float x, float y, float height, float width) {
 	Set(x, y, height, width);
 	this->retry_pos_x_ = x;
 	this->retry_pos_y_ = y;
-	sound_ = sound;
 }
 //終了処理
 void Object::Finalize() {
@@ -64,9 +63,8 @@ void Object::Set(float x, float y, float height, float width) {
 //引数:
 //			stageChanger:StageManegerのstateを変更するクラスの設定
 //			stage:オブジェクトから他のオブジェクトを確認する際に使用
-void Object::Initialize(IGameStateChanger *stateChanger,Collision *collision){
-	this->state_changer_ = stateChanger;
-}
+//void Object::Initialize(){
+//}
 //オブジェクトの描写
 void Object::Draw() {
 	DrawBoxAA(x_, y_, x_ + width_, y_ + height_, GetColor(0, 0, 0), TRUE);//Float型の四点の座標から外枠を描写

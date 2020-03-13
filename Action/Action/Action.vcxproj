@@ -90,6 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
@@ -121,6 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,7 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ActionBase.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClearArea.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StageMgr.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="VectorNoduplicationInsert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseScene.h" />
@@ -196,7 +198,7 @@
     <ClInclude Include="DrawingDeta.h" />
     <ClInclude Include="Fps.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="ActionBase.h" />
+    <ClInclude Include="IActionBase.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameDance.h" />
     <ClInclude Include="GameSelectionBase.h" />
@@ -247,10 +249,10 @@
     <ClInclude Include="PlayerPut.h" />
     <ClInclude Include="PlayerThrow.h" />
     <ClInclude Include="SceneMgr.h" />
-    <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="StageMgr.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="VectorNoduplicationInsert.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
