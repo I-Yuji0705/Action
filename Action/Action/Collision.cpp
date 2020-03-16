@@ -13,9 +13,7 @@ Collision::Collision(std::vector<Object*>* stage) {
 
 ///<summary>
 ///<para>初期化処理</para>
-///<para>
-///Stageのポインタから、ステージ右端と左端のTerrainの収得
-///</para>
+///<para>Stageのポインタから、ステージ右端と左端のTerrainの収得</para>
 ///</summary>
 void Collision::Initialize() {
 	map_left_, map_right_ = nullptr;
@@ -56,11 +54,11 @@ bool Collision::Check(float x, float y,const Object* player, const Object* objec
 ///指定した右上の座標と左下の座標を対角線とする四角形の中に、指定したObjectが接触しているかを返す
 ///</para>
 ///<para>引数:</para>
-///<para><param name="x1">x1:調べる範囲の左上のX座標</param></para>
-///<para><param name="y1">y1:調べる範囲の左上のY座標</param></para>
-///<para><param name="x2">x2:調べる範囲の右下のX座標</param></para>
-///<para><param name="y2">y2:調べる範囲の右下のY座標</param></para>
-///<para><param name="object">object:対象のObjectのポインタ</param></para>
+///<param name="x1"><para>x1:調べる範囲の左上のX座標</para></param>
+///<param name="y1"><para>y1:調べる範囲の左上のY座標</para></param>
+///<param name="x2"><para>x2:調べる範囲の右下のX座標</para></param>
+///<param name="y2"><para>y2:調べる範囲の右下のY座標</para></param>
+///<param name="object"><para>object:対象のObjectのポインタ</param></para>
 ///<returns>
 ///<para>戻り値:</para>
 ///<para>true:Objectが接触する</para>
@@ -113,8 +111,8 @@ float Collision::ObjectDistance(const Object* target, const Object* player, int 
 ///<summary>
 ///<para>対象のObjectが画面端まで接触するまで動ける数値を返す</para>
 ///<para>引数:</para>
-///<para><param name="player">player:移動するObjectのポインタ</param></para>
-///<para><param name="check">check:MapCheck内のcheck変数</param></para>
+///<param name="player"><para>player:移動するObjectのポインタ</para></param>
+///<param name="check"><para>check:MapCheck内のcheck変数</para></param>
 ///<para>戻り値:</para>
 ///<returns><para>Objectがステージ左端または右端まに接触するまで動ける数値</para></returns>
 ///</summary>
@@ -139,9 +137,9 @@ float Collision::MapDistance(const Object* player, int check) {
 ///対象のオブジェクトが指定した座標上に出る場合、指定したObjectに接触するかを返す
 ///</para>
 ///<para>引数:</para>
-///<para><param name="x">x:対象のObjectが移動するX座標</param></para>
-///<para><param name="y">y:対象のObjectが移動するY座標</param></para><para>
-///<param name="player">player:対象のObjectのポインタ</param></para>
+///<param name="x"><para>x:対象のObjectが移動するX座標</para></param>
+///<param name="y"><para>y:対象のObjectが移動するY座標</para></param>
+///<param name="player"><para>player:対象のObjectのポインタ</para></param>
 ///<para>戻り値:</para>
 ///<returns>
 ///<para>true:Objectが接触する</para>
@@ -244,6 +242,7 @@ bool Collision::AreaFullCheck(const Object* area) {
 			}
 			else {
 				j += PointCheck((float)i, (float)j, area);
+				gap = 0;
 			}
 		}
 	}
@@ -296,7 +295,7 @@ Object* Collision::GetMapLeft(Object* target) {
 
 ///<summary>ステージの左端にある地形を返す
 ///<para>引数:</para>
-///<param name="target">target:戻り値の格納先</param>
+///<param name="target"><para>target:戻り値の格納先</para></param>
 ///<para>戻り値:</para>
 ///<returns>
 ///<para>ステージ右端のTerrainのポインタ</para>
@@ -328,15 +327,15 @@ std::vector<Object*> Collision::GetPlayer() {
 ///<para>した場合にはどの部分に接触したか、接触したObject、</para>
 ///<para>接触したObjectのうち、一番近いObjectと接触するまで対象のObjectが動ける数値を返す</para>
 ///<para>引数:</para>
-///<param name="num">num:対象のObjectのX座標に追加する数値</param>
-///<param name="player">player:対象のObjectのポインタ</param>
+///<param name="num"><para>num:対象のObjectのY座標に追加する予定の数値</para></param>
+///<param name="player"><para>player:対象のObjectのポインタ</para></param>
 ///<para>戻り値:</para>
 ///<returns>
 ///<para>int:Objectに接触したか、した場合はどの部分に接触したか</para>
 ///<para>0:接触しない</para>
 ///<para>1:objectの左側に接触</para>
 ///<para>2:objectの右側に接触</para>
-///<para>float:playerが一番近いObjectに接触するまで動ける数値</para>
+///<para>float:numに対して、実際にplayerがX軸に追加できる値</para>
 ///<para>std::vector:接触した全てのObjectのポインタ</para>
 ///</returns>
 ///</summary>
@@ -366,15 +365,15 @@ std::tuple<int,float, std::vector<Object *>>
 ///<para>した場合にはどの部分に接触したか、接触したObject、</para>
 ///<para>接触したObjectのうち、一番近いObjectと接触するまで対象のObjectが動ける数値を返す</para>
 ///<para>引数:</para>
-///<param name="num">num:対象のObjectのY座標に追加する数値</param>
-///<param name="player">player:対象のObjectのポインタ</param>
+///<param name="num"><para>num:対象のObjectのY座標に追加する予定の数値</para></param>
+///<param name="player"><para>player:対象のObjectのポインタ</para></param>
 ///<para>戻り値:</para>
 ///<returns>
 ///<para>int:Objectに接触したか、した場合はどの部分に接触したか</para>
 ///<para>0:接触しない</para>
 ///<para>3:objectの上側に接触</para>
 ///<para>4:objectの下側に接触</para>
-///<para>float:playerから一番近いObjectに接触するまで動ける数値</para>
+///<para>float:numに対して、実際にplayerがY軸に追加できる値</para>
 ///<para>std::vector:接触した全てのObjectのポインタ</para>
 ///</returns>
 ///</summary>
@@ -402,9 +401,9 @@ Collision::HitCheckY(float num, const Object* player) {
 ///<para>Objectの動的配列から、対象のObjectに接触しているObjectの動的配列と</para>
 ///<para>接触しているObjectから、接触していないObjectのうち、一番近いObjectまでの差を返す</para>
 ///<para>引数:</para>
-///<param name="objects">objects:調べるObjectのポインタの動的配列</param>
-///<param name="player">player:接触しているか調べるObjectのポインタ</param>
-///<param name="check">check:HitCheckX及びHitCheckYのintで返されるint型変数</param>
+///<param name="objects"><para>objects:調べるObjectのポインタの動的配列</para></param>
+///<param name="player"><para>player:接触しているか調べるObjectのポインタ</para></param>
+///<param name="check"><para>check:HitCheckX及びHitCheckYのintで返されるint型変数</para></param>
 ///<para>戻り値:</para>
 ///<returns>
 ///<para>std::vector:接触ししている全てのObjectのポインタ</para>

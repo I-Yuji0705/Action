@@ -16,8 +16,8 @@ StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechang
 	collision_ = new Collision(stage_);
 	playercamera_ = new Camera(stage_, collision_);
 	color_ = { 127, 255, 212 };//背景色の設定
-	CreateStageDeta(keyboard,sound,statechanger, collision_,"test");
-	//CreateStage(keyboard,sound,statechanger,collision,"stage2");
+	CreateStageDeta(keyboard,sound,statechanger, collision_,"test");//ステージの生成と、テキストファイルへの保存
+	//CreateStage(keyboard,sound,statechanger,collision,"stage2");//テキストファイルからのステージの生成
 }
 //------------------------
 //データからステージの生成

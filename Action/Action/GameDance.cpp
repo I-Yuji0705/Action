@@ -15,7 +15,7 @@ void GameDance::Initialize() {
 
 ///<summary>
 ///<para>更新処理</para>
-///<para>ダンス時には何も更新せず、プレイヤーの操作を受け付けない</para>
+///<para>ダンス時には何も更新せず、字幕側はプレイヤーの操作を受け付けない</para>
 ///</summary>
 void GameDance::Update() {
 }

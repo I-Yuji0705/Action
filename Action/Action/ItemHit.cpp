@@ -1,66 +1,23 @@
 #include "ItemHit.h"
 #include <assert.h>
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>操作するitemのポインタを追加で受け取る</para>
+///<para>引数:</para>
+///<param name="item"><para>item:操作するitemのポインタ</para></param>
+///</summary>
 ItemHit::ItemHit(Collision *collision,Item* item) : Hit(collision){
 	item_ = item;
 }
 
-//----------
-//ItemがObjectに当たった際の位置の調整とPlayerの状態を変更する
-//引数：
-//		check:int Check(float *point, float num,const Object *object)の返り値から、オブジェクトのどこに当たったかを求める
-//		object:当ったオブジェクト
-//void ItemHit::HitProcess(int hitcheck, Object* hitobject) {
-//	item_->state_ = Item_Normal;
-//	switch (hitcheck) {
-//	case 1:
-//		item_->x_ = hitobject->Left() - item_->width_;
-//		break;
-//	case 2:
-//		item_->x_ = hitobject->Right();
-//		break;
-//	case 3:
-//		item_->y_ = hitobject->Top() - item_->height_;
-//		break;
-//	case 4:
-//		item_->y_ = hitobject->Base();
-//		break;
-//	default:
-//		assert(false);
-//		break;
-//	}
-//}
-//Object* ItemHit::GetNearObject(Object* target, int hitcheck, std::vector<Object*> hitobjects) {
-//	Object* hitobject;
-//	for (auto i : hitobjects) {
-//		if (i == *hitobjects.begin())hitobject == i;
-//		else
-//		{
-//			switch (hitcheck) {
-//			case 1:
-//				if (i->Left() - item_->Right() < hitobject->Left() - item_->Right())
-//					hitobject = i;
-//				break;
-//			case 2:
-//				if (item_->Left() - i->Right() < item_->Left() - hitobject->Right())
-//					hitobject = i;
-//				break;
-//			case 3:
-//				if (item_->Base() - i->Top() < item_->Base() - hitobject->Top())
-//					hitobject = i;
-//				break;
-//			case 4:
-//				if (i->Base() - item_->Top() < hitobject->Base() - item_->Top())
-//					hitobject = i;
-//				break;
-//			default:
-//				assert(false);
-//				break;
-//			}
-//		}
-//	}
-//	return hitobject;
-//}
+///<summary>
+///<para>接触処理</para>
+///<para>item_のstateを変更した後、引数で受け取ったintの数値によってX軸かY軸に受け取ったfloatの数値分加算する</para>
+///<para>引数:</para>
+///<param name="check"><para>check:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるint型の数値</para></param>
+///<param name="distance"><para>distance:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるfloat型の数値</para></param>
+///</summary>
 void ItemHit::HitObjects(int check,float distance) {
 	item_->state_ = Item_Normal;
 	switch (check) {

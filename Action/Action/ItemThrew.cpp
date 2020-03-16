@@ -1,21 +1,36 @@
 #include "ItemThrew.h"
 #include <tuple>
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
+///<para>引数:</para>
+///<param name="sound"><para>sound:壁に接触した際に鳴らす音を管理するクラスのポインタ</para></param>
+///<param name="collision"><para>collision:移動する先に衝突するObjectがあるかを調べるクラスのポインタ</para></param>
+///<param name="sound"><para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para></param>
+///</summary>
 ItemThrew::ItemThrew(Sound* sound, Collision *collision, Item *item,ItemHit* itemhit) : ItemAction(item) {
 	sound_ = sound;
 	collision_ = collision;
 	itemhit_ = itemhit;
 }
 
+///<summary>
+///<para>Y軸の移動処理</para>
+///<para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
+///<para>移動先にObjectない場合:xに数値を加算し、移動する</para>
+///<para>移動先にObjectある場合:接触処理を行う</para>
+///<para>引数:</para>
+///<param name="num"><para>num:X軸に加算しようとしている値</para></param>
+///</summary>
 void ItemThrew::MoveX(float num) {
-	//プレイヤーのX軸の移動を行う
 	bool hit = false;
 	int hitpoint;
 	float distance;
 	std::vector<Object*> hitobjects;
 	std::tie(hitpoint, distance, hitobjects) = collision_->HitCheckX(num, item_);//移動した際に当たるオブジェクトと当たる場所の算出
 	if (hitpoint != 0 && !hitobjects.empty()) {//当たったObjectがあったか
-		itemhit_->HitObjects(hitpoint, distance);//Hitした時のプレイヤーの位置を調整する
+		itemhit_->HitObjects(hitpoint, distance);//Hitした時のItemの位置を調整する
 		if(distance != 0.0f)
 			sound_->PlaySe(Se_Hit, item_);
 		hit = true;
@@ -31,6 +46,10 @@ void ItemThrew::MoveX(float num) {
 	}
 }
 
+///<summary>
+///<para>行動処理</para>
+///<para>item_の向きから移動先を決め、X軸の移動処理を行う</para>
+///</summary>
 void ItemThrew::Do() {
 	const float kThrowSpeed = 10.0f;
 	MoveX(kThrowSpeed * item_->vector_);

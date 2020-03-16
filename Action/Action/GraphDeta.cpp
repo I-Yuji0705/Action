@@ -24,6 +24,7 @@ GraphDeta::GraphDeta(int x1, int y1, int x2, int y2, int graph) {
 void GraphDeta::Draw() {
 	DrawModiGraph(x1_, y1_, x2_, y1_, x2_, y2_, x1_, y2_, graph_, TRUE);
 }
+
 ///<summary>
 ///<para>I—¹ˆ—</para>
 ///<para>‰æ‘œ‚ğƒƒ‚ƒŠã‚©‚çíœ‚·‚é</para>

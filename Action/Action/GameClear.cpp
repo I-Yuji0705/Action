@@ -20,11 +20,11 @@ void GameClear::Initialize() {
 
 ///<summary>
 ///<para>更新処理</para>
-///<para>Enterキーか、Escapeキーがあった場合、メニューシーンに移行する</para>
+///<para>Enterキーか、Escapeキーがあった場合、タイトルシーンに移行する</para>
 ///</summary>
 void GameClear::Update() {
 	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1 ||
 		keyboard_->CheckKey(KEY_INPUT_ESCAPE) == 1) {
-		statechanger_->ChangeState(Game_Exit);//シーンをメニューに変更
+		statechanger_->ChangeState(Game_Exit);//シーンをタイトルに変更
 	}
 }

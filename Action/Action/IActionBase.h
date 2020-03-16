@@ -7,5 +7,6 @@
 class IActionBase {
 protected:
 public:
+	virtual ~IActionBase() = 0;
 	virtual void Do() = 0;//アクションを起こす
 };

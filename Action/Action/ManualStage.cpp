@@ -3,6 +3,10 @@
 #include "GraphDeta.h"
 #include "SelectionDeta.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>マニュアル内のステージ情報の字幕の生成</para>
+///</summary>
 ManualStage::ManualStage(Keyboard* keyboard, IManualStateChanger* statechanger) :ManualSelectionBase(keyboard,statechanger) {
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(250, 100, "ステージ上のオブジェクト一覧", GetColor(0, 0, 0)));
 	drawingdeta_.push_back((DrawingDeta*) new GraphDeta(130, 120, 180, 170, LoadGraph("Image/Player_2.png")));
@@ -16,6 +20,9 @@ ManualStage::ManualStage(Keyboard* keyboard, IManualStateChanger* statechanger) 
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(260, 360, "詳しくは「ステージのクリア条件」にて。", GetColor(0, 0, 0)));
 }
 
+///<summary>
+///<para>初期化処理</para>
+///</summary>
 void ManualStage::Initialize() {
 	SelectionBase::Initialize();
 }

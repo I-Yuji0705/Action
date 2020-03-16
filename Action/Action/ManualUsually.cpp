@@ -3,6 +3,10 @@
 #include <assert.h>
 #include "SelectionDeta.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>マニュアル内で他のマニュアルを選択する字幕の生成</para>
+///</summary>
 ManualUsually::ManualUsually(Keyboard* keyboard, IManualStateChanger* statechanger) :ManualSelectionBase(keyboard,statechanger) {
 	drawingdeta_.push_back((DrawingDeta*)new SelectionDeta(250, 100, "マニュアル", GetColor(0, 0, 0)));
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(130, 250, "プレイヤーの操作方法", GetColor(0, 0, 0)));
@@ -11,10 +15,18 @@ ManualUsually::ManualUsually(Keyboard* keyboard, IManualStateChanger* statechang
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(130, 400, "メニューに戻る", GetColor(0, 0, 0)));
 }
 
+///<summary>
+///<para>初期化処理</para>
+///</summary>
 void ManualUsually::Initialize() {
 	SelectionBase::Initialize();
 }
 
+///<summary>
+///<para>更新処理</para>
+///<para>上下キーを入力した際、選択している項目が上下する</para>
+///<para>Enterキーを押した際、選んだ選択肢よって異なるStateに変更する</para>
+///</summary>
 void ManualUsually::Update() {
 	SelectionBase::SelectSelection();
 	SelectionBase::SelectionColorChange();

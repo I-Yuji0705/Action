@@ -1,6 +1,9 @@
 #include "PlayerJump.h"
 #include <cmath>
 
+///<summary>
+///<para>コンストラクタ</para>
+///</summary>
 PlayerJump::PlayerJump(Sound* sound, Collision *collision, Player *player, PlayerHit* playerhit) : PlayerMoveY(sound, collision, player,playerhit) {
 }
 

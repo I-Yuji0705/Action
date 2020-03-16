@@ -10,6 +10,13 @@
 #include "PlayerGravity.h"
 #include "PlayerDance.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
+///<para>引数:</para>
+///<param name= "sound"><para>動作時に音を発生させるクラス</para></param>
+///<param name= "collision"><para>動作時や動作確認時に接触判定を調べる</para></param>
+///</summary>
 Player::Player(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger,Collision* collision,float x, float y, float height, float width) : Object(x, y, height, width) {
 	keyboard_ = keyboard;
 	sound_ = sound; 
@@ -27,7 +34,11 @@ Player::Player(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger,
 	playeraction_[Player_Gravity] = new PlayerGravity(sound_, collision_, this, playerhit_);
 	playeraction_[Player_Dance] = new PlayerDance(this);
 }
-//プレイヤーのボタン入力を管理
+
+///<summary>
+///<para>プレイヤーのアクションの管理</para>
+///<para>プレイヤーのキー入力とそれに対応するPlayerActionを行う</para>
+///</summary>
 void Player::Action() {
 	if (keyboard_->CheckKey(KEY_INPUT_RIGHT) != 0 && //右キーが押されており、
 		keyboard_->CheckKey(KEY_INPUT_LEFT) == 0) { //左キーが押されていなかったら
@@ -59,12 +70,21 @@ void Player::Action() {
 	if (keyboard_->CheckKey(KEY_INPUT_LCONTROL) == 1 || keyboard_->CheckKey(KEY_INPUT_RCONTROL) == 1)
 		vector_ *= -1;//プレイヤーの向きを反転
 }
+
+///<summary>
+///<para>初期化処理</para>
+///</summary>
 void Player::Initialize() {
 	carryon_ = nullptr;
 	vector_ = 1;
 	angle_ = 0;
 	player_state_ = Player_Air;
 }
+
+///<summary>
+///<para>更新処理</para>
+///<para>Playerのstateがクリア状態の時のみ、Dance処理を行う</para>
+///</summary>
 void Player::Update() {
 	switch (player_state_) {
 	case Player_Clear:
@@ -76,27 +96,41 @@ void Player::Update() {
 		break;
 	}
 }
+
+///<summary>
+///<para>描写処理</para>
+///<para>Playerの向きによって、描写する画像を反転する</para>
+///</summary>
 void Player::Draw() {
 	if(vector_ ==1) DrawModiGraphF(x_, y_, x_ + width_, y_, x_ + width_, y_ + height_, x_, y_ + height_, graph_handle_, TRUE);
 	else DrawModiGraphF(x_ + width_, y_, x_, y_, x_, y_ + height_, x_ + width_, y_ + height_, graph_handle_, TRUE);
 }
 
-//クリアしたときの処理
+///<summary>
+///<para>クリア処理</para>
+///<para>クリア条件を満たした際に、一度だけ呼ばれる関数</para>
+///</summary>
 void Player::Clear() {
 	player_state_ = Player_Clear;
 	state_changer_->ChangeState(Game_Dance);
 }
-//リトライしたときの処理
+
+///<summary>
+///<para>リトライ処理</para>
+///<para>Objectのリトライ処理に加え、初期化を行う</para>
+///</summary>
 void Player::Retry() {
 	Object::Retry();
-	player_state_ = Player_Air;
-	carryon_ = nullptr;
-	vector_ = 1;
+	Initialize();
 }
-//クリア出来るかを返す処理
-//	引数:
-//		true:クリア可能
-//		false:クリアできない
+
+///<summary>
+///<para>今クリアできるかを返す</para>
+///<returns>
+///<para>true:自分投げることができる</para>
+///<para>false:自分を投げることができない</para>
+///</returns>
+///</summary>
 bool Player::CanClear() {
 	bool canclear_ = true;
 	if (player_state_ == Game_Clear) {//すでにクリアしている場合

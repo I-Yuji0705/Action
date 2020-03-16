@@ -27,19 +27,18 @@ public:
 	float GetHeight() const;//オブジェクトの縦幅
 	void Set(float x, float y);//オブジェクトの再設置
 	void Set(float x, float y, float height, float width);//オブジェクトの再設置及びサイズの変更
+	void Retry();//リトライをする際の処理
 	virtual void Initialize() {};//初期化処理
 	virtual void Update(){};//更新処理
-	virtual void Draw();//描写処理
+	virtual void Draw() = 0;//描写処理
 	virtual float CanPushed(float num);//押されるかどうかを返す
-	virtual void Pushed(float num);//押された時の動作
-	virtual bool CanMoveY(float num);//移動が可能かどうかを返す
+	virtual void Pushed(float num) {};//押された時の動作
 	virtual bool CanPicked(const Object *object);//持ち上げられるかを返す
 	virtual void Picked(Object *object) {};//持ち上げられた時の処理
 	virtual bool CanPutted();//置けるかどうかを返す
 	virtual void Putted() {};//置かれた時の処理
 	virtual bool CanThrew();//投げられるかを返す
 	virtual void Threw() {};//投げられた時の処理
-	virtual void Retry();//リトライをする際の処理
 	virtual bool CanClear();
 	virtual void Clear() {};//クリア条件を満たしたときの処理
 };

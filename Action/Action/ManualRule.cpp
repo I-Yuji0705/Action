@@ -2,6 +2,10 @@
 #include "DxLib.h"
 #include "SelectionDeta.h"
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>マニュアル内のクリア条件の字幕の生成</para>
+///</summary>
 ManualRule::ManualRule(Keyboard* keyboard, IManualStateChanger* statechanger) :ManualSelectionBase(keyboard,statechanger) {
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(250, 100, "ステージのクリア条件", GetColor(0, 0, 0)));
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 220, "ステージ内に散らばるアイテムを集めて、", GetColor(0, 0, 0)));
@@ -14,6 +18,9 @@ ManualRule::ManualRule(Keyboard* keyboard, IManualStateChanger* statechanger) :M
 	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 360, "覚えておくとクリアが楽になるかもしれません。", GetColor(0, 0, 0)));
 }
 
+///<summary>
+///<para>初期化処理</para>
+///</summary>
 void ManualRule::Initialize() {
 	SelectionBase::Initialize();
 }

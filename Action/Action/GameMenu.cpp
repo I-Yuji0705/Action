@@ -5,7 +5,7 @@
 
 ///<summary>
 ///<para>コンストラクタ</para>
-///<para>ゲーム時のメニュー画面の生成</para>
+///<para>ゲーム時のメニュー画面の字幕生成</para>
 ///</summary>
 GameMenu::GameMenu(Keyboard* keyboard,IGameStateChanger* statechanger)  : GameSelectionBase(keyboard,statechanger){
 	choicedeta_.push_back((DrawingDeta*)new SelectionDeta(300, 100, "つづける", GetColor(0, 0, 0)));
@@ -15,7 +15,7 @@ GameMenu::GameMenu(Keyboard* keyboard,IGameStateChanger* statechanger)  : GameSe
 
 ///<summary>
 ///<para>初期化設定</para>
-///<para>ゲーム時のメニュー画面の生成</para>
+///<para>ゲーム時のメニュー画面の字幕の初期化</para>
 ///</summary>
 void GameMenu::Initialize() {
 	SelectionBase::Initialize();
@@ -23,6 +23,7 @@ void GameMenu::Initialize() {
 
 ///<summary>
 ///<para>更新処理</para>
+///<para>上下キーを入力した際、選択している項目が上下する</para>
 ///<para>Enterキーを押した際、選んだ選択肢よって異なるStateに変更する</para>
 ///</summary>
 void GameMenu::Update() {

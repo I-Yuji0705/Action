@@ -142,6 +142,7 @@
     <ClCompile Include="GameUsually.cpp" />
     <ClCompile Include="GraphDeta.cpp" />
     <ClCompile Include="Hit.cpp" />
+    <ClCompile Include="IActionBase.cpp" />
     <ClCompile Include="IManualStateChanger.cpp" />
     <ClCompile Include="ITitleStateChanger.cpp" />
     <ClCompile Include="ISceneChanger.cpp" />
