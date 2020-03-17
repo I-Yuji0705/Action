@@ -5,9 +5,9 @@
 #include <tuple>
 #include "DxLib.h"
 #include "ItemBaggage.h"
-#include "ItemGravity.h"
+#include "ItemMoveY.h"
 #include "ItemPutted.h"
-#include "ItemThrew.h"
+#include "ItemMoveX.h"
 #include "ItemStartThrow.h"
 
 ///<summary>
@@ -25,9 +25,9 @@ Item::Item(Sound* sound,Collision* collision,float x, float y, float height, flo
 	itemhit_ = new ItemHit(collision_,this);
 	itemaction_[Item_Baggage] = new ItemBaggage(this);
 	itemaction_[Item_StartThrow] = new ItemStartThrow(this);
-	itemaction_[Item_Threw] = new ItemThrew(sound_, collision_, this,itemhit_);
+	itemaction_[Item_MoveX] = new ItemMoveX(sound_, collision_, this,itemhit_);
 	itemaction_[Item_Putted] = new ItemPutted(this);
-	itemaction_[Item_Gravity] = new ItemGravity(sound_, collision_, this,itemhit_);
+	itemaction_[Item_MoveY] = new ItemMoveY(sound_, collision_, this,itemhit_);
 }
 
 ///<summary>
@@ -47,13 +47,13 @@ void Item::Initialize() {
 void Item::Update() {
 	switch (state_) {
 	case Item_Normal:
-		itemaction_[Item_Gravity]->Do();
+		itemaction_[Item_MoveY]->Do();
 		break;
 	case Item_Picked:
 		itemaction_[Item_Baggage]->Do();
 		break;
 	case Item_Throw:
-		itemaction_[Item_Threw]->Do();
+		itemaction_[Item_MoveX]->Do();
 		break;
 	default:
 		assert(false);

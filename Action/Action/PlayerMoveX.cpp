@@ -6,15 +6,50 @@
 #include <algorithm>
 #include "VectorNoduplicationInsert.h"
 
-PlayerMoveX::PlayerMoveX(Sound* sound, Collision *collision, Player *player, PlayerHit* playerhit) : PlayerAction(player) {
+///<summary>
+///<para>コンストラクタ</para>
+///<para>キーが押されているか確認するKeyboardクラス、動作時に音を発生させるクラス、移動先に他のObjectがないか確認するクラス、接触処理を行うクラスを追加で取得する</para>
+///<para>引数:</para>
+///<param name= "keyboard"><para>キーが押されているか確認するクラス</para></param>
+///<param name= "sound"><para>動作時に音を発生させるクラス</para></param>
+///<param name= "collision"><para>拾う範囲に他のObjectがないか確認するクラス</para></param>
+///<param name= "playerhit"><para>Playerの接触処理を行うクラス</para></param>
+///</summary>
+PlayerMoveX::PlayerMoveX(Keyboard* keyboard,Sound* sound, Collision *collision, Player *player, PlayerHit* playerhit) : PlayerAction(player) {
+	keyboard_ = keyboard;
 	sound_ = sound;
 	collision_ = collision;
 	playerhit_ = playerhit;
 	firsthit_ = true;
 }
-//プレイヤーのX軸の移動を行う
-//	引数:
-//		num:移動しようする距離
+
+///<summary>
+///<para>行動処理</para>
+///<para>キーボードの左右キーの入力状態を確認し、移動を行う。</para>
+///<para>左キーのみを押している場合は、左移動する。</para>
+///<para>右キーのみを押している場合は、右移動する。</para>
+///</summary>
+void PlayerMoveX::Do() {
+	if (keyboard_->CheckKey(KEY_INPUT_LEFT) != 0 && //左キーが押されており、
+		keyboard_->CheckKey(KEY_INPUT_RIGHT) == 0) { //右キーが押されていなかったら
+		player_->vector_ = -1;
+		MoveX(-kMoveSpeed);
+	}
+	if (keyboard_->CheckKey(KEY_INPUT_RIGHT) != 0 && //右キーが押されており、
+		keyboard_->CheckKey(KEY_INPUT_LEFT) == 0) { //左キーが押されていなかったら
+		player_->vector_ = 1;
+		MoveX(kMoveSpeed);
+	}
+}
+///<summary>
+///<para>X軸の移動処理</para>
+///<para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
+///<para>移動先にObjectない場合:xに数値を加算し、移動する</para>
+///<para>移動先にObjectある場合:対象のObjectを押し、少しも押せなかったら接触処理を行う</para>
+///<para>PlayerがObjectを持っている場合、そのObjectも同様に接触するかを調べる</para>
+///<para>引数:</para>
+///<param name="num"><para>num:X軸に加算しようとしている値</para></param>
+///</summary>
 void PlayerMoveX::MoveX(float num) {
 	//プレイヤーのX軸の移動を行う
 	bool hit = false;
@@ -23,6 +58,7 @@ void PlayerMoveX::MoveX(float num) {
 	std::vector<Object*> hitobjects;
 	std::tie(hitpoint, distance, hitobjects) = collision_->HitCheckX(num, player_);//移動した際に当たるオブジェクトと当たる場所の算出
 	if (player_->carryon_ != nullptr) {
+		player_->carryon_->Update();
 		float carryondistance;
 		std::vector<Object*> carryonhitobjects;
 		int carryonhitpoint;
@@ -30,7 +66,7 @@ void PlayerMoveX::MoveX(float num) {
 		if (!carryonhitobjects.empty() && carryonhitpoint != 0) {
 			hitpoint = carryonhitpoint;
 			hitobjects = VectorNoDuplicationInsert(hitobjects, carryonhitobjects);
-			if (distance == 0 || (std::abs(distance) > std::abs(carryondistance) && carryondistance != 0))
+			if (distance == 999.0f || (std::abs(distance) > std::abs(carryondistance) && carryondistance != 0))
 				distance = carryondistance;
 		}
 	}
@@ -57,6 +93,25 @@ void PlayerMoveX::MoveX(float num) {
 		firsthit_ = true;
 	}
 }
+///<summary>
+///<para>Playerの押す処理</para>
+///<para>返された値のうち、一番小さい</para>
+///<para>地面にいるときにのみ、押す動作を開始する</para>
+///<para>渡された動的配列のから、Playerに密着しているObjectと、</para>
+///<para>Playerに密着していないObjectの内、Playerから近いObjectとの差を得する</para>
+///<para>PlayerがObjectを持っている場合、同様に密着しているObjectと密着していないObjectとの差を取得する</para>
+///<para>密着しているObjectに、渡されたfloatの値に対して、どの程度動けるかを取得する</para>
+///<para>収得した値のうち、一番小さい値でPlayerに密着しているObject全てを押す</para>
+///<para>実際に押せたかどうかを戻り値にする</para>
+///<para>引数:</para>
+///<param name="num"><para>num:X軸に加算しようとしている値</para></param>
+///<param name="target"><para>target:押そうとしている対象のObjectのポインタ全て</para></param>
+///<param name="check"><para>check:Collision::HitCheckXでのint型の戻り値、押そうとしている方向を確認する</para></param>
+///<returns>
+///<para>true:少しでも押すことができた</para>
+///<para>false:少しも押せなかった</para>
+///</returns>
+///</summary>
 bool PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 	bool push = false;
 	if (player_->player_state_ == Player_Land) {//地上にいるとき
@@ -70,21 +125,23 @@ bool PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 				collision_->AlignAdhesionObjects(target, player_->carryon_, check);
 			if (!carryonpushtarget.empty()) {
 				pushtarget = VectorNoDuplicationInsert(pushtarget, carryonpushtarget);
-				if (canpushed == 0 || (std::abs(canpushed) > std::abs(carryoncanpushed) && carryoncanpushed != 0))
+				if ((std::abs(canpushed) > std::abs(carryoncanpushed) && carryoncanpushed != 0))
 					canpushed = carryoncanpushed;
 			}
 		}
 		if (!pushtarget.empty()) {
 			for (auto i : pushtarget) {
-				if (std::abs(canpushed) > std::abs(i->CanPushed(num / 2))) {//
-					canpushed = i->CanPushed(num / 2);//押し出せる距離を算出
+				if (std::abs(canpushed) > std::abs(i->CanPushed(num))) {//
+					canpushed = i->CanPushed(num);//押し出せる距離を算出
 				}
 			}
-			for (auto i : pushtarget) {
-				i->Pushed(canpushed);
+			if (canpushed != 0.0f) {
+				for (auto i : pushtarget) {
+					i->Pushed(canpushed);
+				}
+				push = true;
+				player_->Set(player_->Left() + canpushed, player_->Top());
 			}
-			push = true;
-			player_->Set(player_->Left() + canpushed, player_->Top());
 		}
 	}
 	return push;

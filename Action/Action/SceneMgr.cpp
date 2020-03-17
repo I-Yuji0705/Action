@@ -5,6 +5,14 @@
 #include "Manual.h"
 #include <assert.h>
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>Scene内で使用するキーボードクラスと音を発生させるクラス取得する</para>
+///<para>追加で、最初のSceneをTitleに設定する</para>
+///<para>引数:</para>
+///<param name= "keyboard"><para>キーが押されているか確認するクラス</para></param>
+///<param name= "sound"><para>BGMやSEなどの音を発生させるクラス</para></param>
+///</summary>
 SceneMgr::SceneMgr(Keyboard* keyboard,Sound* sound) : next_scene_(Scene_None) //次のシーン管理変数
 {
 	keyboard_ = keyboard;
@@ -15,17 +23,30 @@ SceneMgr::SceneMgr(Keyboard* keyboard,Sound* sound) : next_scene_(Scene_None) //
 }
 
 //初期化
+///<summary>
+///<para>初期化処理</para>
+///<para>Sceneの初期化処理を行う</para>
+///</summary>
 void SceneMgr::Initialize() {
 	scene_->Initialize();
 }
 
 //終了処理
+///<summary>
+///<para>終了処理</para>
+///<para>Sceneの終了処理を行う</para>
+///</summary>
 void SceneMgr::Finalize() {
 	scene_->Finalize();
 	sound_->Finalize();
 }
 
 //更新
+///<summary>
+///<para>更新処理</para>
+///<para>Sceneの変更要請がない場合、Sceneの更新処理を行う</para>
+///<para>Sceneの変更要請があった場合、画面を暗くし始める</para>
+///</summary>
 void SceneMgr::Update() {
 	switch (state) {
 	case Normal_Scene:
@@ -88,7 +109,8 @@ void SceneMgr::LightingScene() {
 	const int animationspeed = 2;
 	SetDepictionScreen(screen.x1 - animationspeed * 3, screen.y1 - animationspeed * 4, screen.x2 + animationspeed * 3, screen.y2 + animationspeed * 4);
 	if (screen.x1 < 0 && screen.x2 > 480 && screen.y1 < 0 && screen.y2 > 640) { 
-		state = Normal_Scene; 
+		state = Normal_Scene;
+		SetDepictionScreen(0, 0, 640, 480);
 		//scene_->StartBgm();
 	}
 }

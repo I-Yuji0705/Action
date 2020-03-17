@@ -11,9 +11,11 @@ enum ItemState {
 enum ItemActionList {
 	Item_Baggage,//持たれている
 	Item_StartThrow,//投げられ始めた
-	Item_Threw,//投げられている
+	Item_MoveX,//投げられている
 	Item_Putted,//置かれた
-	Item_Gravity//重力を受けている
+	Item_MoveY,//重力を受けている
+
+	Item_ActionNum
 };
 class Collision;
 class ItemAction;
@@ -25,7 +27,7 @@ private:
 	Sound* sound_;
 	Collision *collision_;
 	ItemHit* itemhit_;
-	ItemAction *itemaction_[5];//Itemの行動を行うクラス配列
+	ItemAction *itemaction_[Item_ActionNum];//Itemの行動を行うクラス配列
 public:
 	Item(Sound* sound,Collision* collision,float x, float y, float height, float width);
 	ItemState state_;

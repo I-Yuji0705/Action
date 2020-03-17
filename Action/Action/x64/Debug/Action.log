@@ -1,4 +1,27 @@
-﻿  Hit.cpp
+﻿  Camera.cpp
+  ClearArea.cpp
+  Collision.cpp
+  Game.cpp
   Item.cpp
+  ItemAction.cpp
+  ItemBaggage.cpp
+  ItemHit.cpp
+  ItemMoveX.cpp
+  ItemMoveY.cpp
+  ItemPutted.cpp
+  ItemStartThrow.cpp
+  Object.cpp
+  Player.cpp
+  PlayerAction.cpp
+  PlayerActionBaggage.cpp
+  PlayerDance.cpp
+  PlayerHit.cpp
+  PlayerInversion.cpp
+  PlayerMoveX.cpp
   コードを生成中...
-  Action.vcxproj -> C:\Users\student\Desktop\Action\x64\Debug\Action.exe
+  コンパイル中...
+  PlayerMoveY.cpp
+  SceneMgr.cpp
+  StageMgr.cpp
+  コードを生成中...
+  Action.vcxproj -> C:\Users\student\Desktop\Action\Action\x64\Debug\Action.exe

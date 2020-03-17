@@ -12,28 +12,26 @@ enum StateCharacter {
 	Player_Clear,//クリアした
 };
 enum PlayerActionList {
-	Player_MoveRight,//右移動
-	Player_MoveLeft,//左移動
-	Player_Jump,//ジャンプ
-	Player_Throw,//投げる
-	Player_Pick,//拾う
-	Player_Put,//置く
-	Player_Gravity,//重力を受ける
-	Player_Dance//踊る
+	Player_MoveX,//左右移動
+	Player_MoveY,//上下移動(落下も含む)
+	Player_Baggage,//Itemを持つ、置く、投げる
+	Player_Inversion,//向きを反転する
+	Player_Dance,//踊る
+
+	Player_ActionNum//PlayerのActionの合計
 };
 class Collision;
 class PlayerAction;
 class Keyboard;
 class Sound;
 class Collision;
-
+class PlayerHit;
 //ステージ上のプレイヤーの基底クラス
 class Player : public Object{
 private:
-	Keyboard* keyboard_;
 	Sound* sound_;
 	Collision *collision_;
-	PlayerAction *playeraction_[8];
+	PlayerAction *playeraction_[Player_ActionNum];
 	void Action();//キーの状態からプレイヤーの行動を行う
 	PlayerHit* playerhit_;
 public :

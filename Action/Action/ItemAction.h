@@ -4,7 +4,6 @@
 #include "ItemHit.h"
 
 class Item;
-class ItemHit;
 
 //Item‚Ìs“®‚ğ’S“–‚·‚é’ŠÛƒNƒ‰ƒX
 class ItemAction : public IActionBase {

@@ -12,9 +12,9 @@ std::vector<Object*> VectorNoDuplicationInsert(std::vector<Object*> added, std::
 				ok = false;
 				break;
 			}
-			if (ok)
-				vector.push_back(i);
 		}
+		if (ok)
+			vector.push_back(i);
 	}
 	return vector;
 }

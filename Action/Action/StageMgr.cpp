@@ -53,9 +53,9 @@ void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* s
 //ステージの生成とそのデータの保存
 void StageMgr::CreateStageDeta(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
 	stage_->push_back((Object*)new Terrain(0.0f, 440.0f, 40.0f, 1400.0f));
-	stage_->push_back((Object*)new Terrain(400.0f, 0.0f, 100.0f, 50.0f));
-	stage_->push_back((Object*)new Terrain(800.0f, 0.0f, 100.0f, 50.0f));
-	stage_->push_back((Object*)new Terrain(1300.0f, 0.0f, 100.0f, 50.0f));
+	stage_->push_back((Object*)new Terrain(400.0f, 100.0f, 100.0f, 50.0f));
+	stage_->push_back((Object*)new Terrain(800.0f, 100.0f, 100.0f, 50.0f));
+	stage_->push_back((Object*)new Terrain(1300.0f, 100.0f, 100.0f, 50.0f));
 	//stage_->push_back((Object*)new Terrain(700.0f, 240.0f, 50.0f, 50.0f));
 	//stage_->push_back((Object*)new Terrain(850.0f, 390.0f, 100.0f, 50.0f));
 	stage_->push_back((Object*)new ClearArea(sound,collision,color_,1250.0f, 240.0f, 200.0f, 150.0f));
