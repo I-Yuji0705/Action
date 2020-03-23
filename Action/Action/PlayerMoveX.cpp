@@ -141,6 +141,8 @@ bool PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 				}
 				push = true;
 				player_->Set(player_->Left() + canpushed, player_->Top());
+				if (player_->carryon_ != nullptr)
+					player_->carryon_->Update();
 			}
 		}
 	}

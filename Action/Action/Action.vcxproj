@@ -184,7 +184,6 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StageMgr.cpp" />
     <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="VectorNoduplicationInsert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseScene.h" />

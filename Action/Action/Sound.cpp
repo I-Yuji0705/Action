@@ -3,6 +3,11 @@
 #include <stdlib.h>
 
 //BGMとSEの設定
+///<summary>
+///<para>コンストラクタ</para>
+///<para>プログラム中で使用するBGMとSEの設定とSEの音量調整</para>
+///<para>現在鳴らしているBGMを無しにする</para>
+///</summary>
 Sound::Sound() {
 	bgm_[BGM_Menu] = LoadSoundMem("Sound/BGM/Carmel_Latte.mp3");
 	bgm_[BGM_Game] = LoadSoundMem("Sound/BGM/Attention_Shoppers.mp3");
@@ -23,13 +28,19 @@ Sound::Sound() {
 	sevolume_[Se_SceneChange] = 128;
 	bgmname_ = BGM_None;
 }
-//------------------------------------------------
-//Seの音量をObjectと画面からの離れるほど小さくする
-//	引数:
-//		sename:調整する
-//		object:音を発生させるobject
-//	返り値:
-//		調整後の音量の大きさ(0～255)
+
+///<summary>
+///<para>音量の調整</para>
+///<para>引数で受け取ったObjectが出す音量の調整を行う</para>
+///<para>対象のObjectが画面外にいる時、離れているほど音は小さくなる</para>
+///<para>引数:</para>
+///<param name="sename"><para>sename:鳴らそうとしているSEの列挙子</para></param>
+///<param name="num"><para>object:音を鳴らそうとしているObject</para></param>
+///<para>戻り値:</para>
+///<returns>
+///<para>鳴らす音量(0～255)</para>
+///</returns>
+///</summary>
 int Sound::RegulationSeVolume(Se_Name sename, const Object* object) {
 	int volume = se_[sename];
 	const float kWindowX = 640.0f;
@@ -49,6 +60,13 @@ int Sound::RegulationSeVolume(Se_Name sename, const Object* object) {
 //BGMの再生
 //	引数:
 //		bgmname:再生するBGMの種類
+///<summary>
+///<para>BGMの再生</para>
+///<para>引数で受け取ったBGMを再生し、再生しているBGMの列挙子を更新する</para>
+///<para>引数で受け取った列挙子が現在鳴らしているBGMの場合、何もしない</para>
+///<para>引数:</para>
+///<param name="bgmname"><para>bgmname:鳴らそうとしているBGMの列挙子</para></param>
+///</summary>
 void Sound::PlayBgm(BGM_Name bgmname) {
 	if (bgmname_ != bgmname) {
 		StopBgm();
@@ -57,10 +75,13 @@ void Sound::PlayBgm(BGM_Name bgmname) {
 		PlaySoundMem(bgm_[bgmname_], DX_PLAYTYPE_LOOP);
 	}
 }
-//------------------------------------------------
-//Seの再生
-//	引数:
-//		sename:再生するBGMの種類
+
+///<summary>
+///<para>SEの再生</para>
+///<para>引数で受け取ったSEを再生する</para>
+///<para>引数:</para>
+///<param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
+///</summary>
 void Sound::PlaySe(Se_Name sename) {
 	if (CheckSoundMem(se_[sename]) == 1) {
 		StopSoundMem(se_[sename]);
@@ -73,6 +94,12 @@ void Sound::PlaySe(Se_Name sename) {
 //	引数:
 //		sename:再生するBGMの種類
 //		object:音を発生させるobject
+///<summary>
+///<para>SEの再生</para>
+///<para>引数で受け取ったSEを再生する</para>
+///<para>引数:</para>
+///<param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
+///</summary>
 void Sound::PlaySe(Se_Name sename,const Object* object) {
 	if (CheckSoundMem(se_[sename]) == 1) {
 		StopSoundMem(se_[sename]);
@@ -83,12 +110,20 @@ void Sound::PlaySe(Se_Name sename,const Object* object) {
 }
 //---------
 //BGMの停止
+
+///<summary>
+///<para>SEの再生</para>
+///<para>引数で受け取ったSEを再生する</para>
+///<para>引数:</para>
+///<param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
+///</summary>
 void Sound::StopBgm() {
 	if (bgmname_ != BGM_None) {
 		StopSoundMem(bgm_[bgmname_]);
 		bgmname_ = BGM_None;
 	}
 }
+
 void Sound::StopSe() {
 	for (int i = 0; i != Se_None; i++) {
 		if (CheckSoundMem(se_[i]) == 1) {

@@ -7,7 +7,7 @@
 
 ///<summary>
 ///<para>コンストラクタ</para>
-///<para>Scene内で使用するキーボードクラスと音を発生させるクラス取得する</para>
+///<para>Scene内で使用するキーボードクラスと音を発生させるクラスを取得する</para>
 ///<para>追加で、最初のSceneをTitleに設定する</para>
 ///<para>引数:</para>
 ///<param name= "keyboard"><para>キーが押されているか確認するクラス</para></param>
@@ -71,15 +71,31 @@ void SceneMgr::Update() {
 }
 
 //描画
+
+///<summary>
+///<para>描写処理</para>
+///<para>Sceneの描写処理を行う</para>
+///</summary>
 void SceneMgr::Draw() {
 	scene_->Draw(); //シーンの描画
 }
 
 // 引数 nextScene にシーンを変更する
+
+///<summary>
+///<para>シーンの変更処理</para>
+///<para>次のシーンをセットし、描写範囲を設定しなおす</para>
+///</summary>
 void SceneMgr::ChangeScene(Scene nextscene) {
 	next_scene_ = nextscene;    //次のシーンをセットする
 	SetDepictionScreen(0, 0, 640, 480);
 }
+
+///<summary>
+///<para>シーンの暗転処理</para>
+///<para>描写範囲を狭めることで画面を暗くする</para>
+///<para>描写範囲を無くした後、シーンの変更処理を行い、Stateを暗転の状態から明るくする状態に変更する</para>
+///</summary>
 void SceneMgr::BlackOutScene() {
 	const int animationspeed = 2;
 	SetDepictionScreen(screen.x1 + animationspeed * 3, screen.y1 + animationspeed * 4, screen.x2 - animationspeed * 3, screen.y2 - animationspeed * 4);
@@ -105,6 +121,12 @@ void SceneMgr::BlackOutScene() {
 		scene_->Initialize();    //シーンを初期化
 	}
 }
+
+///<summary>
+///<para>シーンの明るくする処理</para>
+///<para>描写範囲を広げることで画面を明るくする</para>
+///<para>描写範囲を画面まで広げた後、Scene毎のBGMを再生し、Stateを通常時に変更する</para>
+///</summary>
 void SceneMgr::LightingScene() {
 	const int animationspeed = 2;
 	SetDepictionScreen(screen.x1 - animationspeed * 3, screen.y1 - animationspeed * 4, screen.x2 + animationspeed * 3, screen.y2 + animationspeed * 4);
@@ -114,6 +136,17 @@ void SceneMgr::LightingScene() {
 		//scene_->StartBgm();
 	}
 }
+
+///<summary>
+///<para>シーンの描写範囲の変更処理</para>
+///<para>描写する範囲の左上のX座標とY座標、右下のX座標とY座標を引数として受け取る</para>
+///<para>シーンの描写範囲を変数に保存した後、受け取った座標を対角線とする四角形を描写範囲として設定する</para>
+///<para>引数:</para>
+///<param name="x1"><para>x1:描写する範囲の左上のX座標</para></param>
+///<param name="y1"><para>y1:描写する範囲の左上のY座標</para></param>
+///<param name="x2"><para>x2:描写する範囲の右下のX座標</para></param>
+///<param name="y2"><para>y2:描写する範囲の右下のX座標</para></param>
+///</summary>
 void SceneMgr::SetDepictionScreen(int x1, int y1, int x2, int y2) {
 	screen.x1 = x1;
 	screen.y1 = y1;
