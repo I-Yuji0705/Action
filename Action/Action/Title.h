@@ -1,13 +1,13 @@
 #pragma once
 #include "BaseScene.h"
-#include "SelectionDeta.h"
+#include "TextDeta.h"
 #include "ITitleStateChanger.h"
-#include "TitleSelectionBase.h"
+#include "CanvasBase.h"
 
 //メニューのSceneクラス
 class Title : public BaseScene ,ITitleStateChanger{
 private:
-	TitleSelectionBase* titleselection_;
+	CanvasBase* titlecanvas_;
 	TitleState nextstate_;//
 	int title_;
 public:

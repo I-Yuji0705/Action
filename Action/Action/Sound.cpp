@@ -111,11 +111,10 @@ void Sound::PlaySe(Se_Name sename,const Object* object) {
 //---------
 //BGM‚Ì’â~
 
+
 ///<summary>
-///<para>SE‚ÌÄ¶</para>
-///<para>ˆø”‚Åó‚¯æ‚Á‚½SE‚ğÄ¶‚·‚é</para>
-///<para>ˆø”:</para>
-///<param name="sename"><para>sename:–Â‚ç‚»‚¤‚Æ‚µ‚Ä‚¢‚ése‚Ì—ñ‹“q</para></param>
+///<para>BGM‚Ì’â~</para>
+///<para>Œ»İBGM‚ğ–Â‚ç‚µ‚Ä‚¢‚éê‡A’â~‚³‚¹‚é</para>
 ///</summary>
 void Sound::StopBgm() {
 	if (bgmname_ != BGM_None) {
@@ -124,6 +123,10 @@ void Sound::StopBgm() {
 	}
 }
 
+///<summary>
+///<para>SE‚Ì’â~</para>
+///<para>Œ»İ–Â‚ç‚µ‚Ä‚¢‚éSE‚ğ‘S‚Ä~‚ß‚é</para>
+///</summary>
 void Sound::StopSe() {
 	for (int i = 0; i != Se_None; i++) {
 		if (CheckSoundMem(se_[i]) == 1) {
@@ -131,6 +134,10 @@ void Sound::StopSe() {
 		}
 	}
 }
+///<summary>
+///<para>I—¹ˆ—</para>
+///<para>ƒƒ‚ƒŠã‚É‚ ‚éBGM‚Ìî•ñ‚ğíœ‚·‚é</para>
+///</summary>
 void Sound::Finalize() {
 	InitSoundMem();
 }

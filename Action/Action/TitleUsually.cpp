@@ -2,38 +2,17 @@
 #include "DxLib.h"
 #include "Keyboard.h"
 #include <assert.h>
-#include "SelectionDeta.h"
+#include "TextDeta.h"
+#include "TitleOptionDeta.h"
 
-TitleUsually::TitleUsually(Keyboard* keyboard, ITitleStateChanger* statechanger) :TitleSelectionBase(keyboard,statechanger){
-	choicedeta_.push_back((DrawingDeta*) new SelectionDeta(400, 300, "ゲームスタート", GetColor(0, 0, 0)));
-	choicedeta_.push_back((DrawingDeta*) new SelectionDeta(400, 350, "ゲーム終了", GetColor(0, 0, 0)));
-	choicedeta_.push_back((DrawingDeta*) new SelectionDeta(400, 400, "操作説明", GetColor(0, 0, 0)));
-	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 380, "Enterキー:項目の決定", GetColor(0, 0, 0)));
-	drawingdeta_.push_back((DrawingDeta*) new SelectionDeta(130, 400, "上下キー：項目の選択", GetColor(0, 0, 0)));
-}
-
-void TitleUsually::Initialize(){
-	SelectionBase::Initialize();
-}
-
-void TitleUsually::Update(){
-	SelectionBase::SelectSelection();
-	SelectionBase::SelectionColorChange();
-	//Enterキーを入力したとき
-	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1) {
-		switch (selectnum_) {
-		case 0:
-			statechanger_->ChangeState(Title_Game);
-			break;
-		case 1:
-			statechanger_->ChangeState(Title_Delete);
-			break;
-		case 2:
-			statechanger_->ChangeState(Title_Intersection);
-			break;
-		default:
-			assert(false);
-			break;
-		}
-	}
+///<summary>
+///<para>コンストラクタ</para>
+///<para>字幕の生成</para>
+///</summary>
+TitleUsually::TitleUsually(Keyboard* keyboard, ITitleStateChanger* statechanger) :TitleCanvasOptionBase(keyboard,statechanger){
+	optiondeta_.push_back((OptionDetaBase*) new TitleOptionDeta(400, 300, "ゲームスタート", GetColor(0, 0, 0),statechanger, Title_Game));
+	optiondeta_.push_back((OptionDetaBase*) new TitleOptionDeta(400, 350, "ゲーム終了", GetColor(0, 0, 0),statechanger, Title_Delete));
+	optiondeta_.push_back((OptionDetaBase*) new TitleOptionDeta(400, 400, "操作説明", GetColor(0, 0, 0), statechanger, Title_Intersection));
+	drawingdeta_.push_back((DrawingDeta*) new TextDeta(130, 380, "Enterキー:項目の決定", GetColor(0, 0, 0)));
+	drawingdeta_.push_back((DrawingDeta*) new TextDeta(130, 400, "上下キー：項目の選択", GetColor(0, 0, 0)));
 }

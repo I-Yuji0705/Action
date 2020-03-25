@@ -1,13 +1,10 @@
 #pragma once
-#include "GameSelectionBase.h"
+#include "GameCanvasOptionBase.h"
 
 
 //ゲームメニュー時にステージ以外の処理を行う基底クラス
-class GameMenu : public GameSelectionBase {
+class GameMenu : public GameCanvasOptionBase {
 	private:
-		//void SelectionColorChange();
 public:
 	GameMenu(Keyboard* keyboard,IGameStateChanger* statechanger);
-	void Initialize() final;
-	void Update() final;
 };

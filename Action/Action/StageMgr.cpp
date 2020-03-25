@@ -5,12 +5,20 @@
 #include <assert.h>
 #include "Player.h"
 #include "Terrain.h"
-#include "Camera.h"
 #include "Item.h"
 #include "ClearArea.h"
 #include "ObjectDeta.h"
 #include <stdio.h>
 
+///<summary>
+///<para>コンストラクタ</para>
+///<para>キャラクターに渡すKeyboardクラス、Soundクラス、IGameStateChangerクラスを受け取る</para>
+///<para>ゲームのステージを生成する</para>
+///<para>引数:</para>
+///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
+///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
+///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
+///</summary>
 StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechanger) {
 	stage_ = new std::vector<Object*>;
 	collision_ = new Collision(stage_);
@@ -21,6 +29,16 @@ StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechang
 }
 //------------------------
 //データからステージの生成
+///<summary>
+///<para>ステージの生成処理</para>
+///<para>引数で渡されたステージ名のテキストファイルから、ステージ情報を読み込み、ステージを生成する</para>
+///<para>引数:</para>
+///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
+///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
+///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
+///<param name= "collision"><para>Objectの接触判定を担当するクラス</para></param>
+///<param name= "stagename"><para>読み込むテキストファイルの名前</para></param>
+///</summary>
 void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
 	char dataplace[50];
 	sprintf_s(dataplace, "Stage/%s.txt", stagename);
@@ -49,8 +67,17 @@ void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* s
 	}
 	infile.close();
 }
-//--------------------------------
-//ステージの生成とそのデータの保存
+
+///<summary>
+///<para>ステージの生成処理</para>
+///<para>CreateStageとは違い、プログラム文から生成したステージ情報をテキストファイルに出力する</para>
+///<para>引数:</para>
+///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
+///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
+///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
+///<param name= "collision"><para>Objectの接触判定を担当するクラス</para></param>
+///<param name= "stagename"><para>出力するテキストファイルの名前</para></param>
+///</summary>
 void StageMgr::CreateStageDeta(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
 	stage_->push_back((Object*)new Terrain(0.0f, 440.0f, 40.0f, 1400.0f));
 	stage_->push_back((Object*)new Terrain(400.0f, 100.0f, 100.0f, 50.0f));
@@ -98,10 +125,10 @@ void StageMgr::CreateStageDeta(Keyboard* keyboard, Sound* sound,IGameStateChange
 	outfile.close();
 }
 
-//
-
-///-------------------
-///ステージの初期処理
+///<summary>
+///<para>初期化処理</para>
+///<para>ステージ上のObjectとカメラの初期化処理を行う</para>
+///</summary>
 void StageMgr::Initialize() {
 	collision_->Initialize();
 	for (auto i : *stage_) {
@@ -109,8 +136,11 @@ void StageMgr::Initialize() {
 	}
 	playercamera_->Initialize();
 }
-//-------------------
-//ステージの描写処理
+
+///<summary>
+///<para>描写処理</para>
+///<para>ステージ上のObjectの描写処理を行う</para>
+///</summary>
 void StageMgr::Draw() {
 	unsigned int backgroundcolor = GetColor(color_.Red, color_.Green, color_.Blue);
 	DrawBox(0, 0, 640, 480, backgroundcolor, TRUE);//背景色の設定
@@ -118,23 +148,32 @@ void StageMgr::Draw() {
 		i->Draw();
 	}
 }
-//-------------------
-//ステージの変更処理
+
+///<summary>
+///<para>更新処理</para>
+///<para>ステージ上のObjectの更新処理を行う</para>
+///</summary>
 void StageMgr::Update() {
 	for (auto i : *stage_) {
 		i->Update();
 	}
 	playercamera_->Update();
 }
-//-------------------
-//ステージの終了処理
+
+///<summary>
+///<para>終了処理</para>
+///<para>ステージ上のObjectの終了処理を行う</para>
+///</summary>
 void StageMgr::Finalize() {
 	for (auto i : *stage_) {
 		i->Finalize();
 	}
 }
-//----------------------
-//ステージのリトライ処理
+
+///<summary>
+///<para>リトライ処理処理</para>
+///<para>ステージ上のObjectのリトライ処理を行う</para>
+///</summary>
 void StageMgr::Retry() {
 	for (auto i : *stage_) {
 		i->Retry();

@@ -1,9 +1,8 @@
 #pragma once
-#include "ManualSelectionBase.h"
+#include "ManualCanvasBase.h"
 
 //マニュアル内で操作方法を表示する基底クラス
-class ManualOperation : public ManualSelectionBase {
+class ManualOperation : public ManualCanvasBase {
 public:
 	ManualOperation(Keyboard* keyboard, IManualStateChanger* statechanger);
-	void Initialize() final;
 };

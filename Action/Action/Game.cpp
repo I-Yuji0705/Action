@@ -14,7 +14,7 @@
 ///<para>最初に表示する字幕とステージを管理するクラスの生成</para>
 ///</summary>
 Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer) : BaseScene(keyboard,sound,changer) {
-	gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_,this);
+	gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_,this);
 	stagemgr_ = (StageMgr*) new StageMgr(keyboard_,sound_,this);
 }
 
@@ -23,20 +23,21 @@ Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer) : BaseScene(
 ///<para>字幕とステージの初期化処理を行う</para>
 ///</summary>
 void Game::Initialize() {
-	gameselection_->Initialize();
+	gamecanvas_->Initialize();
 	stagemgr_->Initialize();
 }
 
 ///<summary>
 ///<para>更新処理</para>
-///<para>現在のステートの変更要請の確認と、字幕とステージの更新処理を行う</para>
+///<para>字幕の更新処理を行う</para>
+///<para>nextstateが変更されていた場合、変更処理を行う</para>
 ///</summary>
 void Game::Update() {
 	UpdateNextState();
-	if (typeid(*gameselection_) == typeid(GameUsually) || typeid(*gameselection_) == typeid(GameDance)) {
+	if (typeid(*gamecanvas_) == typeid(GameUsually) || typeid(*gamecanvas_) == typeid(GameDance)) {
 		stagemgr_->Update(); 
 	}
-	gameselection_->Update();
+	gamecanvas_->Update();
 }
 
 ///<summary>
@@ -45,7 +46,7 @@ void Game::Update() {
 ///</summary>
 void Game::Draw() {
 	stagemgr_->Draw();
-	gameselection_->Draw();
+	gamecanvas_->Draw();
 }
 
 ///<summary>
@@ -65,32 +66,32 @@ void Game::StartBgm() {
 }
 
 ///<summary>
-///<para>Stateの変更要請があった場合、変更処理を行う</para>
+///<para>nextstate_が変更されていた場合、nextstate_の値によって対応する処理を行う</para>
 ///</summary>
 void Game::UpdateNextState(){
 	if (nextstate_ != Game_None) {
-		gameselection_->Finalize();
+		gamecanvas_->Finalize();
 		switch (nextstate_) {
 		case Game_Usually:
-			gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_,this);
-			gameselection_->Initialize();
+			gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_,this);
+			gamecanvas_->Initialize();
 			break;
 		case Game_Menu:
-			gameselection_ = (GameSelectionBase*) new GameMenu(keyboard_, this);
-			gameselection_->Initialize();
+			gamecanvas_ = (CanvasBase*) new GameMenu(keyboard_, this);
+			gamecanvas_->Initialize();
 			break;
 		case Game_Dance:
-			gameselection_ = (GameSelectionBase*) new GameDance(keyboard_, this);
-			gameselection_->Initialize();
+			gamecanvas_ = (CanvasBase*) new GameDance(keyboard_, this);
+			gamecanvas_->Initialize();
 			break;
 		case Game_Clear:
-			gameselection_ = (GameSelectionBase*) new GameClear(keyboard_, this);
-			gameselection_->Initialize();
+			gamecanvas_ = (CanvasBase*) new GameClear(keyboard_, this);
+			gamecanvas_->Initialize();
 			break;
 		case Game_Retry:
 			stagemgr_->Retry();
-			gameselection_ = (GameSelectionBase*) new GameUsually(keyboard_, this);
-			gameselection_->Initialize();
+			gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_, this);
+			gamecanvas_->Initialize();
 			break;
 		case Game_Exit:
 			scenechanger_->ChangeScene(Scene_Title);
@@ -104,7 +105,10 @@ void Game::UpdateNextState(){
 }
 
 ///<summary>
-///<para>Stateの変更要請</para>
+///<para>Stateの変更処理</para>
+///<para>nextstate_を引数の値に変更する</para>
+///<para>引数:</para>
+///<param name= "state"><para>nextstate_にCopyする値</para></param>
 ///</summary>
 void Game::ChangeState(GameState state) {
 	this->nextstate_ = state;

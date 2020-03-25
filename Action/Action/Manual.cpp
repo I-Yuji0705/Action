@@ -12,7 +12,7 @@
 ///</summary>
 Manual::Manual(Keyboard* keyboard, Sound* sound, ISceneChanger* changer) : BaseScene(keyboard, sound,changer) {
 	nextstate_ = Manual_None;
-	manualselection_ = (ManualSelectionBase*) new ManualUsually(keyboard_,this);
+	manualcanvas_ = (CanvasBase*) new ManualUsually(keyboard_,this);
 }
 
 ///<summary>
@@ -20,33 +20,33 @@ Manual::Manual(Keyboard* keyboard, Sound* sound, ISceneChanger* changer) : BaseS
 ///<para>字幕の初期化処理を行う</para>
 ///</summary>
 void Manual::Initialize() {
-	manualselection_->Initialize();
+	manualcanvas_->Initialize();
 }
 
 ///<summary>
 ///<para>更新処理</para>
-///<para>現在のステートの変更要請の確認と、字幕の更新処理を行う</para>
-///<para>変更要請があった場合、変更処理を行う</para>
+///<para>字幕の更新処理を行う</para>
+///<para>nextstate_が変更されていた場合、nextstate_によって処理を行う</para>
 ///</summary>
 void Manual::Update() {
 	if (nextstate_ != Manual_None) {
-		manualselection_->Finalize();
+		manualcanvas_->Finalize();
 		switch (nextstate_) {
 		case Manual_Usually:
-			manualselection_ = (ManualSelectionBase*) new ManualUsually(keyboard_,this);
-			manualselection_->Initialize();
+			manualcanvas_ = (CanvasBase*) new ManualUsually(keyboard_,this);
+			manualcanvas_->Initialize();
 			break;
 		case Manual_Operation:
-			manualselection_ = (ManualSelectionBase*) new ManualOperation(keyboard_,this);
-			manualselection_->Initialize();
+			manualcanvas_ = (CanvasBase*) new ManualOperation(keyboard_,this);
+			manualcanvas_->Initialize();
 			break;
 		case Manual_Stage:
-			manualselection_ = (ManualSelectionBase*) new ManualStage(keyboard_,this);
-			manualselection_->Initialize();
+			manualcanvas_ = (CanvasBase*) new ManualStage(keyboard_,this);
+			manualcanvas_->Initialize();
 			break;
 		case Manual_Rule:
-			manualselection_ = (ManualSelectionBase*) new ManualRule(keyboard_,this);
-			manualselection_->Initialize();
+			manualcanvas_ = (CanvasBase*) new ManualRule(keyboard_,this);
+			manualcanvas_->Initialize();
 			break;
 		case Manual_Exit:
 			scenechanger_->ChangeScene(Scene_Title);
@@ -57,13 +57,13 @@ void Manual::Update() {
 		}
 		nextstate_ = Manual_None;
 	}
-	manualselection_->Update();
+	manualcanvas_->Update();
 }
 
 //描画
 void Manual::Draw() {
 	DrawBox(0, 0, 640, 480, GetColor(255, 255, 255), TRUE);//背景の設定
-	manualselection_->Draw();
+	manualcanvas_->Draw();
 }
 
 ///<summary>
@@ -71,9 +71,15 @@ void Manual::Draw() {
 ///<para>字幕の終了処理を行う</para>
 ///</summary>
 void Manual::Finalize() {
-	manualselection_->Finalize();
+	manualcanvas_->Finalize();
 }
 
+///<summary>
+///<para>Stateの変更処理</para>
+///<para>nextstate_を引数の値に変更する</para>
+///<para>引数:</para>
+///<param name= "state"><para>nextstate_にCopyする値</para></param>
+///</summary>
 void Manual::ChangeState(ManualState state) {
 	nextstate_ = state;
 }

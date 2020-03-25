@@ -1,10 +1,8 @@
 #pragma once
-#include "TitleSelectionBase.h"
+#include "TitleCanvasOptionBase.h"
 
 //Menu“à‚ÅÅ‰‚É•\¦‚·‚éŠî’êƒNƒ‰ƒX
-class TitleUsually : public TitleSelectionBase {
+class TitleUsually : public TitleCanvasOptionBase {
 public:
 	TitleUsually(Keyboard* keyboard, ITitleStateChanger* statechanger);
-	void Initialize() final;
-	void Update() final;
 };

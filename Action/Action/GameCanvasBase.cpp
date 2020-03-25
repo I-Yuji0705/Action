@@ -1,10 +1,10 @@
-#include "GameSelectionBase.h"
+#include "GameCanvasBase.h"
 #include "DxLib.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>GameStateChangerポインタの収得</para>
 ///</summary>
-GameSelectionBase::GameSelectionBase(Keyboard* keyboard,IGameStateChanger* statechanger) :SelectionBase(keyboard) {
+GameCanvasBase::GameCanvasBase(Keyboard* keyboard,IGameStateChanger* statechanger) :CanvasBase(keyboard) {
 	statechanger_ = statechanger;
 }

@@ -1,21 +1,14 @@
 #include "GameClear.h"
 #include "DxLib.h"
 #include <iostream>
-#include "SelectionDeta.h"
+#include "TextDeta.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>ゲームクリア時の字幕の生成</para>
 ///</summary>
-GameClear::GameClear(Keyboard* keyboard,IGameStateChanger* statechanger) : GameSelectionBase(keyboard,statechanger) {
-	drawingdeta_.push_back((DrawingDeta*)new SelectionDeta(250, 100, "ゲームクリア！", GetColor(0, 0, 0)));
-}
-
-///<summary>
-///<para>初期化処理</para>
-///</summary>
-void GameClear::Initialize() {
-	SelectionBase::Initialize();
+GameClear::GameClear(Keyboard* keyboard,IGameStateChanger* statechanger) : GameCanvasBase(keyboard,statechanger) {
+	drawingdeta_.push_back((DrawingDeta*)new TextDeta(250, 100, "ゲームクリア！", GetColor(0, 0, 0)));
 }
 
 ///<summary>

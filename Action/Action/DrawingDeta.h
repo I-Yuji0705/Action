@@ -5,6 +5,5 @@
 class DrawingDeta {
 public:
 	virtual void Draw() = 0;
-	virtual void ChangeColor(ColorCode color) {};
 	virtual void Finalize() {};
 };

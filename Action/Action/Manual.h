@@ -1,13 +1,13 @@
 #pragma once
 #include "BaseScene.h"
-#include "SelectionDeta.h"
+#include "TextDeta.h"
 #include "IManualStateChanger.h"
-#include "ManualSelectionBase.h"
+#include "ManualCanvasBase.h"
 
 //マニュアルのSceneクラス
 class Manual : public BaseScene, IManualStateChanger {
 private:
-	ManualSelectionBase* manualselection_;
+	CanvasBase* manualcanvas_;
 	ManualState nextstate_;//
 public:
 	Manual(Keyboard* keyboard, Sound* sound,ISceneChanger* changer);

@@ -5,11 +5,11 @@
 #include "IGameStateChanger.h"
 #include "StageMgr.h"
 #include <vector>
-#include "GameSelectionBase.h"
+#include "GameCanvasBase.h"
 //ゲームのシーンクラス
 class Game : public BaseScene,IGameStateChanger {
 private:
-	GameSelectionBase* gameselection_;
+	CanvasBase* gamecanvas_;
 	GameState nextstate_;
 	StageMgr* stagemgr_;
 public:
