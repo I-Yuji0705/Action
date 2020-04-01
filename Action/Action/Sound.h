@@ -21,6 +21,7 @@ enum Se_Name {//SEの種類
 	Se_None
 };
 class Object;
+//プログラム内のBGMとSEを管理する基底クラス
 class Sound {
 private:
 	int bgm_[3];//BGM読み込み用

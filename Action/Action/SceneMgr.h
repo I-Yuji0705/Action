@@ -14,6 +14,7 @@ enum SceneState {
 };
 class BaseScene;
 class Sound;
+//プログラム内のSceneを管理する基底クラス
 class SceneMgr : public ISceneChanger{
 private:
 	Keyboard* keyboard_;

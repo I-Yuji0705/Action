@@ -4,10 +4,9 @@
 
 ///<summary>
 ///<para>コンストラクタ</para>
-///<para>引数:</para>
 ///<param name="sound"><para>sound:クリア時の音楽を鳴らすクラスのポインタ</para></param>
-///<param name="sound"><para>collision:クリア判定を行うクラスのポインタ</para></param>
-///<param name="sound"><para>color:ステージ背景のカラーコード</para></param>
+///<param name="collision"><para>collision:クリア判定を行うクラスのポインタ</para></param>
+///<param name="color"><para>color:ステージ背景のカラーコード</para></param>
 ///</summary>
 ClearArea::ClearArea(Sound* sound,Collision* collision,ColorCode color,float x, float y, float height, float width) : Object(x, y, height, width) {
 	sound_ = sound; 

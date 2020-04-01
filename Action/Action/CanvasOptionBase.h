@@ -3,6 +3,7 @@
 
 
 class OptionDetaBase;
+//DrawingDetaに加えて、選択肢を表示するクラス
 class CanvasOptionBase : public CanvasBase {
 protected:
 	std::vector<OptionDetaBase*> optiondeta_;//選択肢を入れる動的配列

@@ -13,7 +13,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
-///<para>引数:</para>
 ///<param name= "sound"><para>動作時に音を発生させるクラス</para></param>
 ///<param name= "collision"><para>動作時や動作確認時に接触判定を調べる</para></param>
 ///</summary>
@@ -73,9 +72,7 @@ void Item::Draw() {
 ///<summary>
 ///<para>Objectに持たれるかを返す</para>
 ///<para>Objectの頭上に自身を置くことができるかを調べ、返す</para>
-///<para>引数:</para>
 ///<param name="object"><para>object:自分を持つObject</para></param>
-///<para>戻り値:</para>
 ///<returns>
 ///<para>true:自分を持つことができる</para>
 ///<para>false:自分を持つことができない</para>
@@ -92,7 +89,6 @@ bool Item::CanPicked(const Object *object) {
 ///<summary>
 ///<para>Objectに持たれた始める際の処理</para>
 ///<para>自分のstateを変更し、持たれる対象をポインタに保存し、自分の位置を変更する</para>
-///<para>引数:</para>
 ///<param name="object"><para>object:自分を持つObject</para></param>
 ///</summary>
 void Item::Picked(Object *object) {
@@ -104,7 +100,6 @@ void Item::Picked(Object *object) {
 ///<summary>
 ///<para>carrier_に置かれることができるかを返す</para>
 ///<para>Objectの頭上に自身を置くことができるかを調べ、返す</para>
-///<para>戻り値:</para>
 ///<returns>
 ///<para>true:自分を持つことができる</para>
 ///<para>false:自分を持つことができない</para>
@@ -137,7 +132,6 @@ bool Item::CanPutted() {
 ///<summary>
 ///<para>Objectに持たれた始める際の処理</para>
 ///<para>stateと持たれる対象をポインタに保存し、自分の位置を変更する</para>
-///<para>引数:</para>
 ///<param name="object"><para>object:自分を持つObject</para></param>
 ///</summary>
 void Item::Putted() {
@@ -147,7 +141,6 @@ void Item::Putted() {
 ///<summary>
 ///<para>carrier_に投げられる際、投げれるかを返す</para>
 ///<para>Itemのvector_から投げる際に自分がいる位置に他のObjectがないか調べる</para>
-///<para>戻り値:</para>
 ///<returns>
 ///<para>true:自分投げることができる</para>
 ///<para>false:自分を投げることができない</para>
@@ -198,9 +191,7 @@ void Item::Retry() {
 ///<para>押されようとしている数字から、自分が押されることのできる数字を返す</para>
 ///<para>ステージ端に移動してしまう場合、その差の数字を返す</para>
 ///<para>自分が押される分数字を半分にした後、移動先にObjectがあった場合そのObjectのCapushedを再帰させ、一番小さい数字を返す</para>
-///<para>引数:</para>
 ///<param name="num"><para>num:現在の位置から動かそうとしている座標への差</para></param>
-///<para>戻り値:</para>
 ///<returns>
 ///<para>numに対して、実際にこのObjectを動かせる距離</para>
 ///</returns>
@@ -234,7 +225,6 @@ float Item::CanPushed(float num) {
 ///<summary>
 ///<para>引数で受け取った数字分座標を移動する</para>
 ///<para>移動先に他のObjectがあった場合、そのObjectもPushedを使い、再帰させる</para>
-///<para>引数:</para>
 ///<param name="num"><para>num:現在の位置から動かそうとしている座標への差</para></param>
 ///</summary>
 void Item::Pushed(float num) {

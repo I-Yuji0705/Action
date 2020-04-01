@@ -3,7 +3,7 @@
 #include "Collision.h"
 #include "Sound.h"
 
-//ゲーム内のObjectが行う行動の基底クラス
+//ゲーム内のObjectが行う行動のインターフェースクラス
 class IActionBase {
 protected:
 public:

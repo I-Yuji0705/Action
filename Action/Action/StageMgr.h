@@ -23,7 +23,7 @@ private:
 	Camera* playercamera_;
 	Collision* collision_;
 	ColorCode color_;
-	void CreateStage(Keyboard*keyboard,Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char* stagename);//テキストファイルからステージを生成する
+	void CreateStage(Keyboard*keyboard,Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char stagename[30]);//テキストファイルからステージを生成する
 	void CreateStageDeta(Keyboard*keyboard, Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char* stagename);//ステージ生成後にテキストファイルに保存する
 public:
 	StageMgr(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger);

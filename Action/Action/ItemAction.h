@@ -11,5 +11,4 @@ protected:
 	Item *item_;
 public:
 	ItemAction(Item *item);
-	//virtual void Do() override = 0;
 };

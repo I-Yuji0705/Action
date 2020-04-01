@@ -9,6 +9,7 @@ enum ManualState {
 
 	Manual_None//無し
 };
+
 //Manual内のStateだけを変更するためのインターフェースクラス
 class IManualStateChanger {
 public:

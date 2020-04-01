@@ -60,7 +60,10 @@ void Manual::Update() {
 	manualcanvas_->Update();
 }
 
-//•`‰æ
+///<summary>
+///<para>•`Êˆ—</para>
+///<para>”wŒi‚Æš–‹‚Ì•`Êˆ—‚ğs‚¤</para>
+///</summary>
 void Manual::Draw() {
 	DrawBox(0, 0, 640, 480, GetColor(255, 255, 255), TRUE);//”wŒi‚Ìİ’è
 	manualcanvas_->Draw();
@@ -77,7 +80,6 @@ void Manual::Finalize() {
 ///<summary>
 ///<para>State‚Ì•ÏXˆ—</para>
 ///<para>nextstate_‚ğˆø”‚Ì’l‚É•ÏX‚·‚é</para>
-///<para>ˆø”:</para>
 ///<param name= "state"><para>nextstate_‚ÉCopy‚·‚é’l</para></param>
 ///</summary>
 void Manual::ChangeState(ManualState state) {

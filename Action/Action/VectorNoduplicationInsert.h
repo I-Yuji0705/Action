@@ -1,8 +1,9 @@
 #pragma once
+//複数のクラスで使用する関数のまとめたファイル
 #include <vector>
 #include "Object.h"
 
-//複数のクラスで使用する関数のまとめ
+
 template <class T>
 std::vector<T> VectorNoDuplicationInsert(std::vector<T> added, std::vector<T> add);
 

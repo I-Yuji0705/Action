@@ -1,5 +1,6 @@
 #pragma once
 #include "DrawingDeta.h"
+
 //‰æ‘œ‚ð•\Ž¦‚·‚é‚½‚ß‚ÌƒNƒ‰ƒX
 class GraphDeta : public DrawingDeta{
 private:

@@ -3,7 +3,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
-///<para>引数:</para>
 ///<param name= "statechanger"><para>使用するITitleStateCangerのポインタ</para></param>
 ///<param name= "state"><para>Optionの実行時にChangeStateに渡すstateの値</para></param>
 ///</summary>

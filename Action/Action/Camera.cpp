@@ -6,7 +6,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>描写するステージとCpllisionクラスのポインタの取得</para>
-///<para>引数:</para>
 ///<para>state:描写するステージのポインタ</para>
 ///<para>collision:プレイヤーとステージ右端、左端オブジェクトのポインタを貰う</para>
 ///</summary>

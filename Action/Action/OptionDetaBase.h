@@ -1,6 +1,7 @@
 #pragma once
 #include "TextDeta.h"
 
+//‘I‘ğˆ‚ğ’S“–‚·‚éŠî’êƒNƒ‰ƒX
 class OptionDetaBase : public TextDeta{
 public:
 	OptionDetaBase(int x, int y, const char word[128], unsigned int color);

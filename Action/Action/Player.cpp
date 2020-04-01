@@ -10,7 +10,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
-///<para>引数:</para>
 ///<param name= "sound"><para>動作時に音を発生させるクラス</para></param>
 ///<param name= "collision"><para>動作時や動作確認時に接触判定を調べる</para></param>
 ///</summary>
@@ -33,12 +32,10 @@ Player::Player(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger,
 ///<para>プレイヤーのキー入力とそれに対応するPlayerActionを行う</para>
 ///</summary>
 void Player::Action() {
-	for (int i = 0; i != Player_Dance; i++) {
-		playeraction_[i]->Do();
-	}
-	//playeraction_[Player_MoveY]->Do();//上下に移動する
-	//playeraction_[Player_Baggage]->Do();//Itemに対してのアクション
-	//playeraction_[Player_Inversion]->Do();//向き反転
+	playeraction_[Player_MoveY]->Do();//上下に移動する
+	playeraction_[Player_MoveX]->Do();//上下に移動する
+	playeraction_[Player_Baggage]->Do();//Itemに対してのアクション
+	playeraction_[Player_Inversion]->Do();//向き反転
 }
 
 ///<summary>

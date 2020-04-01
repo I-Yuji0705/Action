@@ -33,10 +33,8 @@ Sound::Sound() {
 ///<para>音量の調整</para>
 ///<para>引数で受け取ったObjectが出す音量の調整を行う</para>
 ///<para>対象のObjectが画面外にいる時、離れているほど音は小さくなる</para>
-///<para>引数:</para>
 ///<param name="sename"><para>sename:鳴らそうとしているSEの列挙子</para></param>
 ///<param name="num"><para>object:音を鳴らそうとしているObject</para></param>
-///<para>戻り値:</para>
 ///<returns>
 ///<para>鳴らす音量(0～255)</para>
 ///</returns>
@@ -61,7 +59,6 @@ int Sound::RegulationSeVolume(Se_Name sename, const Object* object) {
 ///<para>BGMの再生</para>
 ///<para>引数で受け取ったBGMを再生し、再生しているBGMの列挙子を更新する</para>
 ///<para>引数で受け取った列挙子が現在鳴らしているBGMの場合、何もしない</para>
-///<para>引数:</para>
 ///<param name="bgmname"><para>bgmname:鳴らそうとしているBGMの列挙子</para></param>
 ///</summary>
 void Sound::PlayBgm(BGM_Name bgmname) {
@@ -76,7 +73,6 @@ void Sound::PlayBgm(BGM_Name bgmname) {
 ///<summary>
 ///<para>SEの再生</para>
 ///<para>引数で受け取ったSEを再生する</para>
-///<para>引数:</para>
 ///<param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
 ///</summary>
 void Sound::PlaySe(Se_Name sename) {
@@ -90,7 +86,6 @@ void Sound::PlaySe(Se_Name sename) {
 ///<summary>
 ///<para>SEの再生</para>
 ///<para>引数で受け取ったSEを再生する</para>
-///<para>引数:</para>
 ///<param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
 ///</summary>
 void Sound::PlaySe(Se_Name sename,const Object* object) {

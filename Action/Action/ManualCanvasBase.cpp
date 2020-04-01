@@ -4,7 +4,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>ManualのStateを変えるポインタの取得</para>
-///<para>引数:</para>
 ///<param name= "statechanger"><para>ManualのStateを変えるクラスのポインタ</para></param>
 ///</summary>
 ManualCanvasBase::ManualCanvasBase(Keyboard* keyboard,IManualStateChanger* statechanger): CanvasBase(keyboard) {

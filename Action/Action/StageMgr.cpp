@@ -14,7 +14,6 @@
 ///<para>コンストラクタ</para>
 ///<para>キャラクターに渡すKeyboardクラス、Soundクラス、IGameStateChangerクラスを受け取る</para>
 ///<para>ゲームのステージを生成する</para>
-///<para>引数:</para>
 ///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
 ///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
 ///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
@@ -24,22 +23,21 @@ StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechang
 	collision_ = new Collision(stage_);
 	playercamera_ = new Camera(stage_, collision_);
 	color_ = { 127, 255, 212 };//背景色の設定
-	CreateStageDeta(keyboard,sound,statechanger, collision_,"test");//ステージの生成と、テキストファイルへの保存
-	//CreateStage(keyboard,sound,statechanger,collision,"stage2");//テキストファイルからのステージの生成
+	//CreateStageDeta(keyboard,sound,statechanger, collision_,"test");//ステージの生成と、テキストファイルへの保存
+	CreateStage(keyboard,sound,statechanger,collision_,"stage2");//テキストファイルからのステージの生成
 }
 
 ///<summary>
 ///<para>ステージの生成処理</para>
 ///<para>引数で渡されたステージ名のテキストファイルから、ステージ情報を読み込み、ステージを生成する</para>
-///<para>引数:</para>
 ///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
 ///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
 ///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
 ///<param name= "collision"><para>Objectの接触判定を担当するクラス</para></param>
 ///<param name= "stagename"><para>読み込むテキストファイルの名前</para></param>
 ///</summary>
-void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
-	char dataplace[50];
+void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char stagename[30]) {
+	char dataplace[41];
 	sprintf_s(dataplace, "Stage/%s.txt", stagename);
 	std::ifstream infile(dataplace);//データの読込
 	ObjectDeta object_deta_;
@@ -70,7 +68,6 @@ void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* s
 ///<summary>
 ///<para>ステージの生成処理</para>
 ///<para>CreateStageとは違い、プログラム文から生成したステージ情報をテキストファイルに出力する</para>
-///<para>引数:</para>
 ///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
 ///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
 ///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>

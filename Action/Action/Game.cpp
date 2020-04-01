@@ -107,7 +107,6 @@ void Game::UpdateNextState(){
 ///<summary>
 ///<para>Stateの変更処理</para>
 ///<para>nextstate_を引数の値に変更する</para>
-///<para>引数:</para>
 ///<param name= "state"><para>nextstate_にCopyする値</para></param>
 ///</summary>
 void Game::ChangeState(GameState state) {

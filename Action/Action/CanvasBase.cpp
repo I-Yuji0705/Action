@@ -5,7 +5,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>Scene内で使用するキーボードクラスを取得する</para>
-///<para>引数:</para>
 ///<param name= "keyboard"><para>キーが押されているか確認するクラス</para></param>
 ///</summary>
 CanvasBase::CanvasBase(Keyboard* keyboard) {

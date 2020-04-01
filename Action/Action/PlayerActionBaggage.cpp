@@ -5,7 +5,6 @@
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>キーが押されているか確認するKeyboardクラス、拾う範囲に他のObjectがないか確認するクラス、行動時の音を管理するクラスを追加で取得する</para>
-///<para>引数:</para>
 ///<param name= "keyboard"><para>キーが押されているか確認するクラス</para></param>
 ///<param name= "sound"><para>動作時に音を発生させるクラス</para></param>
 ///<param name= "collision"><para>拾う範囲に他のObjectがないか確認するクラス</para></param>

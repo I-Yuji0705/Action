@@ -9,7 +9,6 @@
 ///<para>コンストラクタ</para>
 ///<para>Scene内で使用するキーボードクラスと音を発生させるクラスを取得する</para>
 ///<para>追加で、最初のSceneをTitleに設定する</para>
-///<para>引数:</para>
 ///<param name= "keyboard"><para>キーが押されているか確認するクラス</para></param>
 ///<param name= "sound"><para>BGMやSEなどの音を発生させるクラス</para></param>
 ///</summary>
@@ -75,8 +74,6 @@ void SceneMgr::Draw() {
 	scene_->Draw(); //シーンの描画
 }
 
-// 引数 nextScene にシーンを変更する
-
 ///<summary>
 ///<para>シーンの変更処理</para>
 ///<para>次のシーンをセットし、描写範囲を設定しなおす</para>
@@ -136,7 +133,6 @@ void SceneMgr::LightingScene() {
 ///<para>シーンの描写範囲の変更処理</para>
 ///<para>描写する範囲の左上のX座標とY座標、右下のX座標とY座標を引数として受け取る</para>
 ///<para>シーンの描写範囲を変数に保存した後、受け取った座標を対角線とする四角形を描写範囲として設定する</para>
-///<para>引数:</para>
 ///<param name="x1"><para>x1:描写する範囲の左上のX座標</para></param>
 ///<param name="y1"><para>y1:描写する範囲の左上のY座標</para></param>
 ///<param name="x2"><para>x2:描写する範囲の右下のX座標</para></param>

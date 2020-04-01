@@ -2,6 +2,7 @@
 #include "OptionDetaBase.h"
 #include "IManualStateChanger.h"
 
+//マニュアル内で選択肢を表示する表示する抽象クラス
 class ManualOptionDeta : public OptionDetaBase {
 private:
 	IManualStateChanger* statechanger_;
