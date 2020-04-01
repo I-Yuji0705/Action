@@ -10,6 +10,7 @@
 ManualCanvasBase::ManualCanvasBase(Keyboard* keyboard,IManualStateChanger* statechanger): CanvasBase(keyboard) {
 	statechanger_ = statechanger;
 }
+
 ///<summary>
 ///<para>更新処理</para>
 ///<para>Enterキーか、Escapeキーがあった場合、マニュアル選択画面に移行する</para>

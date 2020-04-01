@@ -9,5 +9,3 @@ BaseScene::BaseScene(Keyboard* keyboard,Sound* sound,ISceneChanger* changer) {
 	sound_ = sound;
 	scenechanger_ = changer;
 }
-void BaseScene::Finalize() {
-}

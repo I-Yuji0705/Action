@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <stdlib.h>
 
-//BGMとSEの設定
+
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>プログラム中で使用するBGMとSEの設定とSEの音量調整</para>
@@ -56,10 +56,7 @@ int Sound::RegulationSeVolume(Se_Name sename, const Object* object) {
 	}
 	return volume;
 }
-//------------------------------------------------
-//BGMの再生
-//	引数:
-//		bgmname:再生するBGMの種類
+
 ///<summary>
 ///<para>BGMの再生</para>
 ///<para>引数で受け取ったBGMを再生し、再生しているBGMの列挙子を更新する</para>
@@ -89,11 +86,7 @@ void Sound::PlaySe(Se_Name sename) {
 	ChangeVolumeSoundMem(sevolume_[sename], se_[sename]);
 	PlaySoundMem(se_[sename], DX_PLAYTYPE_BACK);
 }
-//--------
-//Seの再生
-//	引数:
-//		sename:再生するBGMの種類
-//		object:音を発生させるobject
+
 ///<summary>
 ///<para>SEの再生</para>
 ///<para>引数で受け取ったSEを再生する</para>
@@ -108,9 +101,6 @@ void Sound::PlaySe(Se_Name sename,const Object* object) {
 	ChangeVolumeSoundMem(volume, se_[sename]);
 	PlaySoundMem(se_[sename], DX_PLAYTYPE_BACK);
 }
-//---------
-//BGMの停止
-
 
 ///<summary>
 ///<para>BGMの停止</para>

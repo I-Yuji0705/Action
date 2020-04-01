@@ -16,9 +16,6 @@ TitleOptionDeta::TitleOptionDeta(int x, int y, const char word[128], unsigned in
 ///<summary>
 ///<para>決定処理</para>
 ///<para>statechanger_のChangeStateをchangestate_の値で実行する</para>
-///<para>引数:</para>
-///<param name= "statechanger"><para>使用するITitleStateCangerのポインタ</para></param>
-///<param name= "state"><para>Optionの実行時にChangeStateに渡すstateの値</para></param>
 ///</summary>
 void TitleOptionDeta::Opt() {
 	statechanger_->ChangeState(changestate_);

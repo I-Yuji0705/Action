@@ -27,8 +27,7 @@ StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechang
 	CreateStageDeta(keyboard,sound,statechanger, collision_,"test");//ステージの生成と、テキストファイルへの保存
 	//CreateStage(keyboard,sound,statechanger,collision,"stage2");//テキストファイルからのステージの生成
 }
-//------------------------
-//データからステージの生成
+
 ///<summary>
 ///<para>ステージの生成処理</para>
 ///<para>引数で渡されたステージ名のテキストファイルから、ステージ情報を読み込み、ステージを生成する</para>

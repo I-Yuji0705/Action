@@ -35,9 +35,11 @@ void CanvasOptionBase::OptionUpdate() {
 		selectnum_ = (selectnum_ + (int)optiondeta_.size() - 1) % (int)optiondeta_.size();
 	}
 }
+
 ///<summary>
 ///<para>初期化処理</para>
 ///<para>選択している項目のを示す変数の初期値を設定する</para>
+///<para>子のクラスは、Initialize関数の最後にこの関数を実行させる</para>
 ///</summary>
 void CanvasOptionBase::Initialize() {
 	selectnum_ = 0;
@@ -67,6 +69,10 @@ void CanvasOptionBase::Finalize() {
 	}
 }
 
+///<summary>
+///<para>決定処理</para>
+///<para>Enterキーを押したとき、選んでいるoptiondeta_に対してOpt関数を実行する</para>
+///</summary>
 void CanvasOptionBase::Update() {
 	OptionUpdate();
 	OptionColorChange();

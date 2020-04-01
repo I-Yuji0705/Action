@@ -9,6 +9,7 @@ PlayerInversion::PlayerInversion(Keyboard* keyboard,Player *player) : PlayerActi
 	keyboard_ = keyboard;
 }
 
+///<summary>
 ///<para>行動処理</para>
 ///<para>Ctrlキーを押した場合、プレイヤーの向きを変える</para>
 ///</summary>

@@ -95,7 +95,6 @@ void PlayerMoveX::MoveX(float num) {
 }
 ///<summary>
 ///<para>Playerの押す処理</para>
-///<para>返された値のうち、一番小さい</para>
 ///<para>地面にいるときにのみ、押す動作を開始する</para>
 ///<para>渡された動的配列のから、Playerに密着しているObjectと、</para>
 ///<para>Playerに密着していないObjectの内、Playerから近いObjectとの差を得する</para>

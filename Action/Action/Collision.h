@@ -17,11 +17,10 @@ public:
 	void Initialize();
 	float ObjectDistance(const Object* target, const Object* player, int check);
 	bool Check(float x, float y, const Object *player);
-	std::tuple<int, float, std::vector<Object*>> HitCheckX(float num, const Object* player);//point軸にnumを追加した際、他のobjectに当たるか、どの部分に当たったかを返す
-	std::tuple<int, float, std::vector<Object*>> HitCheckY(float num, const Object* player);//point軸にnumを追加した際、他のobjectに当たるか、どの部分に当たったかを返す
+	std::tuple<int, float, std::vector<Object*>> HitCheckX(float num, const Object* player);
+	std::tuple<int, float, std::vector<Object*>> HitCheckY(float num, const Object* player);
 	std::tuple<int,float> MapCheck(float x,const Object* player);
-	std::tuple<std::vector<Object*>, float> AlignAdhesionObjects(std::vector<Object*>objects,const Object* player,
-		int check);
+	std::tuple<std::vector<Object*>, float> AlignAdhesionObjects(std::vector<Object*>objects,const Object* player,int check);
 	int PointCheck(float x, float y,const Object *player);
 	bool AreaFullCheck(const Object *area);
 	Object* AreaCheck(Object* target,float x1,float y1,float x2,float y2,const Object* player);

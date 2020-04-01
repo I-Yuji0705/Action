@@ -11,6 +11,7 @@ Collision::Collision(std::vector<Object*>* stage) {
 	stage_ = stage;
 }
 
+
 ///<summary>
 ///<para>初期化処理</para>
 ///<para>Stageのポインタから、ステージ右端と左端のTerrainの収得</para>
@@ -58,7 +59,7 @@ bool Collision::Check(float x, float y,const Object* player, const Object* objec
 ///<param name="y1"><para>y1:調べる範囲の左上のY座標</para></param>
 ///<param name="x2"><para>x2:調べる範囲の右下のX座標</para></param>
 ///<param name="y2"><para>y2:調べる範囲の右下のY座標</para></param>
-///<param name="object"><para>object:対象のObjectのポインタ</param></para>
+///<param name="object"><para>object:対象のObjectのポインタ</para></param>
 ///<returns>
 ///<para>戻り値:</para>
 ///<para>true:Objectが接触する</para>
@@ -114,7 +115,9 @@ float Collision::ObjectDistance(const Object* target, const Object* player, int 
 ///<param name="player"><para>player:移動するObjectのポインタ</para></param>
 ///<param name="check"><para>check:MapCheck内のcheck変数</para></param>
 ///<para>戻り値:</para>
-///<returns><para>Objectがステージ左端または右端まに接触するまで動ける数値</para></returns>
+///<returns>
+///<para>Objectがステージ左端または右端まに接触するまで動ける数値</para>
+///</returns>
 ///</summary>
 float Collision::MapDistance(const Object* player, int check) {
 	float distance;

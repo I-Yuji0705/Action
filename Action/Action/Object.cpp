@@ -3,12 +3,6 @@
 #include <typeinfo.h>
 #include "DxLib.h"
 
-//Danceをpublicにして、
-//ダンス時に呼び出すようにすればCanClearはいらないし、
-//ClearAreaにSoundを渡す必要もない？
-//もしくは、クリアしているかを
-//boolで判断するべき？
-
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>オブジェクトの左上のX座標とY座標、横幅と縦幅を設定する</para>

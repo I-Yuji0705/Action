@@ -22,7 +22,6 @@ SceneMgr::SceneMgr(Keyboard* keyboard,Sound* sound) : next_scene_(Scene_None) //
 	state = Normal_Scene;
 }
 
-//初期化
 ///<summary>
 ///<para>初期化処理</para>
 ///<para>Sceneの初期化処理を行う</para>
@@ -31,7 +30,6 @@ void SceneMgr::Initialize() {
 	scene_->Initialize();
 }
 
-//終了処理
 ///<summary>
 ///<para>終了処理</para>
 ///<para>Sceneの終了処理を行う</para>
@@ -41,7 +39,6 @@ void SceneMgr::Finalize() {
 	sound_->Finalize();
 }
 
-//更新
 ///<summary>
 ///<para>更新処理</para>
 ///<para>Sceneの変更要請がない場合、Sceneの更新処理を行う</para>
@@ -69,8 +66,6 @@ void SceneMgr::Update() {
 		break;
 	}
 }
-
-//描画
 
 ///<summary>
 ///<para>描写処理</para>

@@ -13,7 +13,7 @@ protected:
 public:
 	BaseScene(Keyboard* keyboard,Sound* sound,ISceneChanger* changer);
 	virtual void Initialize() {};    //初期化処理
-	virtual void Finalize();        //終了処理
+	virtual void Finalize() {};        //終了処理
 	virtual void Update() {};       //更新処理
 	virtual void Draw() {};            //描画処理
 	virtual void StartBgm() = 0; //Scene毎に鳴らすbgmの設定
