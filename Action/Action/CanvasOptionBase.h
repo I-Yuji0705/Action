@@ -2,11 +2,11 @@
 #include "CanvasBase.h"
 
 
-class OptionDetaBase;
-//DrawingDetaに加えて、選択肢を表示するクラス
+class OptionDataBase;
+//DrawingDataに加えて、選択肢を表示するクラス
 class CanvasOptionBase : public CanvasBase {
 protected:
-	std::vector<OptionDetaBase*> optiondeta_;//選択肢を入れる動的配列
+	std::vector<OptionDataBase*> optionData_;//選択肢を入れる動的配列
 	int selectnum_;
 	void OptionColorChange();
 	void OptionUpdate();

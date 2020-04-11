@@ -18,7 +18,7 @@ public:
 	float ObjectDistance(const Object* target, const Object* player, int check);
 	bool Check(float x, float y, const Object *player);
 	std::tuple<int, float, std::vector<Object*>> HitCheckX(float num, const Object* player);
-	std::tuple<int, float, std::vector<Object*>> HitCheckY(float num, const Object* player);
+	std::tuple<int, float, std::vector<Object*>> HitCheckY(float num, const Object* player, const Object* carry);
 	std::tuple<int,float> MapCheck(float x,const Object* player);
 	int PointCheck(float x, float y,const Object *player);
 	bool AreaFullCheck(const Object *area);

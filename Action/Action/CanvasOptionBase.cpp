@@ -13,7 +13,7 @@ void CanvasOptionBase::OptionColorChange() {
 	ColorCode selectcolor = { 0,0,255 };//選ばれている項目の色の設定
 	ColorCode nonselectcolor = { 150,150,150 };//選ばれていない項目の色の設定
 	int num = 0;
-	for (auto i : optiondeta_) {
+	for (auto i : optionData_) {
 		if (num == selectnum_) i->ChangeColor(selectcolor);
 		else i->ChangeColor(nonselectcolor);
 		num++;
@@ -29,10 +29,10 @@ void CanvasOptionBase::OptionColorChange() {
 ///</summary>
 void CanvasOptionBase::OptionUpdate() {
 	if (keyboard_->CheckKey(KEY_INPUT_DOWN) == 1) {
-		selectnum_ = (selectnum_ + 1) % optiondeta_.size();
+		selectnum_ = (selectnum_ + 1) % optionData_.size();
 	}
 	else if (keyboard_->CheckKey(KEY_INPUT_UP) == 1) {
-		selectnum_ = (selectnum_ + (int)optiondeta_.size() - 1) % (int)optiondeta_.size();
+		selectnum_ = (selectnum_ + (int)optionData_.size() - 1) % (int)optionData_.size();
 	}
 }
 
@@ -51,7 +51,7 @@ void CanvasOptionBase::Initialize() {
 ///</summary>
 void CanvasOptionBase::Draw() {
 	CanvasBase::Draw();
-	for (auto i : optiondeta_) {
+	for (auto i : optionData_) {
 		i->Draw();
 	}
 }
@@ -64,20 +64,20 @@ void CanvasOptionBase::Draw() {
 ///</summary>
 void CanvasOptionBase::Finalize() {
 	CanvasBase::Finalize();
-	for (auto i : optiondeta_) {
+	for (auto i : optionData_) {
 		i->Finalize();
 	}
 }
 
 ///<summary>
 ///<para>決定処理</para>
-///<para>Enterキーを押したとき、選んでいるoptiondeta_に対してOpt関数を実行する</para>
+///<para>Enterキーを押したとき、選んでいるoptionData_に対してOpt関数を実行する</para>
 ///</summary>
 void CanvasOptionBase::Update() {
 	OptionUpdate();
 	OptionColorChange();
 	//Enterキーを入力したとき
 	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1) {
-		optiondeta_[selectnum_]->Opt();
+		optionData_[selectnum_]->Opt();
 	}
 }

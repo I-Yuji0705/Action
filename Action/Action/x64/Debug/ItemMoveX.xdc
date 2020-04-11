@@ -1,6 +1,6 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:ItemMoveX.#ctor(Sound*,Collision*,Item*,ItemHit*)" decl="false" source="c:\users\student\desktop\action\action\action\itemmovex.cpp" line="4">
+<member name="M:ItemMoveX.#ctor(Sound*,Collision*,Item*,ItemHit*)" decl="false" source="c:\users\yu-rei\music\action\action\action\itemmovex.cpp" line="4">
 <summary>
 <para>コンストラクタ</para>
 <para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
@@ -9,7 +9,7 @@
 <param name="itemhit"><para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para></param>
 </summary>
 </member>
-<member name="M:ItemMoveX.MoveX(System.Single)" decl="false" source="c:\users\student\desktop\action\action\action\itemmovex.cpp" line="17">
+<member name="M:ItemMoveX.MoveX(System.Single)" decl="false" source="c:\users\yu-rei\music\action\action\action\itemmovex.cpp" line="17">
 <summary>
 <para>Y軸の移動処理</para>
 <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
@@ -18,7 +18,7 @@
 <param name="num"><para>num:X軸に加算しようとしている値</para></param>
 </summary>
 </member>
-<member name="M:ItemMoveX.Do" decl="false" source="c:\users\student\desktop\action\action\action\itemmovex.cpp" line="47">
+<member name="M:ItemMoveX.Do" decl="false" source="c:\users\yu-rei\music\action\action\action\itemmovex.cpp" line="47">
 <summary>
 <para>行動処理</para>
 <para>item_の向きから移動先を決め、X軸の移動処理を行う</para>

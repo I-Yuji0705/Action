@@ -1,4 +1,4 @@
-#include "TitleOptionDeta.h"
+#include "TitleOptionData.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
@@ -6,8 +6,8 @@
 ///<param name= "statechanger"><para>使用するITitleStateCangerのポインタ</para></param>
 ///<param name= "state"><para>Optionの実行時にChangeStateに渡すstateの値</para></param>
 ///</summary>
-TitleOptionDeta::TitleOptionDeta(int x, int y, const char word[128], unsigned int color, ITitleStateChanger* statechanger, TitleState state)
-	: OptionDetaBase(x, y, word, color) {
+TitleOptionData::TitleOptionData(int x, int y, const char word[128], unsigned int color, ITitleStateChanger* statechanger, TitleState state)
+	: OptionDataBase(x, y, word, color) {
 	statechanger_ = statechanger;
 	changestate_ = state;
 }
@@ -16,6 +16,6 @@ TitleOptionDeta::TitleOptionDeta(int x, int y, const char word[128], unsigned in
 ///<para>決定処理</para>
 ///<para>statechanger_のChangeStateをchangestate_の値で実行する</para>
 ///</summary>
-void TitleOptionDeta::Opt() {
+void TitleOptionData::Opt() {
 	statechanger_->ChangeState(changestate_);
 }

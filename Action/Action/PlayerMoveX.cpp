@@ -4,7 +4,7 @@
 #include "Keyboard.h"
 #include <vector>
 #include <algorithm>
-#include "VectorNoduplicationInsert.h"
+#include "VectorFunctions.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
@@ -57,7 +57,7 @@ void PlayerMoveX::MoveX(float num) {
 	std::vector<Object*> hitobjects;
 	std::tie(hitpoint, distance, hitobjects) = collision_->HitCheckX(num, player_);//移動した際に当たるオブジェクトと当たる場所の算出
 	if (player_->carryon_ != nullptr) {
-		player_->carryon_->Update();
+		//player_->carryon_->Update();
 		float carryondistance;
 		std::vector<Object*> carryonhitobjects;
 		int carryonhitpoint;
@@ -65,7 +65,7 @@ void PlayerMoveX::MoveX(float num) {
 		if (!carryonhitobjects.empty() && carryonhitpoint != 0) {
 			hitpoint = carryonhitpoint;
 			hitobjects = VectorNoDuplicationInsert(hitobjects, carryonhitobjects);
-			if (distance == 999.0f || (std::abs(distance) > std::abs(carryondistance) && carryondistance != 0))
+			if ((std::abs(distance) > std::abs(carryondistance)))
 				distance = carryondistance;
 		}
 	}
@@ -91,6 +91,8 @@ void PlayerMoveX::MoveX(float num) {
 		player_->x_ += num;
 		firsthit_ = true;
 	}
+	if (player_->carryon_ != nullptr)
+		player_->carryon_->Update();
 }
 
 //バグ：
@@ -108,6 +110,7 @@ void PlayerMoveX::MoveX(float num) {
 ///<param name="num"><para>num:X軸に加算しようとしている値</para></param>
 ///<param name="target"><para>target:押そうとしている対象のObjectのポインタ全て</para></param>
 ///<param name="check"><para>check:Collision::HitCheckXでのint型の戻り値、押そうとしている方向を確認する</para></param>
+///<returns><para>押すことが出来たか</para></returns>
 ///</summary>
 void PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 	bool push = false;
@@ -122,8 +125,7 @@ void PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 				AlignAdhesionObjects(target, player_->carryon_, check);
 			if (!carryonpushtarget.empty()) {
 				pushtarget = VectorNoDuplicationInsert(pushtarget, carryonpushtarget);
-				if (canpushed == 999.0f || player_->carryon_->GetWidth() == player_->GetWidth() && 
-					(std::abs(canpushed) > std::abs(carryoncanpushed)))
+				if (std::abs(canpushed) > std::abs(carryoncanpushed))
 					canpushed = carryoncanpushed;
 			}
 		}
@@ -133,14 +135,12 @@ void PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 					canpushed = i->CanPushed(num);//押し出せる距離を算出
 				}
 			}
-			if (canpushed != 0.0f && canpushed != 999.0f) {
+			if (canpushed != 0.0f) {
 				for (auto i : pushtarget) {
 					i->Pushed(canpushed);
 				}
 				push = true;
 				player_->Set(player_->Left() + canpushed, player_->Top());
-				if (player_->carryon_ != nullptr)
-					player_->carryon_->Update();
 			}
 		}
 	}
@@ -149,14 +149,12 @@ void PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 ///<summary>
 ///<para>Objectの動的配列から、対象のObjectに接触しているObjectの動的配列と</para>
 ///<para>接触しているObjectから、接触していないObjectのうち、一番近いObjectまでの差を返す</para>
-///<para>引数:</para>
 ///<param name="objects"><para>objects:調べるObjectのポインタの動的配列</para></param>
 ///<param name="player"><para>player:接触しているか調べるObjectのポインタ</para></param>
 ///<param name="check"><para>check:HitCheckX及びHitCheckYのintで返されるint型変数</para></param>
-///<para>戻り値:</para>
 ///<returns>
 ///<para>std::vector:接触ししている全てのObjectのポインタ</para>
-///<para>float:playerが一番近いObjectに接触するまで動ける数値</para>
+///<para>float:Pushで移動する初期値</para>
 ///</returns>
 ///</summary>
 std::tuple<std::vector<Object*>, float>PlayerMoveX::AlignAdhesionObjects(std::vector<Object*>objects, const Object* player,
@@ -164,12 +162,13 @@ std::tuple<std::vector<Object*>, float>PlayerMoveX::AlignAdhesionObjects(std::ve
 	std::vector<Object*> adhesionobjects;
 	float distance = 999.0f;
 	for (auto i : objects) {
-		float objectdistance = collision_->ObjectDistance(i, player, check);
-		if ((check == 1 && objectdistance <= 0.0f) || (check == 2 && objectdistance >= 0.0f)) {
-			adhesionobjects.push_back(i);
+		float objectdistance = collision_->ObjectDistance(i, player, check);//対象との距離を習得する
+		if (objectdistance == 0.0f) {//playerと密着している場合
+			adhesionobjects.push_back(i);//押す対象に追加する
 		}
-		else if (std::abs(distance) > std::abs(objectdistance)) {
-			distance = collision_->ObjectDistance(i, player, check);
+		else if (((check == 1 && objectdistance > 0.0f) || (check == 2 && objectdistance < 0.0f)) && //移動先にあり、
+			std::abs(distance) > std::abs(objectdistance)) {//他よりも近い場合、
+			distance = objectdistance;//値を更新する
 		}
 	}
 	return std::forward_as_tuple(adhesionobjects, distance);

@@ -1,4 +1,4 @@
-#include "TextDeta.h"
+#include "TextData.h"
 #include "DxLib.h"
 
 ///<summary>
@@ -10,7 +10,7 @@
 ///<param name= "words"><para>€–Ú‚Ì“à—e</para></param>
 ///<param name= "color"><para>€–Ú‚ÌF</para></param>
 ///</summary>
-TextDeta::TextDeta(int x, int y, const char words[128], unsigned int color) {
+TextData::TextData(int x, int y, const char words[128], unsigned int color) {
 	x_ = x;
 	y_ = y;
 	memcpy(words_ ,words,128);
@@ -20,6 +20,6 @@ TextDeta::TextDeta(int x, int y, const char words[128], unsigned int color) {
 ///<summary>
 ///<para>•`Êˆ—</para>
 ///</summary>
-void TextDeta::Draw() {
+void TextData::Draw() {
 	DrawString(x_, y_, words_, color_);
 }

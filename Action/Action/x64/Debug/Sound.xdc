@@ -1,13 +1,13 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:Sound.#ctor" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="6">
+<member name="M:Sound.#ctor" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="6">
 <summary>
 <para>コンストラクタ</para>
 <para>プログラム中で使用するBGMとSEの設定とSEの音量調整</para>
 <para>現在鳴らしているBGMを無しにする</para>
 </summary>
 </member>
-<member name="M:Sound.RegulationSeVolume(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="32">
+<member name="M:Sound.RegulationSeVolume(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="32">
 <summary>
 <para>音量の調整</para>
 <para>引数で受け取ったObjectが出す音量の調整を行う</para>
@@ -19,7 +19,7 @@
 </returns>
 </summary>
 </member>
-<member name="M:Sound.PlayBgm(BGM_Name)" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="58">
+<member name="M:Sound.PlayBgm(BGM_Name)" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="58">
 <summary>
 <para>BGMの再生</para>
 <para>引数で受け取ったBGMを再生し、再生しているBGMの列挙子を更新する</para>
@@ -27,33 +27,33 @@
 <param name="bgmname"><para>bgmname:鳴らそうとしているBGMの列挙子</para></param>
 </summary>
 </member>
-<member name="M:Sound.PlaySe(Se_Name)" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="73">
+<member name="M:Sound.PlaySe(Se_Name)" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="73">
 <summary>
 <para>SEの再生</para>
 <para>引数で受け取ったSEを再生する</para>
 <param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
 </summary>
 </member>
-<member name="M:Sound.PlaySe(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="86">
+<member name="M:Sound.PlaySe(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="86">
 <summary>
 <para>SEの再生</para>
 <para>引数で受け取ったSEを再生する</para>
 <param name="sename"><para>sename:鳴らそうとしているseの列挙子</para></param>
 </summary>
 </member>
-<member name="M:Sound.StopBgm" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="100">
+<member name="M:Sound.StopBgm" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="100">
 <summary>
 <para>BGMの停止</para>
 <para>現在BGMを鳴らしている場合、停止させる</para>
 </summary>
 </member>
-<member name="M:Sound.StopSe" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="111">
+<member name="M:Sound.StopSe" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="111">
 <summary>
 <para>SEの停止</para>
 <para>現在鳴らしているSEを全て止める</para>
 </summary>
 </member>
-<member name="M:Sound.Finalize" decl="false" source="c:\users\student\desktop\action\action\action\sound.cpp" line="122">
+<member name="M:Sound.Finalize" decl="false" source="c:\users\yu-rei\music\action\action\action\sound.cpp" line="122">
 <summary>
 <para>終了処理</para>
 <para>メモリ上にあるBGMの情報を削除する</para>

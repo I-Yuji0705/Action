@@ -4,86 +4,13 @@
         "Action"
     </assembly>
     <members>
-        <member name="M:TitleDelete.#ctor(Keyboard*,ITitleStateChanger*)">
+        <member name="M:ItemAction.#ctor(Item*)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>ゲームの終了確認する字幕の生成</para>
-            </summary>
-        </member>
-        <member name="M:GameClear.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Enterキーか、Escapeキーがあった場合、タイトルシーンに移行する</para>
-            </summary>
-        </member>
-        <member name="M:GameClear.#ctor(Keyboard*,IGameStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>ゲームクリア時の字幕の生成</para>
-            </summary>
-        </member>
-        <member name="M:PlayerDance.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>振付の番号によって、移動する軸、移動する距離、時間を決め、時間になったら次の振付に移行する</para>
-                <para>振付が全て終わった時、GameのstateをClearに変更する</para>
-            </summary>
-        </member>
-        <member name="M:PlayerDance.NextChoreoGrap">
-            <summary>
-                <para>ダンスの次の振付に移行する</para>
-                <para>ダンスで移動する時間をリセットし、振付を次の段階に移行させる</para>
-            </summary>
-        </member>
-        <member name="M:PlayerDance.#ctor(Player*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加でDanceに使用する変数の初期化を行う</para>
-            </summary>
-        </member>
-        <member name="M:Manual.StartBgm">
-            <summary>
-                <para>マニュアル画面のBGMを再生する</para>
-            </summary>
-        </member>
-        <member name="M:Manual.ChangeState(ManualState)">
-            <summary>
-                <para>Stateの変更処理</para>
-                <para>nextstate_を引数の値に変更する</para>
-                <param name="state">
-                    <para>nextstate_にCopyする値</para>
+                <para>操作するitemのポインタを収得する</para>
+                <param name="item">
+                    <para>item:操作するitemのポインタ</para>
                 </param>
-            </summary>
-        </member>
-        <member name="M:Manual.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>字幕の終了処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Manual.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>背景と字幕の描写処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Manual.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>字幕の更新処理を行う</para>
-                <para>nextstate_が変更されていた場合、nextstate_によって処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Manual.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>字幕の初期化処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Manual.#ctor(Keyboard*,Sound*,ISceneChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>最初に表示する字幕を管理するクラスの生成</para>
             </summary>
         </member>
         <member name="M:StageMgr.Retry">
@@ -116,7 +43,7 @@
                 <para>ステージ上のObjectとカメラの初期化処理を行う</para>
             </summary>
         </member>
-        <member name="M:StageMgr.CreateStageDeta(Keyboard*,Sound*,IGameStateChanger*,Collision*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+        <member name="M:StageMgr.CreateStageData(Keyboard*,Sound*,IGameStateChanger*,Collision*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
             <summary>
                 <para>ステージの生成処理</para>
                 <para>CreateStageとは違い、プログラム文から生成したステージ情報をテキストファイルに出力する</para>
@@ -140,6 +67,7 @@
             <summary>
                 <para>ステージの生成処理</para>
                 <para>引数で渡されたステージ名のテキストファイルから、ステージ情報を読み込み、ステージを生成する</para>
+                <para>この関数を使用する場合、CreateStageData関数は</para>
                 <param name="keyboard">
                     <para>Playerの操作に使用するクラスのポインタ</para>
                 </param>
@@ -168,340 +96,6 @@
                     <para />ObjectからSEを発生させるクラス</param>
                 <param name="statechanger">
                     <para>GameのStateを変更するクラス</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:GraphDeta.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>画像をメモリ上から削除する</para>
-            </summary>
-        </member>
-        <member name="M:GraphDeta.Draw">
-            <summary>
-                <para>描写処理</para>
-            </summary>
-        </member>
-        <member name="M:PlayerInversion.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>Ctrlキーを押した場合、プレイヤーの向きを変える</para>
-            </summary>
-        </member>
-        <member name="M:PlayerInversion.#ctor(Keyboard*,Player*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加でキーが押されているか確認するKeyboardクラスを取得する</para>
-            </summary>
-        </member>
-        <member name="M:ManualStage.#ctor(Keyboard*,IManualStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>マニュアル内のステージ情報の字幕の生成</para>
-            </summary>
-        </member>
-        <member name="M:ManualOperation.#ctor(Keyboard*,IManualStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>マニュアル内の操作方法の字幕の生成</para>
-            </summary>
-        </member>
-        <member name="M:TitleCanvasOptionBase.#ctor(Keyboard*,ITitleStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>TitleのStateを変えるポインタの取得</para>
-                <param name="statechanger">
-                    <para>TitleのStateを変えるクラスのポインタ</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:OptionDetaBase.ChangeColor(ColorCode)">
-            <summary>
-                <para>色の変更処理</para>
-                <para>受け取った構造体をもとに、color_の値を変更する</para>
-                <param name="color">
-                    <para>項目の三原色を示す構造体</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:OptionDetaBase.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32)">
-            <summary>
-                <para>コンストラクタ</para>
-            </summary>
-        </member>
-        <member name="M:ManualOptionDeta.Opt">
-            <summary>
-                <para>決定処理</para>
-                <para>statechanger_のChangeStateをchangestate_の値で実行する</para>
-            </summary>
-        </member>
-        <member name="M:ManualOptionDeta.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32,IManualStateChanger*,ManualState)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
-                <param name="statechanger">
-                    <para>使用するITitleStateCangerのポインタ</para>
-                </param>
-                <param name="state">
-                    <para>Optionの実行時にChangeStateに渡すstateの値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.SetDepictionScreen(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-                <para>シーンの描写範囲の変更処理</para>
-                <para>描写する範囲の左上のX座標とY座標、右下のX座標とY座標を引数として受け取る</para>
-                <para>シーンの描写範囲を変数に保存した後、受け取った座標を対角線とする四角形を描写範囲として設定する</para>
-                <param name="x1">
-                    <para>x1:描写する範囲の左上のX座標</para>
-                </param>
-                <param name="y1">
-                    <para>y1:描写する範囲の左上のY座標</para>
-                </param>
-                <param name="x2">
-                    <para>x2:描写する範囲の右下のX座標</para>
-                </param>
-                <param name="y2">
-                    <para>y2:描写する範囲の右下のX座標</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.LightingScene">
-            <summary>
-                <para>シーンの明るくする処理</para>
-                <para>描写範囲を広げることで画面を明るくする</para>
-                <para>描写範囲を画面まで広げた後、Scene毎のBGMを再生し、Stateを通常時に変更する</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.BlackOutScene">
-            <summary>
-                <para>シーンの暗転処理</para>
-                <para>描写範囲を狭めることで画面を暗くする</para>
-                <para>描写範囲を無くした後、シーンの変更処理を行い、Stateを暗転の状態から明るくする状態に変更する</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.ChangeScene(Scene)">
-            <summary>
-                <para>シーンの変更処理</para>
-                <para>次のシーンをセットし、描写範囲を設定しなおす</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>Sceneの描写処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Sceneの変更要請がない場合、Sceneの更新処理を行う</para>
-                <para>Sceneの変更要請があった場合、画面を暗くし始める</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>Sceneの終了処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>Sceneの初期化処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:SceneMgr.#ctor(Keyboard*,Sound*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>Scene内で使用するキーボードクラスと音を発生させるクラスを取得する</para>
-                <para>追加で、最初のSceneをTitleに設定する</para>
-                <param name="keyboard">
-                    <para>キーが押されているか確認するクラス</para>
-                </param>
-                <param name="sound">
-                    <para>BGMやSEなどの音を発生させるクラス</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:ItemMoveY.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>重力分、Y軸の移動処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:ItemMoveY.MoveY(System.Single)">
-            <summary>
-                <para>Y軸の移動処理</para>
-                <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
-                <para>移動先にObjectない場合:y_に数値を加算し、移動する</para>
-                <para>移動先にObjectある場合:接触処理を行う</para>
-                <param name="num">
-                    <para>num:Y軸に加算しようとしている値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:ItemMoveY.#ctor(Sound*,Collision*,Item*,ItemHit*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
-                <param name="sound">
-                    <para>sound:壁に接触した際に鳴らす音を管理するクラスのポインタ</para>
-                </param>
-                <param name="collision">
-                    <para>collision:移動する先に衝突するObjectがあるかを調べるクラスのポインタ</para>
-                </param>
-                <param name="sound">
-                    <para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Keyboard.UpdateKey">
-            <summary>
-                <para>受け取ったキーコードから、対象のキーがどの程度押されているかを返す</para>
-                <param name="keycode">
-                    <para>keycode:調べるキーコード</para>
-                </param>
-                <returns>
-                    <para>0:更新が完了した</para>
-                    <para>-1:更新中にエラーが発生した</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Keyboard.CheckKey(System.Int32)">
-            <summary>
-                <para>受け取ったキーコードから、対象のキーがどの程度押されているかを返す</para>
-                <param name="keycode">
-                    <para>keycode:調べるキーコード</para>
-                </param>
-                <returns>
-                    <para>引数のkeycodeが押されているフレーム数</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Terrain.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>地形の範囲を黒色で覆う</para>
-            </summary>
-        </member>
-        <member name="M:Terrain.#ctor(System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加で接触判定の初期化を行う</para>
-            </summary>
-        </member>
-        <member name="M:Sound.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>メモリ上にあるBGMの情報を削除する</para>
-            </summary>
-        </member>
-        <member name="M:Sound.StopSe">
-            <summary>
-                <para>SEの停止</para>
-                <para>現在鳴らしているSEを全て止める</para>
-            </summary>
-        </member>
-        <member name="M:Sound.StopBgm">
-            <summary>
-                <para>BGMの停止</para>
-                <para>現在BGMを鳴らしている場合、停止させる</para>
-            </summary>
-        </member>
-        <member name="M:Sound.PlaySe(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)">
-            <summary>
-                <para>SEの再生</para>
-                <para>引数で受け取ったSEを再生する</para>
-                <param name="sename">
-                    <para>sename:鳴らそうとしているseの列挙子</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Sound.PlaySe(Se_Name)">
-            <summary>
-                <para>SEの再生</para>
-                <para>引数で受け取ったSEを再生する</para>
-                <param name="sename">
-                    <para>sename:鳴らそうとしているseの列挙子</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Sound.PlayBgm(BGM_Name)">
-            <summary>
-                <para>BGMの再生</para>
-                <para>引数で受け取ったBGMを再生し、再生しているBGMの列挙子を更新する</para>
-                <para>引数で受け取った列挙子が現在鳴らしているBGMの場合、何もしない</para>
-                <param name="bgmname">
-                    <para>bgmname:鳴らそうとしているBGMの列挙子</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Sound.RegulationSeVolume(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)">
-            <summary>
-                <para>音量の調整</para>
-                <para>引数で受け取ったObjectが出す音量の調整を行う</para>
-                <para>対象のObjectが画面外にいる時、離れているほど音は小さくなる</para>
-                <param name="sename">
-                    <para>sename:鳴らそうとしているSEの列挙子</para>
-                </param>
-                <param name="num">
-                    <para>object:音を鳴らそうとしているObject</para>
-                </param>
-                <returns>
-                    <para>鳴らす音量(0～255)</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Sound.#ctor">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>プログラム中で使用するBGMとSEの設定とSEの音量調整</para>
-                <para>現在鳴らしているBGMを無しにする</para>
-            </summary>
-        </member>
-        <member name="M:ItemStartThrow.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>carrier_の向きから投げられ始める場所を決め、item_の位置を投げられ始める場所に変更する</para>
-                <para>tem_のstateを変え、carrier_をnullptrに変える</para>
-            </summary>
-        </member>
-        <member name="M:ItemStartThrow.#ctor(Item*)">
-            <summary>
-                <para>コンストラクタ</para>
-            </summary>
-        </member>
-        <member name="M:ItemBaggage.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>carrier_の頭上に来るように位置を変更し、向きが同じになる様に更新する</para>
-            </summary>
-        </member>
-        <member name="M:ItemBaggage.#ctor(Item*)">
-            <summary>
-                <para>コンストラクタ</para>
-            </summary>
-        </member>
-        <member name="M:PlayerHit.HitObjects(System.Int32,System.Single)">
-            <summary>
-                <para>接触処理</para>
-                <para>引数で受け取ったintの数値によってX軸かY軸に受け取ったfloatの数値分加算し、player_のstateを変更する</para>
-                <para>intの数字が4の時、angleも変更する</para>
-                <param name="check">
-                    <para>check:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるint型の数値</para>
-                </param>
-                <param name="distance">
-                    <para>distance:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるfloat型の数値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:PlayerHit.#ctor(Collision*,Player*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加で、操作するPlayerのポインタを取得する</para>
-                <param name="player">
-                    <para>player:操作する対象のPlayerクラスのポインタ</para>
                 </param>
             </summary>
         </member>
@@ -542,22 +136,20 @@
                 </param>
             </summary>
         </member>
-        <member name="M:TitleOptionDeta.Opt">
+        <member name="M:BaseScene.#ctor(Keyboard*,Sound*,ISceneChanger*)">
             <summary>
-                <para>決定処理</para>
-                <para>statechanger_のChangeStateをchangestate_の値で実行する</para>
+                <para>キーボードとサウンドとシーンを変更するクラスのポインタを収得する</para>
             </summary>
         </member>
-        <member name="M:TitleOptionDeta.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32,ITitleStateChanger*,TitleState)">
+        <member name="M:ItemBaggage.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>carrier_の頭上に来るように位置を変更し、向きが同じになる様に更新する</para>
+            </summary>
+        </member>
+        <member name="M:ItemBaggage.#ctor(Item*)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
-                <param name="statechanger">
-                    <para>使用するITitleStateCangerのポインタ</para>
-                </param>
-                <param name="state">
-                    <para>Optionの実行時にChangeStateに渡すstateの値</para>
-                </param>
             </summary>
         </member>
         <member name="M:GameCanvasOptionBase.#ctor(Keyboard*,IGameStateChanger*)">
@@ -566,232 +158,190 @@
                 <para>GameStateChangerポインタの収得</para>
             </summary>
         </member>
-        <member name="M:ItemPutted.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>carrier_の向きから置く場所を決め、item_の位置を置く場所に変更する</para>
-                <para>item_のstateを通常時に変え、carrier_をnullptrに変える</para>
-            </summary>
-        </member>
-        <member name="M:ItemPutted.#ctor(Item*)">
+        <member name="M:ManualStage.#ctor(Keyboard*,IManualStateChanger*)">
             <summary>
                 <para>コンストラクタ</para>
+                <para>マニュアル内のステージ情報の字幕の生成</para>
             </summary>
         </member>
-        <member name="M:Game.ChangeState(GameState)">
+        <member name="M:Item.Pushed(System.Single)">
             <summary>
-                <para>Stateの変更処理</para>
-                <para>nextstate_を引数の値に変更する</para>
-                <param name="state">
-                    <para>nextstate_にCopyする値</para>
+                <para>引数で受け取った数字分座標を移動する</para>
+                <para>移動先に他のObjectがあった場合、そのObjectもPushedを使い、再帰させる</para>
+                <param name="num">
+                    <para>num:現在の位置から動かそうとしている座標への差</para>
                 </param>
             </summary>
         </member>
-        <member name="M:Game.UpdateNextState">
+        <member name="M:Item.CanPushed(System.Single)">
             <summary>
-                <para>nextstate_が変更されていた場合、nextstate_の値によって対応する処理を行う</para>
+                <para>押されようとしている数字から、自分が押されることのできる数字を返す</para>
+                <para>ステージ端に移動してしまう場合、その差の数字を返す</para>
+                <para>自分が押される分数字を半分にした後、移動先にObjectがあった場合そのObjectのCapushedを再帰させ、一番小さい数字を返す</para>
+                <param name="num">
+                    <para>num:現在の位置から動かそうとしている座標への差</para>
+                </param>
+                <returns>
+                    <para>numに対して、実際にこのObjectを動かせる距離</para>
+                </returns>
             </summary>
         </member>
-        <member name="M:Game.StartBgm">
+        <member name="M:Item.Retry">
             <summary>
-                <para>ゲーム画面のBGMを再生する</para>
+                <para>リトライ処理</para>
+                <para>自分の位置を最初の位置に戻し、初期化処理を行う</para>
             </summary>
         </member>
-        <member name="M:Game.Finalize">
+        <member name="M:Item.Threw">
             <summary>
-                <para>終了処理</para>
-                <para>字幕とステージの終了処理を行う</para>
+                <para>投げられる際の処理</para>
+                <para>自分の位置を変更する</para>
             </summary>
         </member>
-        <member name="M:Game.Draw">
+        <member name="M:Item.CanThrew">
+            <summary>
+                <para>carrier_に投げられる際、投げれるかを返す</para>
+                <para>Itemのvector_から投げる際に自分がいる位置に他のObjectがないか調べる</para>
+                <returns>
+                    <para>true:自分投げることができる</para>
+                    <para>false:自分を投げることができない</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Item.Putted">
+            <summary>
+                <para>Objectに持たれた始める際の処理</para>
+                <para>stateと持たれる対象をポインタに保存し、自分の位置を変更する</para>
+                <param name="object">
+                    <para>object:自分を持つObject</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Item.CanPutted">
+            <summary>
+                <para>carrier_に置かれることができるかを返す</para>
+                <para>Objectの頭上に自身を置くことができるかを調べ、返す</para>
+                <returns>
+                    <para>true:自分を持つことができる</para>
+                    <para>false:自分を持つことができない</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Item.Picked(Object*)">
+            <summary>
+                <para>Objectに持たれた始める際の処理</para>
+                <para>自分のstateを変更し、持たれる対象をポインタに保存し、自分の位置を変更する</para>
+                <param name="object">
+                    <para>object:自分を持つObject</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Item.CanPicked(Object!System.Runtime.CompilerServices.IsConst*)">
+            <summary>
+                <para>Objectに持たれるかを返す</para>
+                <para>Objectの頭上に自身を置くことができるかを調べ、返す</para>
+                <param name="object">
+                    <para>object:自分を持つObject</para>
+                </param>
+                <returns>
+                    <para>true:自分を持つことができる</para>
+                    <para>false:自分を持つことができない</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Item.Draw">
             <summary>
                 <para>描写処理</para>
-                <para>字幕とステージの描写処理を行う</para>
+                <para>Itemの向きによって、描写する画像を反転する</para>
             </summary>
         </member>
-        <member name="M:Game.Update">
+        <member name="M:Item.Update">
             <summary>
                 <para>更新処理</para>
-                <para>字幕の更新処理を行う</para>
-                <para>nextstateが変更されていた場合、変更処理を行う</para>
+                <para>Itemの状態によってで行う行動を変える</para>
             </summary>
         </member>
-        <member name="M:Game.Initialize">
+        <member name="M:Item.Initialize">
             <summary>
                 <para>初期化処理</para>
-                <para>字幕とステージの初期化処理を行う</para>
+                <para>自分を持っているPlayerのポインタをnullptrにする</para>
             </summary>
         </member>
-        <member name="M:Game.#ctor(Keyboard*,Sound*,ISceneChanger*)">
+        <member name="M:Item.#ctor(Sound*,Collision*,System.Single,System.Single,System.Single,System.Single)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>最初に表示する字幕とステージを管理するクラスの生成</para>
-            </summary>
-        </member>
-        <member name="M:ItemAction.#ctor(Item*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>操作するitemのポインタを収得する</para>
-                <param name="item">
-                    <para>item:操作するitemのポインタ</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:ManualCanvasBase.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Enterキーか、Escapeキーがあった場合、マニュアル選択画面に移行する</para>
-            </summary>
-        </member>
-        <member name="M:ManualCanvasBase.#ctor(Keyboard*,IManualStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>ManualのStateを変えるポインタの取得</para>
-                <param name="statechanger">
-                    <para>ManualのStateを変えるクラスのポインタ</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Camera.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>playerがステージ右端、左端にいる場合を除いて、画面の中央に描写するように全体を動かす</para>
-            </summary>
-        </member>
-        <member name="M:Camera.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>ステージの右端、左端、画面の中央に描写するPlayerのポインタの取得</para>
-            </summary>
-        </member>
-        <member name="M:Camera.#ctor(std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;*,Collision*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>描写するステージとCpllisionクラスのポインタの取得</para>
-                <para>state:描写するステージのポインタ</para>
-                <para>collision:プレイヤーとステージ右端、左端オブジェクトのポインタを貰う</para>
-            </summary>
-        </member>
-        <member name="M:Hit.#ctor(Collision*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>ステージの両端の地形を収得する</para>
-            </summary>
-        </member>
-        <member name="M:Title.ChangeState(TitleState)">
-            <summary>
-                <para>Stateの変更処理</para>
-                <para>nextstate_を引数の値に変更する</para>
-                <para>引数:</para>
-                <param name="state">
-                    <para>nextstate_にCopyする値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Title.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>メモリ上のタイトルの画像を削除し、字幕の終了処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Title.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>タイトルと字幕の描写処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Title.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>字幕の更新処理を行う</para>
-                <para>nextstateが変更されていた場合、nextstateによって処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Title.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>字幕の初期化処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Title.#ctor(Keyboard*,Sound*,ISceneChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加で、タイトルに表示する画像と最初に表示する字幕の生成を行う</para>
-            </summary>
-        </member>
-        <member name="M:PlayerActionBaggage.Put">
-            <summary>
-                <para>置く行動処理</para>
-                <para>carryonに対して置けるかを確認する</para>
-                <para>置ける場合、player_のcarryonの値をnullptrに更新し、そのObjectに置かれた時の動作を行わせる</para>
-            </summary>
-        </member>
-        <member name="M:PlayerActionBaggage.Throw">
-            <summary>
-                <para>投げる行動処理</para>
-                <para>carryonに対して投げられるかを確認する</para>
-                <para>投げられる場合、player_のcarryonの値をnullptrに更新し、そのObjectに投げられた時の動作を行わせる</para>
-            </summary>
-        </member>
-        <member name="M:PlayerActionBaggage.Pick">
-            <summary>
-                <para>拾う行動処理</para>
-                <para>player_の位置と向きから拾う範囲を設定し、その範囲内にObjectがあった場合、そのObjectに対して拾えるかを確認する</para>
-                <para>拾える場合、player_のcarryonの値をそのObjectに更新し、そのObjectに拾われた時の動作を行わせる</para>
-            </summary>
-        </member>
-        <member name="M:PlayerActionBaggage.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>押されたキーと、PlayerがObjectを持っているかどうかによって行動が変わる</para>
-                <para>Spaceキーを押した時、PlayerがObjectを持っていた場合:Throw処理</para>
-                <para>Spaceキーを押した時、PlayerがObjectを持っていない場合:Pick処理</para>
-                <para>下キーを押したとき、PlayerがObjectを持っていた場合:Put処理</para>
-            </summary>
-        </member>
-        <member name="M:PlayerActionBaggage.#ctor(Keyboard*,Sound*,Collision*,Player*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>キーが押されているか確認するKeyboardクラス、拾う範囲に他のObjectがないか確認するクラス、行動時の音を管理するクラスを追加で取得する</para>
-                <param name="keyboard">
-                    <para>キーが押されているか確認するクラス</para>
-                </param>
+                <para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
                 <param name="sound">
                     <para>動作時に音を発生させるクラス</para>
                 </param>
                 <param name="collision">
-                    <para>拾う範囲に他のObjectがないか確認するクラス</para>
+                    <para>動作時や動作確認時に接触判定を調べる</para>
                 </param>
             </summary>
         </member>
-        <member name="M:ItemHit.HitObjects(System.Int32,System.Single)">
+        <member name="M:Player.CanClear">
             <summary>
-                <para>接触処理</para>
-                <para>item_のstateを変更した後、引数で受け取ったintの数値によってX軸かY軸に受け取ったfloatの数値分加算する</para>
-                <param name="check">
-                    <para>check:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるint型の数値</para>
-                </param>
-                <param name="distance">
-                    <para>distance:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるfloat型の数値</para>
-                </param>
+                <para>今クリアできるかを返す</para>
+                <returns>
+                    <para>true:自分投げることができる</para>
+                    <para>false:自分を投げることができない</para>
+                </returns>
             </summary>
         </member>
-        <member name="M:ItemHit.#ctor(Collision*,Item*)">
+        <member name="M:Player.Retry">
+            <summary>
+                <para>リトライ処理</para>
+                <para>Objectのリトライ処理に加え、初期化を行う</para>
+            </summary>
+        </member>
+        <member name="M:Player.Clear">
+            <summary>
+                <para>クリア処理</para>
+                <para>クリア条件を満たした際に、一度だけ呼ばれる関数</para>
+            </summary>
+        </member>
+        <member name="M:Player.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>Playerの向きによって、描写する画像を反転する</para>
+            </summary>
+        </member>
+        <member name="M:Player.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>Playerのstateがクリア状態の時のみ、Dance処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Player.Initialize">
+            <summary>
+                <para>初期化処理</para>
+            </summary>
+        </member>
+        <member name="M:Player.Action">
+            <summary>
+                <para>プレイヤーのアクションの管理</para>
+                <para>プレイヤーのキー入力とそれに対応するPlayerActionを行う</para>
+            </summary>
+        </member>
+        <member name="M:Player.#ctor(Keyboard*,Sound*,IGameStateChanger*,Collision*,System.Single,System.Single,System.Single,System.Single)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>操作するitemのポインタを追加で受け取る</para>
-                <param name="item">
-                    <para>item:操作するitemのポインタ</para>
+                <para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
+                <param name="sound">
+                    <para>動作時に音を発生させるクラス</para>
+                </param>
+                <param name="collision">
+                    <para>動作時や動作確認時に接触判定を調べる</para>
                 </param>
             </summary>
         </member>
-        <member name="M:ManualUsually.#ctor(Keyboard*,IManualStateChanger*)">
+        <member name="M:ManualRule.#ctor(Keyboard*,IManualStateChanger*)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>マニュアル内で他のマニュアルを選択する字幕の生成</para>
+                <para>マニュアル内のクリア条件の字幕の生成</para>
             </summary>
         </member>
-        <member name="M:Collision.HitCheckY(System.Single,Object!System.Runtime.CompilerServices.IsConst*)">
+        <member name="M:Collision.HitCheckY(System.Single,Object!System.Runtime.CompilerServices.IsConst*,Object!System.Runtime.CompilerServices.IsConst*)">
             <summary>
                 <para>対象のObjectのY軸に数値を追加した結果、他のObjectに接触するか、</para>
                 <para>した場合にはどの部分に接触したか、接触したObject、</para>
@@ -801,6 +351,9 @@
                 </param>
                 <param name="player">
                     <para>player:対象のObjectのポインタ</para>
+                </param>
+                <param name="carry">
+                    <para>carry:調べる対象から除くObject</para>
                 </param>
                 <returns>
                     <para>int:Objectに接触したか、した場合はどの部分に接触したか</para>
@@ -1045,10 +598,886 @@ Stageのポインタの収得
                 <para>字幕の生成</para>
             </summary>
         </member>
+        <member name="M:PlayerDance.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>振付の番号によって、移動する軸、移動する距離、時間を決め、時間になったら次の振付に移行する</para>
+                <para>振付が全て終わった時、GameのstateをClearに変更する</para>
+            </summary>
+        </member>
+        <member name="M:PlayerDance.NextChoreoGrap">
+            <summary>
+                <para>ダンスの次の振付に移行する</para>
+                <para>ダンスで移動する時間をリセットし、振付を次の段階に移行させる</para>
+            </summary>
+        </member>
+        <member name="M:PlayerDance.#ctor(Player*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加でDanceに使用する変数の初期化を行う</para>
+            </summary>
+        </member>
+        <member name="M:GameUsually.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>Escapeキーを入力すると、ゲームメニューの表示を要請する</para>
+            </summary>
+        </member>
+        <member name="M:GameUsually.#ctor(Keyboard*,IGameStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>ゲームの通常時に表示する字幕の生成</para>
+            </summary>
+        </member>
+        <member name="M:ItemStartThrow.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>carrier_の向きから投げられ始める場所を決め、item_の位置を投げられ始める場所に変更する</para>
+                <para>tem_のstateを変え、carrier_をnullptrに変える</para>
+            </summary>
+        </member>
+        <member name="M:ItemStartThrow.#ctor(Item*)">
+            <summary>
+                <para>コンストラクタ</para>
+            </summary>
+        </member>
+        <member name="M:ManualOptionData.Opt">
+            <summary>
+                <para>決定処理</para>
+                <para>statechanger_のChangeStateをchangestate_の値で実行する</para>
+            </summary>
+        </member>
+        <member name="M:ManualOptionData.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32,IManualStateChanger*,ManualState)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
+                <param name="statechanger">
+                    <para>使用するITitleStateCangerのポインタ</para>
+                </param>
+                <param name="state">
+                    <para>Optionの実行時にChangeStateに渡すstateの値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:TitleOptionData.Opt">
+            <summary>
+                <para>決定処理</para>
+                <para>statechanger_のChangeStateをchangestate_の値で実行する</para>
+            </summary>
+        </member>
+        <member name="M:TitleOptionData.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32,ITitleStateChanger*,TitleState)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
+                <param name="statechanger">
+                    <para>使用するITitleStateCangerのポインタ</para>
+                </param>
+                <param name="state">
+                    <para>Optionの実行時にChangeStateに渡すstateの値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Manual.StartBgm">
+            <summary>
+                <para>マニュアル画面のBGMを再生する</para>
+            </summary>
+        </member>
+        <member name="M:Manual.ChangeState(ManualState)">
+            <summary>
+                <para>Stateの変更処理</para>
+                <para>nextstate_を引数の値に変更する</para>
+                <param name="state">
+                    <para>nextstate_にCopyする値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Manual.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>字幕の終了処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Manual.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>背景と字幕の描写処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Manual.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>字幕の更新処理を行う</para>
+                <para>nextstate_が変更されていた場合、nextstate_によって処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Manual.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>字幕の初期化処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Manual.#ctor(Keyboard*,Sound*,ISceneChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>最初に表示する字幕を管理するクラスの生成</para>
+            </summary>
+        </member>
+        <member name="M:ManualUsually.#ctor(Keyboard*,IManualStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>マニュアル内で他のマニュアルを選択する字幕の生成</para>
+            </summary>
+        </member>
+        <member name="M:CanvasOptionBase.Update">
+            <summary>
+                <para>決定処理</para>
+                <para>Enterキーを押したとき、選んでいるoptionData_に対してOpt関数を実行する</para>
+            </summary>
+        </member>
+        <member name="M:CanvasOptionBase.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>選択肢と項目の終了処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:CanvasOptionBase.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>選択肢と項目の描写処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:CanvasOptionBase.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>選択している項目のを示す変数の初期値を設定する</para>
+                <para>子のクラスは、Initialize関数の最後にこの関数を実行させる</para>
+            </summary>
+        </member>
+        <member name="M:CanvasOptionBase.OptionUpdate">
+            <summary>
+                <para>選択肢の更新処理</para>
+                <para>上下キーを押すことで、選択している選択肢を上下の選択肢に変更する</para>
+                <para>一番上の選択肢を選択時に上キーを押すと、一番下の選択肢を選ぶ</para>
+                <para>同様に、一番下の選択肢を選択時に下キーを押すと、一番上の選択肢を選ぶ</para>
+            </summary>
+        </member>
+        <member name="M:CanvasOptionBase.OptionColorChange">
+            <summary>
+                <para>色の更新処理</para>
+                <para>選択肢の色を変更する</para>
+                <para>選ばれている選択肢の色と選ばれていない選択肢の色を別々に設定し、変更する</para>
+            </summary>
+        </member>
+        <member name="M:TitleDelete.#ctor(Keyboard*,ITitleStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>ゲームの終了確認する字幕の生成</para>
+            </summary>
+        </member>
+        <member name="M:ItemMoveX.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>item_の向きから移動先を決め、X軸の移動処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:ItemMoveX.MoveX(System.Single)">
+            <summary>
+                <para>Y軸の移動処理</para>
+                <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
+                <para>移動先にObjectない場合:xに数値を加算し、移動する</para>
+                <para>移動先にObjectある場合:接触処理を行う</para>
+                <param name="num">
+                    <para>num:X軸に加算しようとしている値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:ItemMoveX.#ctor(Sound*,Collision*,Item*,ItemHit*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
+                <param name="sound">
+                    <para>sound:壁に接触した際に鳴らす音を管理するクラスのポインタ</para>
+                </param>
+                <param name="collision">
+                    <para>collision:移動する先に衝突するObjectがあるかを調べるクラスのポインタ</para>
+                </param>
+                <param name="itemhit">
+                    <para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Sound.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>メモリ上にあるBGMの情報を削除する</para>
+            </summary>
+        </member>
+        <member name="M:Sound.StopSe">
+            <summary>
+                <para>SEの停止</para>
+                <para>現在鳴らしているSEを全て止める</para>
+            </summary>
+        </member>
+        <member name="M:Sound.StopBgm">
+            <summary>
+                <para>BGMの停止</para>
+                <para>現在BGMを鳴らしている場合、停止させる</para>
+            </summary>
+        </member>
+        <member name="M:Sound.PlaySe(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)">
+            <summary>
+                <para>SEの再生</para>
+                <para>引数で受け取ったSEを再生する</para>
+                <param name="sename">
+                    <para>sename:鳴らそうとしているseの列挙子</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Sound.PlaySe(Se_Name)">
+            <summary>
+                <para>SEの再生</para>
+                <para>引数で受け取ったSEを再生する</para>
+                <param name="sename">
+                    <para>sename:鳴らそうとしているseの列挙子</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Sound.PlayBgm(BGM_Name)">
+            <summary>
+                <para>BGMの再生</para>
+                <para>引数で受け取ったBGMを再生し、再生しているBGMの列挙子を更新する</para>
+                <para>引数で受け取った列挙子が現在鳴らしているBGMの場合、何もしない</para>
+                <param name="bgmname">
+                    <para>bgmname:鳴らそうとしているBGMの列挙子</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Sound.RegulationSeVolume(Se_Name,Object!System.Runtime.CompilerServices.IsConst*)">
+            <summary>
+                <para>音量の調整</para>
+                <para>引数で受け取ったObjectが出す音量の調整を行う</para>
+                <para>対象のObjectが画面外にいる時、離れているほど音は小さくなる</para>
+                <param name="sename">
+                    <para>sename:鳴らそうとしているSEの列挙子</para>
+                </param>
+                <param name="num">
+                    <para>object:音を鳴らそうとしているObject</para>
+                </param>
+                <returns>
+                    <para>鳴らす音量(0～255)</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Sound.#ctor">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>プログラム中で使用するBGMとSEの設定とSEの音量調整</para>
+                <para>現在鳴らしているBGMを無しにする</para>
+            </summary>
+        </member>
+        <member name="M:GameCanvasBase.#ctor(Keyboard*,IGameStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>GameStateChangerポインタの収得</para>
+            </summary>
+        </member>
+        <member name="M:Keyboard.UpdateKey">
+            <summary>
+                <para>受け取ったキーコードから、対象のキーがどの程度押されているかを返す</para>
+                <param name="keycode">
+                    <para>keycode:調べるキーコード</para>
+                </param>
+                <returns>
+                    <para>0:更新が完了した</para>
+                    <para>-1:更新中にエラーが発生した</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Keyboard.CheckKey(System.Int32)">
+            <summary>
+                <para>受け取ったキーコードから、対象のキーがどの程度押されているかを返す</para>
+                <param name="keycode">
+                    <para>keycode:調べるキーコード</para>
+                </param>
+                <returns>
+                    <para>引数のkeycodeが押されているフレーム数</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Terrain.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>地形の範囲を黒色で覆う</para>
+            </summary>
+        </member>
+        <member name="M:Terrain.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加で接触判定の初期化を行う</para>
+            </summary>
+        </member>
+        <member name="M:Game.ChangeState(GameState)">
+            <summary>
+                <para>Stateの変更処理</para>
+                <para>nextstate_を引数の値に変更する</para>
+                <param name="state">
+                    <para>nextstate_にCopyする値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Game.UpdateNextState">
+            <summary>
+                <para>nextstate_が変更されていた場合、nextstate_の値によって対応する処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Game.StartBgm">
+            <summary>
+                <para>ゲーム画面のBGMを再生する</para>
+            </summary>
+        </member>
+        <member name="M:Game.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>字幕とステージの終了処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Game.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>字幕とステージの描写処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Game.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>字幕の更新処理を行う</para>
+                <para>nextstateが変更されていた場合、変更処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Game.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>字幕とステージの初期化処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Game.#ctor(Keyboard*,Sound*,ISceneChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>最初に表示する字幕とステージを管理するクラスの生成</para>
+            </summary>
+        </member>
+        <member name="M:ManualOperation.#ctor(Keyboard*,IManualStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>マニュアル内の操作方法の字幕の生成</para>
+            </summary>
+        </member>
+        <member name="M:Camera.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>playerがステージ右端、左端にいる場合を除いて、画面の中央に描写するように全体を動かす</para>
+            </summary>
+        </member>
+        <member name="M:Camera.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>ステージの右端、左端、画面の中央に描写するPlayerのポインタの取得</para>
+            </summary>
+        </member>
+        <member name="M:Camera.#ctor(std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;*,Collision*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>描写するステージとCpllisionクラスのポインタの取得</para>
+                <para>state:描写するステージのポインタ</para>
+                <para>collision:プレイヤーとステージ右端、左端オブジェクトのポインタを貰う</para>
+            </summary>
+        </member>
+        <member name="M:Fps.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>Fpsが60より高い場合、60にそろえる</para>
+                <returns>
+                    <para>0:更新完了</para>
+                    <para>-1:何かしらのエラー発生</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:Fps.#ctor">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>開始時間とカウントの初期値設定</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.SetDepictionScreen(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+                <para>シーンの描写範囲の変更処理</para>
+                <para>描写する範囲の左上のX座標とY座標、右下のX座標とY座標を引数として受け取る</para>
+                <para>シーンの描写範囲を変数に保存した後、受け取った座標を対角線とする四角形を描写範囲として設定する</para>
+                <param name="x1">
+                    <para>x1:描写する範囲の左上のX座標</para>
+                </param>
+                <param name="y1">
+                    <para>y1:描写する範囲の左上のY座標</para>
+                </param>
+                <param name="x2">
+                    <para>x2:描写する範囲の右下のX座標</para>
+                </param>
+                <param name="y2">
+                    <para>y2:描写する範囲の右下のX座標</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.LightingScene">
+            <summary>
+                <para>シーンの明るくする処理</para>
+                <para>描写範囲を広げることで画面を明るくする</para>
+                <para>描写範囲を画面まで広げた後、Scene毎のBGMを再生し、Stateを通常時に変更する</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.BlackOutScene">
+            <summary>
+                <para>シーンの暗転処理</para>
+                <para>描写範囲を狭めることで画面を暗くする</para>
+                <para>描写範囲を無くした後、シーンの変更処理を行い、Stateを暗転の状態から明るくする状態に変更する</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.ChangeScene(Scene)">
+            <summary>
+                <para>シーンの変更処理</para>
+                <para>次のシーンをセットし、描写範囲を設定しなおす</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>Sceneの描写処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>Sceneの変更要請がない場合、Sceneの更新処理を行う</para>
+                <para>Sceneの変更要請があった場合、画面を暗くし始める</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>Sceneの終了処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>Sceneの初期化処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:SceneMgr.#ctor(Keyboard*,Sound*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>Scene内で使用するキーボードクラスと音を発生させるクラスを取得する</para>
+                <para>追加で、最初のSceneをTitleに設定する</para>
+                <param name="keyboard">
+                    <para>キーが押されているか確認するクラス</para>
+                </param>
+                <param name="sound">
+                    <para>BGMやSEなどの音を発生させるクラス</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:PlayerInversion.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>Ctrlキーを押した場合、プレイヤーの向きを変える</para>
+            </summary>
+        </member>
+        <member name="M:PlayerInversion.#ctor(Keyboard*,Player*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加でキーが押されているか確認するKeyboardクラスを取得する</para>
+            </summary>
+        </member>
+        <member name="M:GameClear.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>Enterキーか、Escapeキーがあった場合、タイトルシーンに移行する</para>
+            </summary>
+        </member>
+        <member name="M:GameClear.#ctor(Keyboard*,IGameStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>ゲームクリア時の字幕の生成</para>
+            </summary>
+        </member>
+        <member name="M:Title.ChangeState(TitleState)">
+            <summary>
+                <para>Stateの変更処理</para>
+                <para>nextstate_を引数の値に変更する</para>
+                <para>引数:</para>
+                <param name="state">
+                    <para>nextstate_にCopyする値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Title.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>メモリ上のタイトルの画像を削除し、字幕の終了処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Title.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>タイトルと字幕の描写処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Title.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>字幕の更新処理を行う</para>
+                <para>nextstateが変更されていた場合、nextstateによって処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Title.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>字幕の初期化処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:Title.#ctor(Keyboard*,Sound*,ISceneChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加で、タイトルに表示する画像と最初に表示する字幕の生成を行う</para>
+            </summary>
+        </member>
+        <member name="M:ItemPutted.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>carrier_の向きから置く場所を決め、item_の位置を置く場所に変更する</para>
+                <para>item_のstateを通常時に変え、carrier_をnullptrに変える</para>
+            </summary>
+        </member>
+        <member name="M:ItemPutted.#ctor(Item*)">
+            <summary>
+                <para>コンストラクタ</para>
+            </summary>
+        </member>
+        <member name="M:PlayerActionBaggage.Put">
+            <summary>
+                <para>置く行動処理</para>
+                <para>carryonに対して置けるかを確認する</para>
+                <para>置ける場合、player_のcarryonの値をnullptrに更新し、そのObjectに置かれた時の動作を行わせる</para>
+            </summary>
+        </member>
+        <member name="M:PlayerActionBaggage.Throw">
+            <summary>
+                <para>投げる行動処理</para>
+                <para>carryonに対して投げられるかを確認する</para>
+                <para>投げられる場合、player_のcarryonの値をnullptrに更新し、そのObjectに投げられた時の動作を行わせる</para>
+            </summary>
+        </member>
+        <member name="M:PlayerActionBaggage.Pick">
+            <summary>
+                <para>拾う行動処理</para>
+                <para>player_の位置と向きから拾う範囲を設定し、その範囲内にObjectがあった場合、そのObjectに対して拾えるかを確認する</para>
+                <para>拾える場合、player_のcarryonの値をそのObjectに更新し、そのObjectに拾われた時の動作を行わせる</para>
+            </summary>
+        </member>
+        <member name="M:PlayerActionBaggage.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>押されたキーと、PlayerがObjectを持っているかどうかによって行動が変わる</para>
+                <para>Spaceキーを押した時、PlayerがObjectを持っていた場合:Throw処理</para>
+                <para>Spaceキーを押した時、PlayerがObjectを持っていない場合:Pick処理</para>
+                <para>下キーを押したとき、PlayerがObjectを持っていた場合:Put処理</para>
+            </summary>
+        </member>
+        <member name="M:PlayerActionBaggage.#ctor(Keyboard*,Sound*,Collision*,Player*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>キーが押されているか確認するKeyboardクラス、拾う範囲に他のObjectがないか確認するクラス、行動時の音を管理するクラスを追加で取得する</para>
+                <param name="keyboard">
+                    <para>キーが押されているか確認するクラス</para>
+                </param>
+                <param name="sound">
+                    <para>動作時に音を発生させるクラス</para>
+                </param>
+                <param name="collision">
+                    <para>拾う範囲に他のObjectがないか確認するクラス</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:Hit.#ctor(Collision*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>ステージの両端の地形を収得する</para>
+            </summary>
+        </member>
+        <member name="M:PlayerMoveX.AlignAdhesionObjects(std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,Object!System.Runtime.CompilerServices.IsConst*,System.Int32)">
+            <summary>
+                <para>Objectの動的配列から、対象のObjectに接触しているObjectの動的配列と</para>
+                <para>接触しているObjectから、接触していないObjectのうち、一番近いObjectまでの差を返す</para>
+                <param name="objects">
+                    <para>objects:調べるObjectのポインタの動的配列</para>
+                </param>
+                <param name="player">
+                    <para>player:接触しているか調べるObjectのポインタ</para>
+                </param>
+                <param name="check">
+                    <para>check:HitCheckX及びHitCheckYのintで返されるint型変数</para>
+                </param>
+                <returns>
+                    <para>std::vector:接触ししている全てのObjectのポインタ</para>
+                    <para>float:Pushで移動する初期値</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:PlayerMoveX.Push(System.Single,std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,System.Int32)">
+            <summary>
+                <para>Playerの押す処理</para>
+                <para>地面にいるときにのみ、押す動作を開始する</para>
+                <para>渡された動的配列のから、Playerに密着しているObjectと、</para>
+                <para>Playerに密着していないObjectの内、Playerから近いObjectとの差を得する</para>
+                <para>PlayerがObjectを持っている場合、同様に密着しているObjectと密着していないObjectとの差を取得する</para>
+                <para>密着しているObjectに、渡されたfloatの値に対して、どの程度動けるかを取得する</para>
+                <para>収得した値のうち、一番小さい値でPlayerに密着しているObject全てを押す</para>
+                <para>実際に押せたかどうかを戻り値にする</para>
+                <param name="num">
+                    <para>num:X軸に加算しようとしている値</para>
+                </param>
+                <param name="target">
+                    <para>target:押そうとしている対象のObjectのポインタ全て</para>
+                </param>
+                <param name="check">
+                    <para>check:Collision::HitCheckXでのint型の戻り値、押そうとしている方向を確認する</para>
+                </param>
+                <returns>
+                    <para>押すことが出来たか</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:PlayerMoveX.MoveX(System.Single)">
+            <summary>
+                <para>X軸の移動処理</para>
+                <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
+                <para>移動先にObjectない場合:xに数値を加算し、移動する</para>
+                <para>移動先にObjectある場合:対象のObjectを押し、少しも押せなかったら接触処理を行う</para>
+                <para>PlayerがObjectを持っている場合、そのObjectも同様に接触するかを調べる</para>
+                <param name="num">
+                    <para>num:X軸に加算しようとしている値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:PlayerMoveX.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>キーボードの左右キーの入力状態を確認し、移動を行う。</para>
+                <para>左キーのみを押している場合は、左移動する。</para>
+                <para>右キーのみを押している場合は、右移動する。</para>
+            </summary>
+        </member>
+        <member name="M:PlayerMoveX.#ctor(Keyboard*,Sound*,Collision*,Player*,PlayerHit*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>キーが押されているか確認するKeyboardクラス、動作時に音を発生させるクラス、移動先に他のObjectがないか確認するクラス、接触処理を行うクラスを追加で取得する</para>
+                <param name="keyboard">
+                    <para>キーが押されているか確認するクラス</para>
+                </param>
+                <param name="sound">
+                    <para>動作時に音を発生させるクラス</para>
+                </param>
+                <param name="collision">
+                    <para>拾う範囲に他のObjectがないか確認するクラス</para>
+                </param>
+                <param name="playerhit">
+                    <para>Playerの接触処理を行うクラス</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:TextData.Draw">
+            <summary>
+                <para>描写処理</para>
+            </summary>
+        </member>
+        <member name="M:TextData.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>項目の左上のX座標、Y座標、項目の内容、項目の色を引数として取得する</para>
+                <para>引数:</para>
+                <param name="x">
+                    <para>項目の左上のX座標</para>
+                </param>
+                <param name="y">
+                    <para>項目の左上のX座標</para>
+                </param>
+                <param name="words">
+                    <para>項目の内容</para>
+                </param>
+                <param name="color">
+                    <para>項目の色</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:PlayerHit.HitObjects(System.Int32,System.Single)">
+            <summary>
+                <para>接触処理</para>
+                <para>引数で受け取ったintの数値によってX軸かY軸に受け取ったfloatの数値分加算し、player_のstateを変更する</para>
+                <para>intの数字が4の時、angleも変更する</para>
+                <param name="check">
+                    <para>check:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるint型の数値</para>
+                </param>
+                <param name="distance">
+                    <para>distance:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるfloat型の数値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:PlayerHit.#ctor(Collision*,Player*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加で、操作するPlayerのポインタを取得する</para>
+                <param name="player">
+                    <para>player:操作する対象のPlayerクラスのポインタ</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:ItemMoveY.Do">
+            <summary>
+                <para>行動処理</para>
+                <para>重力分、Y軸の移動処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:ItemMoveY.MoveY(System.Single)">
+            <summary>
+                <para>Y軸の移動処理</para>
+                <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
+                <para>移動先にObjectない場合:y_に数値を加算し、移動する</para>
+                <para>移動先にObjectある場合:接触処理を行う</para>
+                <param name="num">
+                    <para>num:Y軸に加算しようとしている値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:ItemMoveY.#ctor(Sound*,Collision*,Item*,ItemHit*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
+                <param name="sound">
+                    <para>sound:壁に接触した際に鳴らす音を管理するクラスのポインタ</para>
+                </param>
+                <param name="collision">
+                    <para>collision:移動する先に衝突するObjectがあるかを調べるクラスのポインタ</para>
+                </param>
+                <param name="sound">
+                    <para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:ClearArea.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>このObject内が他のObjectで満たされているかを確認する</para>
+                <para>満たされている場合、音楽を鳴らし、playerにクリア時の処理を行わせる</para>
+            </summary>
+        </member>
+        <member name="M:ClearArea.Update">
+            <summary>
+                <para>更新処理</para>
+                <para>このObject内が他のObjectで満たされているかを確認する</para>
+                <para>満たされている場合、音楽を鳴らし、playerにクリア時の処理を行わせる</para>
+            </summary>
+        </member>
+        <member name="M:ClearArea.Initialize">
+            <summary>
+                <para>初期化処理</para>
+                <para>プレイヤーのポインタの取得</para>
+            </summary>
+        </member>
+        <member name="M:ClearArea.#ctor(Sound*,Collision*,ColorCode,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+                <para>コンストラクタ</para>
+                <param name="sound">
+                    <para>sound:クリア時の音楽を鳴らすクラスのポインタ</para>
+                </param>
+                <param name="collision">
+                    <para>collision:クリア判定を行うクラスのポインタ</para>
+                </param>
+                <param name="color">
+                    <para>color:ステージ背景のカラーコード</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:TitleCanvasOptionBase.#ctor(Keyboard*,ITitleStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>TitleのStateを変えるポインタの取得</para>
+                <param name="statechanger">
+                    <para>TitleのStateを変えるクラスのポインタ</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:GameOptionData.Opt">
+            <summary>
+                <para>決定処理</para>
+                <para>statechanger_のChangeStateをchangestate_の値で実行する</para>
+            </summary>
+        </member>
+        <member name="M:GameOptionData.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32,IGameStateChanger*,GameState)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
+                <param name="statechanger">
+                    <para>使用するITitleStateCangerのポインタ</para>
+                </param>
+                <param name="state">
+                    <para>Optionの実行時にChangeStateに渡すstateの値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:GraphData.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>画像をメモリ上から削除する</para>
+            </summary>
+        </member>
+        <member name="M:GraphData.Draw">
+            <summary>
+                <para>描写処理</para>
+            </summary>
+        </member>
+        <member name="M:GraphData.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>表示する場所の左上と右下の座標と画像の取得</para>
+                <param name="x1">
+                    <para>x1:左上のX座標</para>
+                </param>
+                <param name="y1">
+                    <para>y1:左上のY座標</para>
+                </param>
+                <param name="x2">
+                    <para>x2:右下のX座標</para>
+                </param>
+                <param name="y2">
+                    <para>y2:右下のY座標</para>
+                </param>
+                <param name="graph">
+                    <para>graph:描写する画像のアドレス(LoadGraph)</para>
+                </param>
+            </summary>
+        </member>
         <member name="M:GameDance.#ctor(Keyboard*,IGameStateChanger*)">
             <summary>
                 <para>コンストラクタ</para>
                 <para>ダンス時には何も字幕を表示しない</para>
+            </summary>
+        </member>
+        <member name="M:ManualCanvasOptionBase.#ctor(Keyboard*,IManualStateChanger*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>ManualのStateを変えるポインタの取得</para>
+                <param name="statechanger">
+                    <para>ManualのStateを変えるクラスのポインタ</para>
+                </param>
             </summary>
         </member>
         <member name="M:PlayerAction.#ctor(Player*)">
@@ -1060,10 +1489,60 @@ Stageのポインタの収得
                 </param>
             </summary>
         </member>
-        <member name="M:GameCanvasBase.#ctor(Keyboard*,IGameStateChanger*)">
+        <member name="M:OptionDataBase.ChangeColor(ColorCode)">
+            <summary>
+                <para>色の変更処理</para>
+                <para>受け取った構造体をもとに、color_の値を変更する</para>
+                <param name="color">
+                    <para>項目の三原色を示す構造体</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:OptionDataBase.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>GameStateChangerポインタの収得</para>
+            </summary>
+        </member>
+        <member name="M:ItemHit.HitObjects(System.Int32,System.Single)">
+            <summary>
+                <para>接触処理</para>
+                <para>item_のstateを変更した後、引数で受け取ったintの数値によってX軸かY軸に受け取ったfloatの数値分加算する</para>
+                <param name="check">
+                    <para>check:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるint型の数値</para>
+                </param>
+                <param name="distance">
+                    <para>distance:Collision::HitCheckXやCollision::HitCheckX、Collision::MapCheckの戻り値の一つであるfloat型の数値</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:ItemHit.#ctor(Collision*,Item*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>操作するitemのポインタを追加で受け取る</para>
+                <param name="item">
+                    <para>item:操作するitemのポインタ</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:CanvasBase.Finalize">
+            <summary>
+                <para>終了処理</para>
+                <para>選択肢と項目の終了処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:CanvasBase.Draw">
+            <summary>
+                <para>描写処理</para>
+                <para>選択肢と項目の描写処理を行う</para>
+            </summary>
+        </member>
+        <member name="M:CanvasBase.#ctor(Keyboard*)">
+            <summary>
+                <para>コンストラクタ</para>
+                <para>Scene内で使用するキーボードクラスを取得する</para>
+                <param name="keyboard">
+                    <para>キーが押されているか確認するクラス</para>
+                </param>
             </summary>
         </member>
         <member name="M:Object.CanClear">
@@ -1237,35 +1716,18 @@ Stageのポインタの収得
                 </param>
             </summary>
         </member>
-        <member name="M:ItemMoveX.Do">
+        <member name="M:ManualCanvasBase.Update">
             <summary>
-                <para>行動処理</para>
-                <para>item_の向きから移動先を決め、X軸の移動処理を行う</para>
+                <para>更新処理</para>
+                <para>Enterキーか、Escapeキーがあった場合、マニュアル選択画面に移行する</para>
             </summary>
         </member>
-        <member name="M:ItemMoveX.MoveX(System.Single)">
-            <summary>
-                <para>Y軸の移動処理</para>
-                <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
-                <para>移動先にObjectない場合:xに数値を加算し、移動する</para>
-                <para>移動先にObjectある場合:接触処理を行う</para>
-                <param name="num">
-                    <para>num:X軸に加算しようとしている値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:ItemMoveX.#ctor(Sound*,Collision*,Item*,ItemHit*)">
+        <member name="M:ManualCanvasBase.#ctor(Keyboard*,IManualStateChanger*)">
             <summary>
                 <para>コンストラクタ</para>
-                <para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
-                <param name="sound">
-                    <para>sound:壁に接触した際に鳴らす音を管理するクラスのポインタ</para>
-                </param>
-                <param name="collision">
-                    <para>collision:移動する先に衝突するObjectがあるかを調べるクラスのポインタ</para>
-                </param>
-                <param name="itemhit">
-                    <para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para>
+                <para>ManualのStateを変えるポインタの取得</para>
+                <param name="statechanger">
+                    <para>ManualのStateを変えるクラスのポインタ</para>
                 </param>
             </summary>
         </member>
@@ -1275,442 +1737,5 @@ Stageのポインタの収得
                 <para>ゲーム時のメニュー画面の字幕生成</para>
             </summary>
         </member>
-        <member name="M:GameOptionDeta.Opt">
-            <summary>
-                <para>決定処理</para>
-                <para>statechanger_のChangeStateをchangestate_の値で実行する</para>
-            </summary>
-        </member>
-        <member name="M:GameOptionDeta.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32,IGameStateChanger*,GameState)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>追加でITitleStateChangerと選択時に変更するTitleStateを受け取る</para>
-                <param name="statechanger">
-                    <para>使用するITitleStateCangerのポインタ</para>
-                </param>
-                <param name="state">
-                    <para>Optionの実行時にChangeStateに渡すstateの値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:GameUsually.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Escapeキーを入力すると、ゲームメニューの表示を要請する</para>
-            </summary>
-        </member>
-        <member name="M:GameUsually.#ctor(Keyboard*,IGameStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>ゲームの通常時に表示する字幕の生成</para>
-            </summary>
-        </member>
-        <member name="M:Player.CanClear">
-            <summary>
-                <para>今クリアできるかを返す</para>
-                <returns>
-                    <para>true:自分投げることができる</para>
-                    <para>false:自分を投げることができない</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Player.Retry">
-            <summary>
-                <para>リトライ処理</para>
-                <para>Objectのリトライ処理に加え、初期化を行う</para>
-            </summary>
-        </member>
-        <member name="M:Player.Clear">
-            <summary>
-                <para>クリア処理</para>
-                <para>クリア条件を満たした際に、一度だけ呼ばれる関数</para>
-            </summary>
-        </member>
-        <member name="M:Player.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>Playerの向きによって、描写する画像を反転する</para>
-            </summary>
-        </member>
-        <member name="M:Player.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Playerのstateがクリア状態の時のみ、Dance処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Player.Initialize">
-            <summary>
-                <para>初期化処理</para>
-            </summary>
-        </member>
-        <member name="M:Player.Action">
-            <summary>
-                <para>プレイヤーのアクションの管理</para>
-                <para>プレイヤーのキー入力とそれに対応するPlayerActionを行う</para>
-            </summary>
-        </member>
-        <member name="M:Player.#ctor(Keyboard*,Sound*,IGameStateChanger*,Collision*,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
-                <param name="sound">
-                    <para>動作時に音を発生させるクラス</para>
-                </param>
-                <param name="collision">
-                    <para>動作時や動作確認時に接触判定を調べる</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:ManualRule.#ctor(Keyboard*,IManualStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>マニュアル内のクリア条件の字幕の生成</para>
-            </summary>
-        </member>
-        <member name="M:ManualCanvasOptionBase.#ctor(Keyboard*,IManualStateChanger*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>ManualのStateを変えるポインタの取得</para>
-                <param name="statechanger">
-                    <para>ManualのStateを変えるクラスのポインタ</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:CanvasOptionBase.Update">
-            <summary>
-                <para>決定処理</para>
-                <para>Enterキーを押したとき、選んでいるoptiondeta_に対してOpt関数を実行する</para>
-            </summary>
-        </member>
-        <member name="M:CanvasOptionBase.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>選択肢と項目の終了処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:CanvasOptionBase.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>選択肢と項目の描写処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:CanvasOptionBase.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>選択している項目のを示す変数の初期値を設定する</para>
-                <para>子のクラスは、Initialize関数の最後にこの関数を実行させる</para>
-            </summary>
-        </member>
-        <member name="M:CanvasOptionBase.OptionUpdate">
-            <summary>
-                <para>選択肢の更新処理</para>
-                <para>上下キーを押すことで、選択している選択肢を上下の選択肢に変更する</para>
-                <para>一番上の選択肢を選択時に上キーを押すと、一番下の選択肢を選ぶ</para>
-                <para>同様に、一番下の選択肢を選択時に下キーを押すと、一番上の選択肢を選ぶ</para>
-            </summary>
-        </member>
-        <member name="M:CanvasOptionBase.OptionColorChange">
-            <summary>
-                <para>色の更新処理</para>
-                <para>選択肢の色を変更する</para>
-                <para>選ばれている選択肢の色と選ばれていない選択肢の色を別々に設定し、変更する</para>
-            </summary>
-        </member>
-        <member name="M:BaseScene.#ctor(Keyboard*,Sound*,ISceneChanger*)">
-            <summary>
-                <para>キーボードとサウンドとシーンを変更するクラスのポインタを収得する</para>
-            </summary>
-        </member>
-        <member name="M:PlayerMoveX.AlignAdhesionObjects(std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,Object!System.Runtime.CompilerServices.IsConst*,System.Int32)">
-            <summary>
-                <para>Objectの動的配列から、対象のObjectに接触しているObjectの動的配列と</para>
-                <para>接触しているObjectから、接触していないObjectのうち、一番近いObjectまでの差を返す</para>
-                <para>引数:</para>
-                <param name="objects">
-                    <para>objects:調べるObjectのポインタの動的配列</para>
-                </param>
-                <param name="player">
-                    <para>player:接触しているか調べるObjectのポインタ</para>
-                </param>
-                <param name="check">
-                    <para>check:HitCheckX及びHitCheckYのintで返されるint型変数</para>
-                </param>
-                <para>戻り値:</para>
-                <returns>
-                    <para>std::vector:接触ししている全てのObjectのポインタ</para>
-                    <para>float:playerが一番近いObjectに接触するまで動ける数値</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:PlayerMoveX.Push(System.Single,std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,System.Int32)">
-            <summary>
-                <para>Playerの押す処理</para>
-                <para>地面にいるときにのみ、押す動作を開始する</para>
-                <para>渡された動的配列のから、Playerに密着しているObjectと、</para>
-                <para>Playerに密着していないObjectの内、Playerから近いObjectとの差を得する</para>
-                <para>PlayerがObjectを持っている場合、同様に密着しているObjectと密着していないObjectとの差を取得する</para>
-                <para>密着しているObjectに、渡されたfloatの値に対して、どの程度動けるかを取得する</para>
-                <para>収得した値のうち、一番小さい値でPlayerに密着しているObject全てを押す</para>
-                <para>実際に押せたかどうかを戻り値にする</para>
-                <param name="num">
-                    <para>num:X軸に加算しようとしている値</para>
-                </param>
-                <param name="target">
-                    <para>target:押そうとしている対象のObjectのポインタ全て</para>
-                </param>
-                <param name="check">
-                    <para>check:Collision::HitCheckXでのint型の戻り値、押そうとしている方向を確認する</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:PlayerMoveX.MoveX(System.Single)">
-            <summary>
-                <para>X軸の移動処理</para>
-                <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
-                <para>移動先にObjectない場合:xに数値を加算し、移動する</para>
-                <para>移動先にObjectある場合:対象のObjectを押し、少しも押せなかったら接触処理を行う</para>
-                <para>PlayerがObjectを持っている場合、そのObjectも同様に接触するかを調べる</para>
-                <param name="num">
-                    <para>num:X軸に加算しようとしている値</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:PlayerMoveX.Do">
-            <summary>
-                <para>行動処理</para>
-                <para>キーボードの左右キーの入力状態を確認し、移動を行う。</para>
-                <para>左キーのみを押している場合は、左移動する。</para>
-                <para>右キーのみを押している場合は、右移動する。</para>
-            </summary>
-        </member>
-        <member name="M:PlayerMoveX.#ctor(Keyboard*,Sound*,Collision*,Player*,PlayerHit*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>キーが押されているか確認するKeyboardクラス、動作時に音を発生させるクラス、移動先に他のObjectがないか確認するクラス、接触処理を行うクラスを追加で取得する</para>
-                <param name="keyboard">
-                    <para>キーが押されているか確認するクラス</para>
-                </param>
-                <param name="sound">
-                    <para>動作時に音を発生させるクラス</para>
-                </param>
-                <param name="collision">
-                    <para>拾う範囲に他のObjectがないか確認するクラス</para>
-                </param>
-                <param name="playerhit">
-                    <para>Playerの接触処理を行うクラス</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Fps.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Fpsが60より高い場合、60にそろえる</para>
-                <returns>
-                    <para>0:更新完了</para>
-                    <para>-1:何かしらのエラー発生</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Fps.#ctor">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>開始時間とカウントの初期値設定</para>
-            </summary>
-        </member>
-        <member name="M:TextDeta.Draw">
-            <summary>
-                <para>描写処理</para>
-            </summary>
-        </member>
-        <member name="M:TextDeta.#ctor(System.Int32,System.Int32,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.UInt32)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>項目の左上のX座標、Y座標、項目の内容、項目の色を引数として取得する</para>
-                <para>引数:</para>
-                <param name="x">
-                    <para>項目の左上のX座標</para>
-                </param>
-                <param name="y">
-                    <para>項目の左上のX座標</para>
-                </param>
-                <param name="words">
-                    <para>項目の内容</para>
-                </param>
-                <param name="color">
-                    <para>項目の色</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:CanvasBase.Finalize">
-            <summary>
-                <para>終了処理</para>
-                <para>選択肢と項目の終了処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:CanvasBase.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>選択肢と項目の描写処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:CanvasBase.#ctor(Keyboard*)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>Scene内で使用するキーボードクラスを取得する</para>
-                <param name="keyboard">
-                    <para>キーが押されているか確認するクラス</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Item.Pushed(System.Single)">
-            <summary>
-                <para>引数で受け取った数字分座標を移動する</para>
-                <para>移動先に他のObjectがあった場合、そのObjectもPushedを使い、再帰させる</para>
-                <param name="num">
-                    <para>num:現在の位置から動かそうとしている座標への差</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Item.CanPushed(System.Single)">
-            <summary>
-                <para>押されようとしている数字から、自分が押されることのできる数字を返す</para>
-                <para>ステージ端に移動してしまう場合、その差の数字を返す</para>
-                <para>自分が押される分数字を半分にした後、移動先にObjectがあった場合そのObjectのCapushedを再帰させ、一番小さい数字を返す</para>
-                <param name="num">
-                    <para>num:現在の位置から動かそうとしている座標への差</para>
-                </param>
-                <returns>
-                    <para>numに対して、実際にこのObjectを動かせる距離</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Item.Retry">
-            <summary>
-                <para>リトライ処理</para>
-                <para>自分の位置を最初の位置に戻し、初期化処理を行う</para>
-            </summary>
-        </member>
-        <member name="M:Item.Threw">
-            <summary>
-                <para>投げられる際の処理</para>
-                <para>自分の位置を変更する</para>
-            </summary>
-        </member>
-        <member name="M:Item.CanThrew">
-            <summary>
-                <para>carrier_に投げられる際、投げれるかを返す</para>
-                <para>Itemのvector_から投げる際に自分がいる位置に他のObjectがないか調べる</para>
-                <returns>
-                    <para>true:自分投げることができる</para>
-                    <para>false:自分を投げることができない</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Item.Putted">
-            <summary>
-                <para>Objectに持たれた始める際の処理</para>
-                <para>stateと持たれる対象をポインタに保存し、自分の位置を変更する</para>
-                <param name="object">
-                    <para>object:自分を持つObject</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Item.CanPutted">
-            <summary>
-                <para>carrier_に置かれることができるかを返す</para>
-                <para>Objectの頭上に自身を置くことができるかを調べ、返す</para>
-                <returns>
-                    <para>true:自分を持つことができる</para>
-                    <para>false:自分を持つことができない</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Item.Picked(Object*)">
-            <summary>
-                <para>Objectに持たれた始める際の処理</para>
-                <para>自分のstateを変更し、持たれる対象をポインタに保存し、自分の位置を変更する</para>
-                <param name="object">
-                    <para>object:自分を持つObject</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:Item.CanPicked(Object!System.Runtime.CompilerServices.IsConst*)">
-            <summary>
-                <para>Objectに持たれるかを返す</para>
-                <para>Objectの頭上に自身を置くことができるかを調べ、返す</para>
-                <param name="object">
-                    <para>object:自分を持つObject</para>
-                </param>
-                <returns>
-                    <para>true:自分を持つことができる</para>
-                    <para>false:自分を持つことができない</para>
-                </returns>
-            </summary>
-        </member>
-        <member name="M:Item.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>Itemの向きによって、描写する画像を反転する</para>
-            </summary>
-        </member>
-        <member name="M:Item.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>Itemの状態によってで行う行動を変える</para>
-            </summary>
-        </member>
-        <member name="M:Item.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>自分を持っているPlayerのポインタをnullptrにする</para>
-            </summary>
-        </member>
-        <member name="M:Item.#ctor(Sound*,Collision*,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-                <para>コンストラクタ</para>
-                <para>描写する画像の設定、当たった後の処理を行うクラス、行動を管理するクラスの生成</para>
-                <param name="sound">
-                    <para>動作時に音を発生させるクラス</para>
-                </param>
-                <param name="collision">
-                    <para>動作時や動作確認時に接触判定を調べる</para>
-                </param>
-            </summary>
-        </member>
-        <member name="M:ClearArea.Draw">
-            <summary>
-                <para>描写処理</para>
-                <para>このObject内が他のObjectで満たされているかを確認する</para>
-                <para>満たされている場合、音楽を鳴らし、playerにクリア時の処理を行わせる</para>
-            </summary>
-        </member>
-        <member name="M:ClearArea.Update">
-            <summary>
-                <para>更新処理</para>
-                <para>このObject内が他のObjectで満たされているかを確認する</para>
-                <para>満たされている場合、音楽を鳴らし、playerにクリア時の処理を行わせる</para>
-            </summary>
-        </member>
-        <member name="M:ClearArea.Initialize">
-            <summary>
-                <para>初期化処理</para>
-                <para>プレイヤーのポインタの取得</para>
-            </summary>
-        </member>
-        <member name="M:ClearArea.#ctor(Sound*,Collision*,ColorCode,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-                <para>コンストラクタ</para>
-                <param name="sound">
-                    <para>sound:クリア時の音楽を鳴らすクラスのポインタ</para>
-                </param>
-                <param name="collision">
-                    <para>collision:クリア判定を行うクラスのポインタ</para>
-                </param>
-                <param name="color">
-                    <para>color:ステージ背景のカラーコード</para>
-                </param>
-            </summary>
-        </member>
-        <!-- メンバー 'M:GraphDeta.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)' に対して形式が正しくない XML ドキュメント コメントを破棄します。-->
     </members>
 </doc>

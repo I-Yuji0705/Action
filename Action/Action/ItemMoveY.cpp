@@ -27,7 +27,7 @@ void ItemMoveY::MoveY(float num) {
 	int hitpoint;
 	float distance;
 	std::vector<Object*> hitobject;
-	std::tie(hitpoint, distance, hitobject) = collision_->HitCheckY(num, item_);
+	std::tie(hitpoint, distance, hitobject) = collision_->HitCheckY(num, item_,nullptr);
 	if (hitpoint != 0  &&!hitobject.empty()) {
 		itemhit_->HitObjects(hitpoint, distance);
 		hit = true;

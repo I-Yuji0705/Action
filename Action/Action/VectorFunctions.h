@@ -21,15 +21,25 @@ std::vector<T> VectorNoDuplicationInsert(std::vector<T> added, std::vector<T> ad
 		vector.push_back(i);
 	}
 	for (auto i : add) {
-		bool ok = true;
-		for (auto j : vector) {
-			if (j == i) {
-				ok = false;
-				break;
-			}
-		}
-		if (ok)
+		if (!VectorCheck(vector,i))
 			vector.push_back(i);
 	}
 	return vector;
+}
+
+///<summary>
+///<para>クラスの動的配列に、二つ目に渡されたクラスが含まれていないかを返す関数</para>
+///<param name= "vector"><para>調べるクラスの動的配列</para></param>
+///<param name= "target"><para>検索する対象のクラス</para></param>
+///</summary>
+template <class T>
+bool VectorCheck(std::vector<T> vector,T target) {
+	bool check = false;
+	for (auto i : vector) {
+		if (i == target) {
+			check = true;
+			break;
+		}
+	}
+	return check;
 }

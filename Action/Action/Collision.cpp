@@ -66,8 +66,8 @@ bool Collision::Check(float x1, float y1, float x2, float y2,
 	const Object* object) {
 	bool check = false;
 	if (object->quality_ && 
-		y1  < object->Base() && object->Top() < y2 &&
-		x1 < object->Right() && object->Left() < x2)
+		y1 < object->Base() && y2 > object->Top() &&
+		x1 < object->Right() && x2 > object->Left())
 		check = true;
 	return check;
 }
@@ -343,6 +343,7 @@ std::tuple<int,float, std::vector<Object *>>
 ///<para>接触したObjectのうち、一番近いObjectと接触するまで対象のObjectが動ける数値を返す</para>
 ///<param name="num"><para>num:対象のObjectのY座標に追加する予定の数値</para></param>
 ///<param name="player"><para>player:対象のObjectのポインタ</para></param>
+///<param name="carry"><para>carry:調べる対象から除くObject</para></param>
 ///<returns>
 ///<para>int:Objectに接触したか、した場合はどの部分に接触したか</para>
 ///<para>0:接触しない</para>
@@ -353,12 +354,12 @@ std::tuple<int,float, std::vector<Object *>>
 ///</returns>
 ///</summary>
 std::tuple<int, float, std::vector<Object *>>
-Collision::HitCheckY(float num, const Object* player) {
+Collision::HitCheckY(float num, const Object* player,const Object* carry) {
 	int check = 0;
 	float distance = 999.0f;//999.0f:初期値
 	std::vector<Object*> hitobjects;
 	for (auto i : *stage_) {
-		if (i != player && i->quality_ &&
+		if (i != player && i != carry && i->quality_ &&
 			Check(player->Left(), player->Top() + num, player, i)) {
 			hitobjects.push_back(i);
 			if (num > 0) check = 3;//地形の上側から衝突した時

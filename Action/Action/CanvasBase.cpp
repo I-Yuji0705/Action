@@ -16,7 +16,7 @@ CanvasBase::CanvasBase(Keyboard* keyboard) {
 ///<para>選択肢と項目の描写処理を行う</para>
 ///</summary>
 void CanvasBase::Draw() { 
-	for (auto i : drawingdeta_) {
+	for (auto i : drawingData_) {
 		i->Draw();
 	}
 }
@@ -28,7 +28,7 @@ void CanvasBase::Draw() {
 ///<para>選択肢と項目の終了処理を行う</para>
 ///</summary>
 void CanvasBase::Finalize() {
-	for (auto i : drawingdeta_) {
+	for (auto i : drawingData_) {
 		i->Finalize();
 	}
 }

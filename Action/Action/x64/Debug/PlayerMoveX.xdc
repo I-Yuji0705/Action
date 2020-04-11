@@ -1,6 +1,6 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:PlayerMoveX.#ctor(Keyboard*,Sound*,Collision*,Player*,PlayerHit*)" decl="false" source="c:\users\student\desktop\action\action\action\playermovex.cpp" line="9">
+<member name="M:PlayerMoveX.#ctor(Keyboard*,Sound*,Collision*,Player*,PlayerHit*)" decl="false" source="c:\users\yu-rei\music\action\action\action\playermovex.cpp" line="9">
 <summary>
 <para>コンストラクタ</para>
 <para>キーが押されているか確認するKeyboardクラス、動作時に音を発生させるクラス、移動先に他のObjectがないか確認するクラス、接触処理を行うクラスを追加で取得する</para>
@@ -10,7 +10,7 @@
 <param name="playerhit"><para>Playerの接触処理を行うクラス</para></param>
 </summary>
 </member>
-<member name="M:PlayerMoveX.Do" decl="false" source="c:\users\student\desktop\action\action\action\playermovex.cpp" line="25">
+<member name="M:PlayerMoveX.Do" decl="false" source="c:\users\yu-rei\music\action\action\action\playermovex.cpp" line="25">
 <summary>
 <para>行動処理</para>
 <para>キーボードの左右キーの入力状態を確認し、移動を行う。</para>
@@ -18,7 +18,7 @@
 <para>右キーのみを押している場合は、右移動する。</para>
 </summary>
 </member>
-<member name="M:PlayerMoveX.MoveX(System.Single)" decl="false" source="c:\users\student\desktop\action\action\action\playermovex.cpp" line="44">
+<member name="M:PlayerMoveX.MoveX(System.Single)" decl="false" source="c:\users\yu-rei\music\action\action\action\playermovex.cpp" line="44">
 <summary>
 <para>X軸の移動処理</para>
 <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
@@ -28,7 +28,7 @@
 <param name="num"><para>num:X軸に加算しようとしている値</para></param>
 </summary>
 </member>
-<member name="M:PlayerMoveX.Push(System.Single,std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,System.Int32)" decl="false" source="c:\users\student\desktop\action\action\action\playermovex.cpp" line="99">
+<member name="M:PlayerMoveX.Push(System.Single,std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,System.Int32)" decl="false" source="c:\users\yu-rei\music\action\action\action\playermovex.cpp" line="101">
 <summary>
 <para>Playerの押す処理</para>
 <para>地面にいるときにのみ、押す動作を開始する</para>
@@ -41,20 +41,19 @@
 <param name="num"><para>num:X軸に加算しようとしている値</para></param>
 <param name="target"><para>target:押そうとしている対象のObjectのポインタ全て</para></param>
 <param name="check"><para>check:Collision::HitCheckXでのint型の戻り値、押そうとしている方向を確認する</para></param>
+<returns><para>押すことが出来たか</para></returns>
 </summary>
 </member>
-<member name="M:PlayerMoveX.AlignAdhesionObjects(std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,Object!System.Runtime.CompilerServices.IsConst*,System.Int32)" decl="false" source="c:\users\student\desktop\action\action\action\playermovex.cpp" line="149">
+<member name="M:PlayerMoveX.AlignAdhesionObjects(std.vector&lt;Object**,std.allocator&lt;Object**&gt;&gt;,Object!System.Runtime.CompilerServices.IsConst*,System.Int32)" decl="false" source="c:\users\yu-rei\music\action\action\action\playermovex.cpp" line="149">
 <summary>
 <para>Objectの動的配列から、対象のObjectに接触しているObjectの動的配列と</para>
 <para>接触しているObjectから、接触していないObjectのうち、一番近いObjectまでの差を返す</para>
-<para>引数:</para>
 <param name="objects"><para>objects:調べるObjectのポインタの動的配列</para></param>
 <param name="player"><para>player:接触しているか調べるObjectのポインタ</para></param>
 <param name="check"><para>check:HitCheckX及びHitCheckYのintで返されるint型変数</para></param>
-<para>戻り値:</para>
 <returns>
 <para>std::vector:接触ししている全てのObjectのポインタ</para>
-<para>float:playerが一番近いObjectに接触するまで動ける数値</para>
+<para>float:Pushで移動する初期値</para>
 </returns>
 </summary>
 </member>

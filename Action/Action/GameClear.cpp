@@ -1,14 +1,14 @@
 #include "GameClear.h"
 #include "DxLib.h"
 #include <iostream>
-#include "TextDeta.h"
+#include "TextData.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>ゲームクリア時の字幕の生成</para>
 ///</summary>
 GameClear::GameClear(Keyboard* keyboard,IGameStateChanger* statechanger) : GameCanvasBase(keyboard,statechanger) {
-	drawingdeta_.push_back((DrawingDeta*)new TextDeta(250, 100, "ゲームクリア！", GetColor(0, 0, 0)));
+	drawingData_.push_back((DrawingData*)new TextData(250, 100, "ゲームクリア！", GetColor(0, 0, 0)));
 }
 
 ///<summary>

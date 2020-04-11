@@ -1,15 +1,15 @@
 #pragma once
-#include "DrawingDeta.h"
+#include "DrawingData.h"
 #include <vector>
 #include "Keyboard.h"
-#include "OptionDetaBase.h"
+#include "OptionDataBase.h"
 
-class DrawingDeta;
+class DrawingData;
 class Keyboard;
-//DrawingDetaをもとに複数の項目を表示するクラス
+//DrawingDataをもとに複数の項目を表示するクラス
 class CanvasBase{
 protected:
-	std::vector<DrawingDeta*> drawingdeta_;//選択肢以外を入れる動的配列
+	std::vector<DrawingData*> drawingData_;//選択肢以外を入れる動的配列
 	Keyboard* keyboard_;
 public:
 	CanvasBase(Keyboard* keyboard);

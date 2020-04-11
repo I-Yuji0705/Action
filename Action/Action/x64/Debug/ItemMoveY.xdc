@@ -1,6 +1,6 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:ItemMoveY.#ctor(Sound*,Collision*,Item*,ItemHit*)" decl="false" source="c:\users\student\desktop\action\action\action\itemmovey.cpp" line="4">
+<member name="M:ItemMoveY.#ctor(Sound*,Collision*,Item*,ItemHit*)" decl="false" source="c:\users\yu-rei\music\action\action\action\itemmovey.cpp" line="4">
 <summary>
 <para>コンストラクタ</para>
 <para>音を管理するクラスと接触を判定するクラス、接触後の処理を行うクラスのポインタを追加で収得する</para>
@@ -9,7 +9,7 @@
 <param name="sound"><para>itemhit:接触時に位置調整などの処理を行うクラスのポインタ</para></param>
 </summary>
 </member>
-<member name="M:ItemMoveY.MoveY(System.Single)" decl="false" source="c:\users\student\desktop\action\action\action\itemmovey.cpp" line="18">
+<member name="M:ItemMoveY.MoveY(System.Single)" decl="false" source="c:\users\yu-rei\music\action\action\action\itemmovey.cpp" line="18">
 <summary>
 <para>Y軸の移動処理</para>
 <para>移動しようとしている数字を受け取り、移動先に他のObjectに接触するかを調べる</para>
@@ -18,7 +18,7 @@
 <param name="num"><para>num:Y軸に加算しようとしている値</para></param>
 </summary>
 </member>
-<member name="M:ItemMoveY.Do" decl="false" source="c:\users\student\desktop\action\action\action\itemmovey.cpp" line="40">
+<member name="M:ItemMoveY.Do" decl="false" source="c:\users\yu-rei\music\action\action\action\itemmovey.cpp" line="40">
 <summary>
 <para>行動処理</para>
 <para>重力分、Y軸の移動処理を行う</para>

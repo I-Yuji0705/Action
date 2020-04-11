@@ -1,6 +1,6 @@
 #pragma once
 #include "GameCanvasBase.h"
-#include "TextDeta.h"
+#include "TextData.h"
 
 //ゲームクリア時にステージ以外の処理を行う基底クラス
 class GameClear : public GameCanvasBase {

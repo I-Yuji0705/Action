@@ -36,4 +36,6 @@ void PlayerHit::HitObjects(int check, float distance) {
 		assert(false);
 		break;
 	}
+	if (player_->carryon_ != nullptr)
+		player_->carryon_->Update();
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseScene.h"
-#include "TextDeta.h"
+#include "TextData.h"
 #include "ITitleStateChanger.h"
 #include "CanvasBase.h"
 

@@ -1,7 +1,7 @@
 #include "PlayerMoveY.h"
 #include <tuple>
 #include "DxLib.h"
-#include "VectorNoduplicationInsert.h"
+#include "VectorFunctions.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
@@ -53,22 +53,22 @@ void PlayerMoveY::MoveY(float num) {
 	bool hit = false;
 	int hitpoint;
 	float distance;
-	std::vector<Object*> hitobjects;
-	std::tie(hitpoint, distance, hitobjects) = collision_->HitCheckY(num, player_);//移動した際に当たるオブジェクトと当たる場所の算出
+	std::vector<Object*> hitobjects; 
+	float carryondistance;
+	std::vector<Object*> carryonhitobjects;
+	int carryonhitpoint;
+	std::tie(hitpoint, distance, hitobjects) = collision_->HitCheckY(num, player_,player_->carryon_);//移動した際に当たるオブジェクトと当たる場所の算出
 	if (player_->carryon_ != nullptr) {
-		auto carryon = std::find(hitobjects.begin(), hitobjects.end(), player_->carryon_);
-		if (carryon != hitobjects.end())
-			hitobjects.erase(carryon);
-		float carryondistance;
-		std::vector<Object*> carryonhitobjects;
-		int carryonhitpoint;
-		std::tie(carryonhitpoint, carryondistance, carryonhitobjects) = collision_->HitCheckY(num, player_->carryon_);//背負っている物の当たり判定をチェックする
-		auto player = std::find(carryonhitobjects.begin(), carryonhitobjects.end(), player_);
-		if (player != carryonhitobjects.end())
-			carryonhitobjects.erase(player);
+		//auto carryon = std::find(hitobjects.begin(), hitobjects.end(), player_->carryon_);
+		//if (carryon != hitobjects.end())
+		//	hitobjects.erase(carryon);
+		std::tie(carryonhitpoint, carryondistance, carryonhitobjects) = collision_->HitCheckY(num, player_->carryon_,player_);//背負っている物の当たり判定をチェックする
+		//auto player = std::find(carryonhitobjects.begin(), carryonhitobjects.end(), player_);
+		//if (player != carryonhitobjects.end())
+		//	carryonhitobjects.erase(player);
 		if (!carryonhitobjects.empty() && carryonhitpoint != 0) {
 			hitpoint = carryonhitpoint;
-			if (distance == 999.0f || (std::abs(distance) > std::abs(carryondistance) && carryondistance != 0))
+			if ((std::abs(distance) > std::abs(carryondistance) /*&& carryondistance != 0.0f*/))
 				distance = carryondistance;
 		}
 		hitobjects = VectorNoDuplicationInsert(hitobjects, carryonhitobjects);
@@ -82,4 +82,6 @@ void PlayerMoveY::MoveY(float num) {
 		player_->y_ += num;
 		player_->player_state_ = Player_Air;
 	}
+	if (player_->carryon_ != nullptr)
+		player_->carryon_->Update();
 }

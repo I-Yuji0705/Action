@@ -1,4 +1,4 @@
-#include "GameOptionDeta.h"
+#include "ManualOptionData.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
@@ -6,8 +6,8 @@
 ///<param name= "statechanger"><para>使用するITitleStateCangerのポインタ</para></param>
 ///<param name= "state"><para>Optionの実行時にChangeStateに渡すstateの値</para></param>
 ///</summary>
-GameOptionDeta::GameOptionDeta(int x, int y, const char word[128], unsigned int color, IGameStateChanger* statechanger, GameState state) 
-	: OptionDetaBase(x,y,word,color) {
+ManualOptionData::ManualOptionData(int x, int y, const char word[128], unsigned int color, IManualStateChanger* statechanger, ManualState state)
+	: OptionDataBase(x, y, word, color) {
 	statechanger_ = statechanger;
 	changestate_ = state;
 }
@@ -16,6 +16,6 @@ GameOptionDeta::GameOptionDeta(int x, int y, const char word[128], unsigned int 
 ///<para>決定処理</para>
 ///<para>statechanger_のChangeStateをchangestate_の値で実行する</para>
 ///</summary>
-void GameOptionDeta::Opt() {
+void ManualOptionData::Opt() {
 	statechanger_->ChangeState(changestate_);
 }

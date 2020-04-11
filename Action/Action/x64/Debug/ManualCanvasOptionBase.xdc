@@ -1,6 +1,6 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:ManualCanvasOptionBase.#ctor(Keyboard*,IManualStateChanger*)" decl="false" source="c:\users\student\desktop\action\action\action\manualcanvasoptionbase.cpp" line="4">
+<member name="M:ManualCanvasOptionBase.#ctor(Keyboard*,IManualStateChanger*)" decl="false" source="c:\users\yu-rei\music\action\action\action\manualcanvasoptionbase.cpp" line="4">
 <summary>
 <para>コンストラクタ</para>
 <para>ManualのStateを変えるポインタの取得</para>
