@@ -17,7 +17,7 @@ SceneMgr::SceneMgr(Keyboard* keyboard,Sound* sound) : next_scene_(Scene_None) //
 	keyboard_ = keyboard;
 	sound_ = sound;
 	scene_ = (BaseScene*) new Title(keyboard_, sound_, this);
-	//scene_->StartBgm();
+	scene_->StartBgm();
 	state = Normal_Scene;
 }
 
@@ -125,7 +125,7 @@ void SceneMgr::LightingScene() {
 	if (screen.x1 < 0 && screen.x2 > 480 && screen.y1 < 0 && screen.y2 > 640) { 
 		state = Normal_Scene;
 		SetDepictionScreen(0, 0, 640, 480);
-		//scene_->StartBgm();
+		scene_->StartBgm();
 	}
 }
 

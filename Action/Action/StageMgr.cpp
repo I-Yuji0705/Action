@@ -10,6 +10,12 @@
 #include "ObjectData.h"
 #include <stdio.h>
 
+//クリアできるステージを生成する上で確認しなければならない事
+//1.ステージ上の地形に穴を生成しないようにする
+//2.ClearZoneを必ず最初に一つだけ生成する
+//3.PlayerとItemがステージ外に出ることが無いように配置、設定する
+//4.Playerは一つだけ生成する
+
 ///<summary>
 ///<para>コンストラクタ</para>
 ///<para>キャラクターに渡すKeyboardクラス、Soundクラス、IGameStateChangerクラスを受け取る</para>
@@ -30,7 +36,7 @@ StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechang
 ///<summary>
 ///<para>ステージの生成処理</para>
 ///<para>引数で渡されたステージ名のテキストファイルから、ステージ情報を読み込み、ステージを生成する</para>
-///<para>この関数を使用する場合、CreateStageData関数は</para>
+///<para>この関数を使用する場合、CreateStageData関数は使用しない。</para>
 ///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
 ///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
 ///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
@@ -69,6 +75,7 @@ void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* s
 ///<summary>
 ///<para>ステージの生成処理</para>
 ///<para>CreateStageとは違い、プログラム文から生成したステージ情報をテキストファイルに出力する</para>
+///<para>この関数を使用する場合、CreateStage関数は使用しない。</para>
 ///<param name= "keyboard"><para>Playerの操作に使用するクラスのポインタ</para></param>
 ///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
 ///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
@@ -80,18 +87,11 @@ void StageMgr::CreateStageData(Keyboard* keyboard, Sound* sound,IGameStateChange
 	stage_->push_back((Object*)new Terrain(400.0f, 100.0f, 100.0f, 50.0f));
 	stage_->push_back((Object*)new Terrain(800.0f, 100.0f, 100.0f, 50.0f));
 	stage_->push_back((Object*)new Terrain(1300.0f, 100.0f, 100.0f, 50.0f));
-	//stage_->push_back((Object*)new Terrain(700.0f, 240.0f, 50.0f, 50.0f));
-	//stage_->push_back((Object*)new Terrain(850.0f, 390.0f, 100.0f, 50.0f));
 	stage_->push_back((Object*)new ClearArea(sound,collision,color_,1250.0f, 240.0f, 200.0f, 150.0f));
 	stage_->push_back((Object*)new Item(sound,collision,101.0f, 240.0f, 100.0f, 200.0f));
 	stage_->push_back((Object*)new Item(sound, collision, 301.0f, 190.0f, 50.0f, 50.0f));
 	stage_->push_back((Object*)new Item(sound, collision, 351.0f, 240.0f, 100.0f, 100.0f));
 	stage_->push_back((Object*)new Item(sound, collision, 451.0f, 240.0f, 100.0f, 100.0f));
-	//stage_->push_back((Object*)new Item(sound,collision,700.0f, 340.0f, 50.0f, 50.0f));
-	//stage_->push_back((Object*)new Item(sound,collision,850.0f, 290.0f, 100.0f, 50.0f));
-	//stage_->push_back((Object*)new Item(sound,collision,700.0f, 190.0f, 100.0f, 50.0f));
-	//stage_->push_back((Object*)new Item(sound,collision,850.0f, 240.0f, 100.0f, 50.0f));
-	//stage_->push_back((Object*)new Item(sound,collision,1250.0f, 390.0f, 50.0f, 100.0f));
 	stage_->push_back((Object*)new Player(keyboard, sound,statechanger,collision,50.0f, 340.0f, 50.0f, 50.0f));
 	char dataplace[50];
 	sprintf_s(dataplace, "Stage/%s.txt", stagename);
