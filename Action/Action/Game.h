@@ -12,8 +12,9 @@ private:
 	CanvasBase* gamecanvas_;
 	GameState nextstate_;
 	StageMgr* stagemgr_;
+	char stagename_[30];
 public:
-	Game(Keyboard* keyboard,Sound* sound,ISceneChanger* changer);
+	Game(Keyboard* keyboard,Sound* sound,ISceneChanger* changer, const char stagename[30]);
 	void Initialize() final;
 	void Finalize() final; 
 	void Update() final;        

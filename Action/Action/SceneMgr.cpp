@@ -84,6 +84,16 @@ void SceneMgr::ChangeScene(Scene nextscene) {
 }
 
 ///<summary>
+///<para>シーンの変更処理</para>
+///<para>次のシーンをセットし、描写範囲を設定しなおす</para>
+///<para>追加でステージの名前を修得する</para>
+///</summary>
+void SceneMgr::ChangeScene(Scene nextscene,const char stagename[30]) {
+	memcpy(stagename_, stagename, 30);
+	ChangeScene(nextscene);
+}
+
+///<summary>
 ///<para>シーンの暗転処理</para>
 ///<para>描写範囲を狭めることで画面を暗くする</para>
 ///<para>描写範囲を無くした後、シーンの変更処理を行い、Stateを暗転の状態から明るくする状態に変更する</para>
@@ -100,7 +110,7 @@ void SceneMgr::BlackOutScene() {
 			scene_ = (BaseScene*) new Title(keyboard_, sound_,this);   //メニュー画面のインスタンスを生成する
 			break;
 		case Scene_Game:        //次の画面がゲームなら
-			scene_ = (BaseScene*) new Game(keyboard_, sound_, this);   //ゲーム画面のインスタンスを生成する
+			scene_ = (BaseScene*) new Game(keyboard_, sound_, this,stagename_);   //ゲーム画面のインスタンスを生成する
 			break;
 		case Scene_Manual:        //次の画面がマニュアルなら
 			scene_ = (BaseScene*) new Manual(keyboard_, sound_, this);   //マニュアル画面のインスタンスを生成する

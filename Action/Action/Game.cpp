@@ -13,9 +13,10 @@
 ///<para>コンストラクタ</para>
 ///<para>最初に表示する字幕とステージを管理するクラスの生成</para>
 ///</summary>
-Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer) : BaseScene(keyboard,sound,changer) {
-	gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_,this);
-	stagemgr_ = (StageMgr*) new StageMgr(keyboard_,sound_,this);
+Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer, const char stagename[30]) : BaseScene(keyboard,sound,changer) {
+	gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_,this); 
+	memcpy(stagename_, stagename, 30);
+	stagemgr_ = (StageMgr*) new StageMgr(keyboard_,sound_,this,stagename_);
 }
 
 ///<summary>

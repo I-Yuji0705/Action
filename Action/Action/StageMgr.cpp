@@ -24,13 +24,14 @@
 ///<param name= "sound"><para></para>ObjectからSEを発生させるクラス</param>
 ///<param name= "statechanger"><para>GameのStateを変更するクラス</para></param>
 ///</summary>
-StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechanger) {
+StageMgr::StageMgr(Keyboard* keyboard,Sound* sound,IGameStateChanger* statechanger,const char stagename[30]) {
 	stage_ = new std::vector<Object*>;
 	collision_ = new Collision(stage_);
 	playercamera_ = new Camera(stage_, collision_);
 	color_ = { 127, 255, 212 };//背景色の設定
 	//CreateStageData(keyboard,sound,statechanger, collision_,"test");//ステージの生成と、テキストファイルへの保存
-	CreateStage(keyboard,sound,statechanger,collision_,"stage2");//テキストファイルからのステージの生成
+	//CreateStage(keyboard,sound,statechanger,collision_,"stage2");//テキストファイルからのステージの生成
+	CreateStage(keyboard, sound, statechanger, collision_, stagename);//テキストファイルからのステージの生成
 }
 
 ///<summary>
@@ -82,7 +83,7 @@ void StageMgr::CreateStage(Keyboard* keyboard, Sound* sound,IGameStateChanger* s
 ///<param name= "collision"><para>Objectの接触判定を担当するクラス</para></param>
 ///<param name= "stagename"><para>出力するテキストファイルの名前</para></param>
 ///</summary>
-void StageMgr::CreateStageData(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char* stagename) {
+void StageMgr::CreateStageData(Keyboard* keyboard, Sound* sound,IGameStateChanger* statechanger, Collision* collision, const char stagename[30]) {
 	stage_->push_back((Object*)new Terrain(0.0f, 440.0f, 40.0f, 1400.0f));
 	stage_->push_back((Object*)new Terrain(400.0f, 100.0f, 100.0f, 50.0f));
 	stage_->push_back((Object*)new Terrain(800.0f, 100.0f, 100.0f, 50.0f));

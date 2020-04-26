@@ -14,4 +14,5 @@ class ITitleStateChanger {
 public:
 	virtual ~ITitleStateChanger() = 0;
 	virtual void ChangeState(TitleState state) = 0;
+	virtual void ChangeState(TitleState state, const char stagename[30]) = 0;
 };

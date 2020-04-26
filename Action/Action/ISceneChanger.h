@@ -13,4 +13,5 @@ class ISceneChanger {
 public:
 	virtual ~ISceneChanger() = 0;
 	virtual void ChangeScene(Scene NextScene) = 0;//指定シーンに変更する
+	virtual void ChangeScene(Scene NextScene,const char stagename[30]) = 0;
 };

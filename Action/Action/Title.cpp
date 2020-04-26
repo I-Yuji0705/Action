@@ -45,7 +45,7 @@ void Title::Update(){
 			titlecanvas_->Initialize();
 			break;
 		case Title_Game:
-			scenechanger_->ChangeScene(Scene_Game);
+			scenechanger_->ChangeScene(Scene_Game,stagename_);
 			titlecanvas_->Initialize();
 			break;
 		case Title_Exit:
@@ -88,6 +88,12 @@ void Title::Finalize() {
 void Title::ChangeState(TitleState state){
 	nextstate_ = state;
 }
+
+void Title::ChangeState(TitleState state,const char stagename[30]) {
+	memcpy(stagename_, stagename, 30);
+	ChangeState(state);
+}
+
 void Title::StartBgm() {
 	sound_->PlayBgm(BGM_Menu);
 }

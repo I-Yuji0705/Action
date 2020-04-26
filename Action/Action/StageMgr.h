@@ -24,9 +24,9 @@ private:
 	Collision* collision_;
 	ColorCode color_;
 	void CreateStage(Keyboard*keyboard,Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char stagename[30]);//テキストファイルからステージを生成する
-	void CreateStageData(Keyboard*keyboard, Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char* stagename);//ステージ生成後にテキストファイルに保存する
+	void CreateStageData(Keyboard*keyboard, Sound* sound,IGameStateChanger* statechanger,Collision* collision,const char stagename[30]);//ステージ生成後にテキストファイルに保存する
 public:
-	StageMgr(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger);
+	StageMgr(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger, const char stagename[30]);
 	void Initialize();	//初期化処理
 	void Finalize();		//終了処理
 	void Update();		//更新処理

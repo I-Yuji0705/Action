@@ -4,7 +4,7 @@
 
 class ITitleStateChanger;
 class TitleOptionData : public OptionDataBase {
-private:
+protected:
 	ITitleStateChanger* statechanger_;
 	TitleState changestate_;
 public:

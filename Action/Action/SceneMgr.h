@@ -26,6 +26,7 @@ private:
 	void LightingScene();//‰æ–Ê‚Ì•`Ê”ÍˆÍ‚ğL‚°‚é
 	void SetDepictionScreen(int x1, int y1, int x2, int y2);//•`Ê”ÍˆÍ‚Ìİ’è
 	SceneState state;//Œ»İ‚ÌScene‚Ìó‘Ô
+	char stagename_[30];
 public:
 	SceneMgr(Keyboard* keyboard,Sound* sound);
 	void Initialize();//‰Šú‰»
@@ -35,5 +36,6 @@ public:
 
 	// ˆø” nextScene ‚ÉƒV[ƒ“‚ğ•ÏX‚·‚é
 	void ChangeScene(Scene NextScene) final;
+	void ChangeScene(Scene NextScene,const char stagename[30]) final;
 
 };

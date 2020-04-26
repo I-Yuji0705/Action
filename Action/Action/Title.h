@@ -10,9 +10,11 @@ private:
 	CanvasBase* titlecanvas_;
 	TitleState nextstate_;//
 	int title_;
+	char stagename_[30];
 public:
 	Title(Keyboard* keyboard,Sound* sound,ISceneChanger* changer);
 	void ChangeState(TitleState state);
+	void ChangeState(TitleState state, const char stagename[30]);
 	void Initialize() final;    //‰Šú‰»ˆ—
 	void Update() final;        //XVˆ—
 	void Draw() final;            //•`‰æˆ—
