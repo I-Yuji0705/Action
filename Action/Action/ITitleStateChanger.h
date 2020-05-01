@@ -1,11 +1,12 @@
 #pragma once
 
 enum TitleState {
-	Title_Usually,
-	Title_Delete,
-	Title_Game,
-	Title_Exit,
-	Title_Intersection,
+	Title_Usually,//初期画面
+	Title_Delete, //終了確認画面
+	Title_Game, //ゲームシーンに移行
+	Title_Exit, //ゲーム終了
+	Title_Intersection, //説明シーンに移行
+	Title_StageSelect, //ステージ選択画面に移行
 
 	Title_None//無し
 };

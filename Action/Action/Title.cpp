@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "TitleUsually.h"
 #include "TitleDelete.h"
+#include "TitleStageSelect.h"
 
 ///<summary>
 ///<para>コンストラクタ</para>
@@ -46,6 +47,10 @@ void Title::Update(){
 			break;
 		case Title_Game:
 			scenechanger_->ChangeScene(Scene_Game,stagename_);
+			titlecanvas_->Initialize();
+			break;
+		case Title_StageSelect:
+			titlecanvas_ = (CanvasBase*) new TitleStageSelect(keyboard_, this);
 			titlecanvas_->Initialize();
 			break;
 		case Title_Exit:

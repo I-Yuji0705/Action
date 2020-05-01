@@ -176,6 +176,7 @@
     <ClCompile Include="TitleCanvasOptionBase.cpp" />
     <ClCompile Include="TitleOptionData.cpp" />
     <ClCompile Include="TitleDelete.cpp" />
+    <ClCompile Include="TitleStageSelect.cpp" />
     <ClCompile Include="TitleToGameOptionData.cpp" />
     <ClCompile Include="TitleUsually.cpp" />
     <ClCompile Include="PlayerDance.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="TitleCanvasOptionBase.h" />
     <ClInclude Include="TitleOptionData.h" />
     <ClInclude Include="TitleDelete.h" />
+    <ClInclude Include="TitleStageSelect.h" />
     <ClInclude Include="TitleToGameOptionData.h" />
     <ClInclude Include="TitleUsually.h" />
     <ClInclude Include="ObjectData.h" />
