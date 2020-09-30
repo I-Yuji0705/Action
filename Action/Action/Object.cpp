@@ -120,6 +120,22 @@ void Object::Set(float x, float y, float height, float width) {
 	this->height_ = height;
 }
 
+
+///<summary>
+///<para>オブジェクトを描写できるかを確認する</para>
+///<para>オブジェクトが画面内に入っている場合、描写を行う</para>
+///<returns>
+///<para>オブジェクトが画面内に入っているかどうか</para>
+///</returns>
+///</summary>
+bool Object::DrawCheck() {
+	bool ok = false;
+	const float kWindowX = 640.0f;
+	if (this->Left() < 640.0f && this->Right() > 0)
+		ok = true;
+	return ok;
+}
+
 ///<summary>
 ///<para>押されようとしている数字から、自分が押されることのできる数字を返す</para>
 ///<para>デフォルトだと常に0を返す</para>

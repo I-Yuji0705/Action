@@ -145,7 +145,8 @@ void StageMgr::Draw() {
 	unsigned int backgroundcolor = GetColor(color_.Red, color_.Green, color_.Blue);
 	DrawBox(0, 0, 640, 480, backgroundcolor, TRUE);//”wŒiF‚ÌÝ’è
 	for (auto i : *stage_) {
-		i->Draw();
+		if(i->DrawCheck())
+			i->Draw();
 	}
 }
 

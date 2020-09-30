@@ -25,16 +25,14 @@ PlayerMoveY::PlayerMoveY(Keyboard* keyboard,Sound* sound, Collision *collision, 
 ///</summary>
 void PlayerMoveY::Do() {
 	float jumpdistance = 0.0f;
-	if ((keyboard_->CheckKey(KEY_INPUT_UP) == 1 && player_->player_state_ == Player_Land) ||//プレイヤーが地上にいるときか
-		(keyboard_->CheckKey(KEY_INPUT_UP) > 1 && player_->angle_ != 0)) {//上キーを入力し続けているとき
+	if ((keyboard_->CheckKey(KEY_INPUT_UP) == 1 && player_->player_state_ == Player_Land && player_->angle_ == 0) ||//プレイヤーが地上にいるときか
+		(player_->angle_ < 60 && player_->angle_ != 0 &&player_->player_state_ == Player_Air)) {//空中にいて、ジャンプしている間の時
 		if (player_->angle_ == 0) sound_->PlaySe(Se_Jump, player_);
-		if (player_->angle_ > 60) player_->angle_ = 60;//上キーを入力し続けてもcos(90 * player_->angle_ / 60 * 3.141592f / 180)が0になるようにする
-		if (std::abs(kJumpPower * (float)cos(90 * player_->angle_ / 60 * 3.141592f / 180)) > abs(gravity_.kGravity))
-			jumpdistance = -kJumpPower * (float)cos(90 * player_->angle_ / 60 * 3.141592f / 180);
+			jumpdistance = -kJumpPower * (float)cos(180 * player_->angle_ / 60 * 3.141592f / 180);
 		player_->angle_++;//angleを増加し続ける
 	}
-	else if (player_->angle_ != 0) {//上キーの入力をしていないとき、またはジャンプ中に入力をやめたとき
-		player_->angle_ = 0;//angleを0に設定する
+	else {
+			player_->angle_ = 0;
 	}
 	jumpdistance += gravity_.kGravity;
 	MoveY(jumpdistance);
@@ -59,13 +57,7 @@ void PlayerMoveY::MoveY(float num) {
 	int carryonhitpoint;
 	std::tie(hitpoint, distance, hitobjects) = collision_->HitCheckY(num, player_,player_->carryon_);//移動した際に当たるオブジェクトと当たる場所の算出
 	if (player_->carryon_ != nullptr) {
-		//auto carryon = std::find(hitobjects.begin(), hitobjects.end(), player_->carryon_);
-		//if (carryon != hitobjects.end())
-		//	hitobjects.erase(carryon);
 		std::tie(carryonhitpoint, carryondistance, carryonhitobjects) = collision_->HitCheckY(num, player_->carryon_,player_);//背負っている物の当たり判定をチェックする
-		//auto player = std::find(carryonhitobjects.begin(), carryonhitobjects.end(), player_);
-		//if (player != carryonhitobjects.end())
-		//	carryonhitobjects.erase(player);
 		if (!carryonhitobjects.empty() && carryonhitpoint != 0) {
 			hitpoint = carryonhitpoint;
 			if ((std::abs(distance) > std::abs(carryondistance) /*&& carryondistance != 0.0f*/))

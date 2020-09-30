@@ -27,6 +27,7 @@ public:
 	float GetHeight() const;//オブジェクトの縦幅
 	void Set(float x, float y);//オブジェクトの再設置
 	void Set(float x, float y, float height, float width);//オブジェクトの再設置及びサイズの変更
+	bool DrawCheck();
 	virtual void Retry();//リトライをする際の処理
 	virtual void Initialize() {};//初期化処理
 	virtual void Update(){};//更新処理
