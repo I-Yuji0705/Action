@@ -73,7 +73,7 @@ void PlayerMoveX::MoveX(float num) {
 		playerhit_->HitObjects(hitpoint, distance);//Hitした時のプレイヤーの位置を調整する
 		Push(num, hitobjects, hitpoint);//オブジェクトを押す
 		if (firsthit_) {//Objectに接触し始めたとき
-			sound_->PlaySe(Se_Hit, player_);
+			sound_->PlaySe(Se_Name::Se_Hit, player_);
 			firsthit_ = false;
 		}
 		hit = true;
@@ -84,7 +84,7 @@ void PlayerMoveX::MoveX(float num) {
 		hit = true;
 		if (firsthit_) {
 			firsthit_ = false;
-			sound_->PlaySe(Se_Hit, player_);
+			sound_->PlaySe(Se_Name::Se_Hit, player_);
 		}
 	}
 	if (!hit) {//移動先に何もオブジェクトがなく、マップ外に移動しない場合
@@ -114,7 +114,7 @@ void PlayerMoveX::MoveX(float num) {
 ///</summary>
 void PlayerMoveX::Push(float num, std::vector<Object*> target, int check) {
 	bool push = false;
-	if (player_->player_state_ == Player_Land) {//地上にいるとき
+	if (player_->player_state_ == StateCharacter::Player_Land) {//地上にいるとき
 		float canpushed;
 		std::vector<Object*> pushtarget;
 		std::tie(pushtarget, canpushed) = AlignAdhesionObjects(target, player_, check);

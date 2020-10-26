@@ -7,7 +7,7 @@
 #include "Keyboard.h"
 
 
-enum SceneState {
+enum class SceneState {
 	Normal_Scene,
 	BlackOut_Scene,
 	Lighting_Scene,
@@ -26,7 +26,7 @@ private:
 	void LightingScene();//‰æ–Ê‚Ì•`Ê”ÍˆÍ‚ğL‚°‚é
 	void SetDepictionScreen(int x1, int y1, int x2, int y2);//•`Ê”ÍˆÍ‚Ìİ’è
 	SceneState state;//Œ»İ‚ÌScene‚Ìó‘Ô
-	char stagename_[30];
+	char stagename_[30] = {};
 public:
 	SceneMgr(Keyboard* keyboard,Sound* sound);
 	void Initialize();//‰Šú‰»

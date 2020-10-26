@@ -17,7 +17,7 @@ ItemHit::ItemHit(Collision *collision,Item* item) : Hit(collision){
 ///<param name="distance"><para>distance:Collision::HitCheckX‚âCollision::HitCheckXACollision::MapCheck‚Ì–ß‚è’l‚Ìˆê‚Â‚Å‚ ‚éfloatŒ^‚Ì”’l</para></param>
 ///</summary>
 void ItemHit::HitObjects(int check,float distance) {
-	item_->state_ = Item_Normal;
+	item_->state_ = ItemState::Item_Normal;
 	switch (check) {
 	case 1:
 	case 2:

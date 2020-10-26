@@ -1,6 +1,6 @@
 #pragma once
 
-enum TitleState {
+enum class TitleState {
 	Title_Usually,//初期画面
 	Title_Delete, //終了確認画面
 	Title_Game, //ゲームシーンに移行

@@ -1,6 +1,6 @@
 #include "Object.h"
 #include "Player.h"
-#include <typeinfo.h>
+#include <typeinfo>
 #include "DxLib.h"
 
 ///<summary>
@@ -120,20 +120,16 @@ void Object::Set(float x, float y, float height, float width) {
 	this->height_ = height;
 }
 
-
 ///<summary>
-///<para>オブジェクトを描写できるかを確認する</para>
-///<para>オブジェクトが画面内に入っている場合、描写を行う</para>
+///<para>オブジェクトを描写するかを返す</para>
+///<para>オブジェクトが画面内にある場合、Trueを返し、ない場合Falseを返す</para>
 ///<returns>
-///<para>オブジェクトが画面内に入っているかどうか</para>
+///<para>numに対して、実際にこのObjectを動かせる距離</para>
 ///</returns>
 ///</summary>
-bool Object::DrawCheck() {
-	bool ok = false;
-	const float kWindowX = 640.0f;
-	if (this->Left() < 640.0f && this->Right() > 0)
-		ok = true;
-	return ok;
+bool Object::DrawCheck(){
+	const float kWindow = 640.0f;//画面の横幅
+	return (Left() < kWindow && Right() > 0);
 }
 
 ///<summary>

@@ -1,6 +1,6 @@
 #include "Item.h"
 #include "Terrain.h"
-#include <typeinfo.h>
+#include <typeinfo>
 #include <assert.h>
 #include <tuple>
 #include "DxLib.h"
@@ -22,11 +22,13 @@ Item::Item(Sound* sound,Collision* collision,float x, float y, float height, flo
 	graph_handle_ = LoadGraph("Image/Item.png");
 	quality_ = true;
 	itemhit_ = new ItemHit(collision_,this);
-	itemaction_[Item_Baggage] = new ItemBaggage(this);
-	itemaction_[Item_StartThrow] = new ItemStartThrow(this);
-	itemaction_[Item_MoveX] = new ItemMoveX(sound_, collision_, this,itemhit_);
-	itemaction_[Item_Putted] = new ItemPutted(this);
-	itemaction_[Item_MoveY] = new ItemMoveY(sound_, collision_, this,itemhit_);
+	carrier_ = nullptr;
+	state_ = ItemState::Item_Normal;
+	itemaction_[static_cast<int>(ItemActionList::Item_Baggage)] = new ItemBaggage(this);
+	itemaction_[static_cast<int>(ItemActionList::Item_StartThrow)] = new ItemStartThrow(this);
+	itemaction_[static_cast<int>(ItemActionList::Item_MoveX)] = new ItemMoveX(sound_, collision_, this,itemhit_);
+	itemaction_[static_cast<int>(ItemActionList::Item_Putted)] = new ItemPutted(this);
+	itemaction_[static_cast<int>(ItemActionList::Item_MoveY)] = new ItemMoveY(sound_, collision_, this,itemhit_);
 }
 
 ///<summary>
@@ -35,7 +37,7 @@ Item::Item(Sound* sound,Collision* collision,float x, float y, float height, flo
 ///</summary>
 void Item::Initialize() {
 	vector_ = 1;
-	state_ = Item_Normal;
+	state_ = ItemState::Item_Normal;
 	carrier_ = nullptr;
 }
 
@@ -45,14 +47,14 @@ void Item::Initialize() {
 ///</summary>
 void Item::Update() {
 	switch (state_) {
-	case Item_Normal:
-		itemaction_[Item_MoveY]->Do();
+	case ItemState::Item_Normal:
+		itemaction_[static_cast<int>(ItemActionList::Item_MoveY)]->Do();
 		break;
-	case Item_Picked:
-		itemaction_[Item_Baggage]->Do();
+	case ItemState::Item_Picked:
+		itemaction_[static_cast<int>(ItemActionList::Item_Baggage)]->Do();
 		break;
-	case Item_Throw:
-		itemaction_[Item_MoveX]->Do();
+	case ItemState::Item_Throw:
+		itemaction_[static_cast<int>(ItemActionList::Item_MoveX)]->Do();
 		break;
 	default:
 		assert(false);
@@ -92,9 +94,9 @@ bool Item::CanPicked(const Object *object) {
 ///<param name="object"><para>object:é©ï™ÇéùÇ¬Object</para></param>
 ///</summary>
 void Item::Picked(Object *object) {
-	state_ = Item_Picked;
+	state_ = ItemState::Item_Picked;
 	carrier_ = object;
-	itemaction_[Item_Baggage]->Do();
+	itemaction_[static_cast<int>(ItemActionList::Item_Baggage)]->Do();
 }
 
 ///<summary>
@@ -107,7 +109,7 @@ void Item::Picked(Object *object) {
 ///</summary>
 bool Item::CanPutted() {
 	bool canputted = true;
-	if (state_ != Item_Picked) {
+	if (state_ != ItemState::Item_Picked) {
 		canputted = false;
 	}
 	else {
@@ -135,7 +137,7 @@ bool Item::CanPutted() {
 ///<param name="object"><para>object:é©ï™ÇéùÇ¬Object</para></param>
 ///</summary>
 void Item::Putted() {
-	itemaction_[Item_Putted]->Do();
+	itemaction_[static_cast<int>(ItemActionList::Item_Putted)]->Do();
 }
 
 ///<summary>
@@ -148,7 +150,7 @@ void Item::Putted() {
 ///</summary>
 bool Item::CanThrew() {
 	bool canthrew = true;
-	if (state_ != Item_Picked) {
+	if (state_ != ItemState::Item_Picked) {
 		canthrew = false;
 	}
 	else {
@@ -175,7 +177,7 @@ bool Item::CanThrew() {
 ///<para>é©ï™ÇÃà íuÇïœçXÇ∑ÇÈ</para>
 ///</summary>
 void Item::Threw() {
-	itemaction_[Item_StartThrow]->Do();
+	itemaction_[static_cast<int>(ItemActionList::Item_StartThrow)]->Do();
 }
 
 ///<summary>

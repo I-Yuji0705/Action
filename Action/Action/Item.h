@@ -3,12 +3,12 @@
 #include "Player.h"
 #include "ItemAction.h"
 
-enum ItemState {
+enum class ItemState {
 	Item_Normal,//Itemの通常状態
 	Item_Picked,//Itemが拾われている状態
 	Item_Throw,//Itemが投げられている状態
 };
-enum ItemActionList {
+enum class ItemActionList {
 	Item_Baggage,//持たれている
 	Item_StartThrow,//投げられ始めた
 	Item_MoveX,//投げられている
@@ -27,7 +27,7 @@ private:
 	Sound* sound_;
 	Collision *collision_;
 	ItemHit* itemhit_;
-	ItemAction *itemaction_[Item_ActionNum];//Itemの行動を行うクラス配列
+	ItemAction *itemaction_[static_cast<int>(ItemActionList::Item_ActionNum)];//Itemの行動を行うクラス配列
 public:
 	Item(Sound* sound,Collision* collision,float x, float y, float height, float width);
 	ItemState state_;

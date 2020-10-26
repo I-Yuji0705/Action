@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include "DxLib.h"
-#include <typeinfo.h>
+#include <typeinfo>
 
 
 ///<summary>

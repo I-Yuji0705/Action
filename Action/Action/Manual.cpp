@@ -11,7 +11,7 @@
 ///<para>最初に表示する字幕を管理するクラスの生成</para>
 ///</summary>
 Manual::Manual(Keyboard* keyboard, Sound* sound, ISceneChanger* changer) : BaseScene(keyboard, sound,changer) {
-	nextstate_ = Manual_None;
+	nextstate_ = ManualState::Manual_None;
 	manualcanvas_ = (CanvasBase*) new ManualUsually(keyboard_,this);
 }
 
@@ -29,33 +29,33 @@ void Manual::Initialize() {
 ///<para>nextstate_が変更されていた場合、nextstate_によって処理を行う</para>
 ///</summary>
 void Manual::Update() {
-	if (nextstate_ != Manual_None) {
+	if (nextstate_ != ManualState::Manual_None) {
 		manualcanvas_->Finalize();
 		switch (nextstate_) {
-		case Manual_Usually:
+		case ManualState::Manual_Usually:
 			manualcanvas_ = (CanvasBase*) new ManualUsually(keyboard_,this);
 			manualcanvas_->Initialize();
 			break;
-		case Manual_Operation:
+		case ManualState::Manual_Operation:
 			manualcanvas_ = (CanvasBase*) new ManualOperation(keyboard_,this);
 			manualcanvas_->Initialize();
 			break;
-		case Manual_Stage:
+		case ManualState::Manual_Stage:
 			manualcanvas_ = (CanvasBase*) new ManualStage(keyboard_,this);
 			manualcanvas_->Initialize();
 			break;
-		case Manual_Rule:
+		case ManualState::Manual_Rule:
 			manualcanvas_ = (CanvasBase*) new ManualRule(keyboard_,this);
 			manualcanvas_->Initialize();
 			break;
-		case Manual_Exit:
-			scenechanger_->ChangeScene(Scene_Title);
+		case ManualState::Manual_Exit:
+			scenechanger_->ChangeScene(Scene::Scene_Title);
 			break;
 		default:
 			assert(false);
 			break;
 		}
-		nextstate_ = Manual_None;
+		nextstate_ = ManualState::Manual_None;
 	}
 	manualcanvas_->Update();
 }
@@ -90,5 +90,5 @@ void Manual::ChangeState(ManualState state) {
 ///<para>マニュアル画面のBGMを再生する</para>
 ///</summary>
 void Manual::StartBgm() {
-	sound_->PlayBgm(BGM_Manual);
+	sound_->PlayBgm(BGM_Name::BGM_Manual);
 }

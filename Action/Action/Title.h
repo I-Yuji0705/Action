@@ -10,7 +10,7 @@ private:
 	CanvasBase* titlecanvas_;
 	TitleState nextstate_;//
 	int title_;
-	char stagename_[30];
+	char stagename_[30] = {};
 public:
 	Title(Keyboard* keyboard,Sound* sound,ISceneChanger* changer);
 	void ChangeState(TitleState state);

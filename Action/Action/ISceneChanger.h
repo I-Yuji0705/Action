@@ -1,6 +1,6 @@
 #pragma once
 
-enum Scene{
+enum class Scene{
 	Scene_Title,    //タイトル画面
 	Scene_Game,	//ゲーム画面
 	Scene_Manual,//マニュアル画面

@@ -52,7 +52,7 @@ void PlayerDance::Do() {
 		break;
 		//‘S‚Ä‚ÌU•t‚ªI‚í‚Á‚½Û‚ÉClearState‚É•Ï‚¦‚é
 	default:
-		player_->state_changer_->ChangeState(Game_Clear);
+		player_->state_changer_->ChangeState(GameState::Game_Clear);
 		break;
 	}
 }

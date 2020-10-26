@@ -17,6 +17,7 @@ Game::Game(Keyboard* keyboard, Sound* sound,ISceneChanger* changer, const char s
 	gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_,this); 
 	memcpy(stagename_, stagename, 30);
 	stagemgr_ = (StageMgr*) new StageMgr(keyboard_,sound_,this,stagename_);
+	nextstate_ = GameState::Game_None;
 }
 
 ///<summary>
@@ -63,45 +64,45 @@ void Game::Finalize() {
 ///<para>ゲーム画面のBGMを再生する</para>
 ///</summary>
 void Game::StartBgm() {
-	sound_->PlayBgm(BGM_Game);
+	sound_->PlayBgm(BGM_Name::BGM_Game);
 }
 
 ///<summary>
 ///<para>nextstate_が変更されていた場合、nextstate_の値によって対応する処理を行う</para>
 ///</summary>
 void Game::UpdateNextState(){
-	if (nextstate_ != Game_None) {
+	if (nextstate_ != GameState::Game_None) {
 		gamecanvas_->Finalize();
 		switch (nextstate_) {
-		case Game_Usually:
+		case GameState::Game_Usually:
 			gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_,this);
 			gamecanvas_->Initialize();
 			break;
-		case Game_Menu:
+		case GameState::Game_Menu:
 			gamecanvas_ = (CanvasBase*) new GameMenu(keyboard_, this);
 			gamecanvas_->Initialize();
 			break;
-		case Game_Dance:
+		case GameState::Game_Dance:
 			gamecanvas_ = (CanvasBase*) new GameDance(keyboard_, this);
 			gamecanvas_->Initialize();
 			break;
-		case Game_Clear:
+		case GameState::Game_Clear:
 			gamecanvas_ = (CanvasBase*) new GameClear(keyboard_, this);
 			gamecanvas_->Initialize();
 			break;
-		case Game_Retry:
+		case GameState::Game_Retry:
 			stagemgr_->Retry();
 			gamecanvas_ = (CanvasBase*) new GameUsually(keyboard_, this);
 			gamecanvas_->Initialize();
 			break;
-		case Game_Exit:
-			scenechanger_->ChangeScene(Scene_Title);
+		case GameState::Game_Exit:
+			scenechanger_->ChangeScene(Scene::Scene_Title);
 			break;
 		default:
 			assert(false);
 			break;
 		}
-		nextstate_ = Game_None;
+		nextstate_ = GameState::Game_None;
 	}
 }
 

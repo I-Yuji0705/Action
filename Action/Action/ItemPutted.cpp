@@ -21,6 +21,6 @@ void ItemPutted::Do() {
 		posx = item_->carrier_->Left() - item_->GetWidth();
 	}
 	item_->Set(posx, posy);
-	item_->state_ = Item_Normal;
+	item_->state_ = ItemState::Item_Normal;
 	item_->carrier_ = nullptr;
 }

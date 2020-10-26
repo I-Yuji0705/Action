@@ -30,14 +30,14 @@ void ItemMoveX::MoveX(float num) {
 	if (hitpoint != 0 && !hitobjects.empty()) {//当たったObjectがあったか
 		itemhit_->HitObjects(hitpoint, distance);//Hitした時のItemの位置を調整する
 		if(distance != 0.0f)
-			sound_->PlaySe(Se_Hit, item_);
+			sound_->PlaySe(Se_Name::Se_Hit, item_);
 		hit = true;
 	}
 	std::tie(hitpoint, distance) = collision_->MapCheck(item_->Left() + num, item_);
 	if (hitpoint != 0) {//マップ外に移動してしまうか確認する処理
   		itemhit_->HitObjects(hitpoint, distance);
 		hit = true;
-		sound_->PlaySe(Se_Hit, item_);
+		sound_->PlaySe(Se_Name::Se_Hit, item_);
 	}
 	if (!hit) {
 		item_->x_ += num;

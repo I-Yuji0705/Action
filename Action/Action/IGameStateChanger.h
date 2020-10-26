@@ -1,6 +1,6 @@
 #pragma once
 
-enum GameState {
+enum class GameState {
 	Game_Usually,//ゲーム通常時
 	Game_Menu,//ゲーム内でのメニュー画面
 	Game_Dance,//クリア条件を満たした際のダンス画面

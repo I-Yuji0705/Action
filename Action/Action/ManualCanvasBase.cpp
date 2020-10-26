@@ -17,6 +17,6 @@ ManualCanvasBase::ManualCanvasBase(Keyboard* keyboard,IManualStateChanger* state
 void ManualCanvasBase::Update() {
 	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1 ||
 		keyboard_->CheckKey(KEY_INPUT_ESCAPE) == 1) {
-		statechanger_->ChangeState(Manual_Usually);//状態をマニュアル選択画面に移行
+		statechanger_->ChangeState(ManualState::Manual_Usually);//状態をマニュアル選択画面に移行
 	}
 }

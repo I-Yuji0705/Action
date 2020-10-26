@@ -26,7 +26,7 @@ void PlayerHit::HitObjects(int check, float distance) {
 		break;
 	case 3:
 		player_->Set(player_->Left(), player_->Top() + distance);
-		player_->player_state_ = Player_Land;
+		player_->player_state_ = StateCharacter::Player_Land;
 		break;
 	case 4:
 		player_->angle_ = hitangle;

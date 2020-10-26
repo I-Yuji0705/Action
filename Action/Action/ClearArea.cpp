@@ -1,5 +1,5 @@
 #include "ClearArea.h"
-#include <typeinfo.h>
+#include <typeinfo>
 #include "DxLib.h"
 
 ///<summary>
@@ -21,7 +21,6 @@ ClearArea::ClearArea(Sound* sound,Collision* collision,ColorCode color,float x, 
 ///</summary>
 void ClearArea::Initialize() {
 	players_ = collision_->GetPlayer();
-	clearstart_ = true;
 }
 
 ///<summary>
@@ -43,7 +42,7 @@ void ClearArea::Update() {
 				i->Clear();
 			}
 		sound_->StopBgm();//クリア時の音楽を鳴らすため、bgmを止める
-		sound_->PlaySe(Se_Clear);
+		sound_->PlaySe(Se_Name::Se_Clear);
 		}
 	}
 }

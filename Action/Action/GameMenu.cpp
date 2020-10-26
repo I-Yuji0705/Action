@@ -9,7 +9,7 @@
 ///<para>ƒQ[ƒ€‚Ìƒƒjƒ…[‰æ–Ê‚Ìš–‹¶¬</para>
 ///</summary>
 GameMenu::GameMenu(Keyboard* keyboard,IGameStateChanger* statechanger)  : GameCanvasOptionBase(keyboard,statechanger){
-	optionData_.push_back((OptionDataBase*)new GameOptionData(300, 100, "‚Â‚Ã‚¯‚é", GetColor(0, 0, 0),statechanger, Game_Usually));
-	optionData_.push_back((OptionDataBase*)new GameOptionData(300, 150, "‚Å‚È‚¨‚·", GetColor(0, 0, 0), statechanger, Game_Exit));
-	optionData_.push_back((OptionDataBase*)new GameOptionData(300, 200, "‚â‚è‚È‚¨‚·", GetColor(0, 0, 0), statechanger, Game_Retry));
+	optionData_.push_back((OptionDataBase*)new GameOptionData(300, 100, "‚Â‚Ã‚¯‚é", GetColor(0, 0, 0),statechanger, GameState::Game_Usually));
+	optionData_.push_back((OptionDataBase*)new GameOptionData(300, 150, "‚Å‚È‚¨‚·", GetColor(0, 0, 0), statechanger, GameState::Game_Exit));
+	optionData_.push_back((OptionDataBase*)new GameOptionData(300, 200, "‚â‚è‚È‚¨‚·", GetColor(0, 0, 0), statechanger, GameState::Game_Retry));
 }

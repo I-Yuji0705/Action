@@ -11,7 +11,6 @@ private:
 	Sound* sound_;
 	std::vector<Object*> players_;
 	Collision *collision_;
-	bool clearstart_;
 public:
 	ClearArea(Sound* sound, Collision* collision,ColorCode color, float x, float y, float height, float width);
 	void Initialize()final;

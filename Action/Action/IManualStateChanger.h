@@ -1,6 +1,6 @@
 #pragma once
 
-enum ManualState {
+enum class ManualState {
 	Manual_Usually,
 	Manual_Operation,
 	Manual_Stage,

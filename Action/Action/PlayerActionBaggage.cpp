@@ -59,10 +59,10 @@ void PlayerActionBaggage::Pick() {
 		if (goods->CanPicked(player_)) {
 			goods->Picked(player_);
 			player_->carryon_ = goods;
-			sound_->PlaySe(Se_Pick, player_);
+			sound_->PlaySe(Se_Name::Se_Pick, player_);
 		}
 		else {
-			sound_->PlaySe(Se_Cant, player_);
+			sound_->PlaySe(Se_Name::Se_Cant, player_);
 		}
 	}
 }
@@ -76,10 +76,10 @@ void PlayerActionBaggage::Throw() {
 	if (player_->carryon_->CanThrew()) {
 		player_->carryon_->Threw();
 		player_->carryon_ = nullptr;
-		sound_->PlaySe(Se_Throw, player_);
+		sound_->PlaySe(Se_Name::Se_Throw, player_);
 	}
 	else {
-		sound_->PlaySe(Se_Cant, player_);
+		sound_->PlaySe(Se_Name::Se_Cant, player_);
 	}
 }
 ///<summary>
@@ -91,9 +91,9 @@ void PlayerActionBaggage::Put() {
 	if (player_->carryon_->CanPutted()) {
 		player_->carryon_->Putted();
 		player_->carryon_ = nullptr;
-		sound_->PlaySe(Se_Put, player_);
+		sound_->PlaySe(Se_Name::Se_Put, player_);
 	}
 	else {
-		sound_->PlaySe(Se_Cant, player_);
+		sound_->PlaySe(Se_Name::Se_Cant, player_);
 	}
 }

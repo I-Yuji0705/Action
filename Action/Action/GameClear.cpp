@@ -18,6 +18,6 @@ GameClear::GameClear(Keyboard* keyboard,IGameStateChanger* statechanger) : GameC
 void GameClear::Update() {
 	if (keyboard_->CheckKey(KEY_INPUT_RETURN) == 1 ||
 		keyboard_->CheckKey(KEY_INPUT_ESCAPE) == 1) {
-		statechanger_->ChangeState(Game_Exit);//シーンをタイトルに変更
+		statechanger_->ChangeState(GameState::Game_Exit);//シーンをタイトルに変更
 	}
 }

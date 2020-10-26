@@ -22,6 +22,6 @@ GameUsually::GameUsually(Keyboard* keyboard, IGameStateChanger *statechanger) : 
 ///</summary>
 void GameUsually::Update() {
 	if (keyboard_->CheckKey(KEY_INPUT_ESCAPE) == 1) { //EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		statechanger_->ChangeState(Game_Menu);
+		statechanger_->ChangeState(GameState::Game_Menu);
 	}
 }

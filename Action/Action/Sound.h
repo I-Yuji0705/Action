@@ -1,14 +1,14 @@
 #pragma once
 #include "Object.h"
 
-enum BGM_Name {//BGMの種類
+enum  class BGM_Name {//BGMの種類
 	BGM_Menu,//メニュー画面のBGM
 	BGM_Game,//ゲーム画面のBGM
 	BGM_Manual,//マニュアル画面のBGM
 
 	BGM_None
 };
-enum Se_Name {//SEの種類
+enum class Se_Name {//SEの種類
 	Se_Hit,//Objectが他のオブジェクトに接触した時のSe
 	Se_Pick,//PlayerがItemを拾った際のSe
 	Se_Throw,//PlayerがItemを投げた際のSe

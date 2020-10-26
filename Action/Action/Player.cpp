@@ -19,12 +19,15 @@ Player::Player(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger,
 	collision_ = collision;
 	graph_handle_ = LoadGraph("Image/Player_2.png");
 	quality_ = true;
+	angle_ = 0;
+	carryon_ = nullptr;
+	player_state_ = StateCharacter::Player_Air;
 	playerhit_ = new PlayerHit(collision_,this);
-	playeraction_[Player_MoveX] = new PlayerMoveX(keyboard, sound_, collision_, this, playerhit_);//左右に移動する
-	playeraction_[Player_MoveY] = new PlayerMoveY(keyboard, sound_, collision_, this, playerhit_);//上下に移動する
-	playeraction_[Player_Baggage] = new PlayerActionBaggage(keyboard, sound_, collision_, this);//Itemに対してのアクション
-	playeraction_[Player_Inversion] = new PlayerInversion(keyboard, this);//向き反転
-	playeraction_[Player_Dance] = new PlayerDance(this);
+	playeraction_[static_cast<int>(PlayerActionList::Player_MoveX)] = new PlayerMoveX(keyboard, sound_, collision_, this, playerhit_);//左右に移動する
+	playeraction_[static_cast<int>(PlayerActionList::Player_MoveY)] = new PlayerMoveY(keyboard, sound_, collision_, this, playerhit_);//上下に移動する
+	playeraction_[static_cast<int>(PlayerActionList::Player_Baggage)] = new PlayerActionBaggage(keyboard, sound_, collision_, this);//Itemに対してのアクション
+	playeraction_[static_cast<int>(PlayerActionList::Player_Inversion)] = new PlayerInversion(keyboard, this);//向き反転
+	playeraction_[static_cast<int>(PlayerActionList::Player_Dance)] = new PlayerDance(this);
 }
 
 ///<summary>
@@ -32,10 +35,10 @@ Player::Player(Keyboard* keyboard,Sound* sound, IGameStateChanger* statechanger,
 ///<para>プレイヤーのキー入力とそれに対応するPlayerActionを行う</para>
 ///</summary>
 void Player::Action() {
-	playeraction_[Player_MoveY]->Do();//上下に移動する
-	playeraction_[Player_MoveX]->Do();//上下に移動する
-	playeraction_[Player_Baggage]->Do();//Itemに対してのアクション
-	playeraction_[Player_Inversion]->Do();//向き反転
+	playeraction_[static_cast<int>(PlayerActionList::Player_MoveY)]->Do();//上下に移動する
+	playeraction_[static_cast<int>(PlayerActionList::Player_MoveX)]->Do();//上下に移動する
+	playeraction_[static_cast<int>(PlayerActionList::Player_Baggage)]->Do();//Itemに対してのアクション
+	playeraction_[static_cast<int>(PlayerActionList::Player_Inversion)]->Do();//向き反転
 }
 
 ///<summary>
@@ -45,7 +48,7 @@ void Player::Initialize() {
 	carryon_ = nullptr;
 	vector_ = 1;
 	angle_ = 0;
-	player_state_ = Player_Air;
+	player_state_ = StateCharacter::Player_Air;
 }
 
 ///<summary>
@@ -54,8 +57,8 @@ void Player::Initialize() {
 ///</summary>
 void Player::Update() {
 	switch (player_state_) {
-	case Player_Clear:
-		playeraction_[Player_Dance]->Do();
+	case StateCharacter::Player_Clear:
+		playeraction_[static_cast<int>(PlayerActionList::Player_Dance)]->Do();
 		break;
 	default:
 		Action();
@@ -77,8 +80,8 @@ void Player::Draw() {
 ///<para>クリア条件を満たした際に、一度だけ呼ばれる関数</para>
 ///</summary>
 void Player::Clear() {
-	player_state_ = Player_Clear;
-	state_changer_->ChangeState(Game_Dance);
+	player_state_ = StateCharacter::Player_Clear;
+	state_changer_->ChangeState(GameState::Game_Dance);
 }
 
 ///<summary>
@@ -99,7 +102,7 @@ void Player::Retry() {
 ///</summary>
 bool Player::CanClear() {
 	bool canclear_ = true;
-	if (player_state_ == Game_Clear) {//すでにクリアしている場合
+	if (player_state_ == StateCharacter::Player_Clear) {//すでにクリアしている場合
 		canclear_ = false;
 	}
 	return canclear_;

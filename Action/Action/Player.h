@@ -6,12 +6,12 @@
 #include "Keyboard.h"
 #include "PlayerHit.h"
 //キャラクターの状態状態
-enum StateCharacter {
+enum class StateCharacter {
 	Player_Land,//地上にいる
 	Player_Air,//空中にいる
 	Player_Clear,//クリアした
 };
-enum PlayerActionList {
+enum class PlayerActionList {
 	Player_MoveX,//左右移動
 	Player_MoveY,//上下移動(落下も含む)
 	Player_Baggage,//Itemを持つ、置く、投げる
@@ -31,7 +31,7 @@ class Player : public Object{
 private:
 	Sound* sound_;
 	Collision *collision_;
-	PlayerAction *playeraction_[Player_ActionNum];
+	PlayerAction *playeraction_[static_cast<int>(PlayerActionList::Player_ActionNum)];
 	void Action();//キーの状態からプレイヤーの行動を行う
 	PlayerHit* playerhit_;
 public :
